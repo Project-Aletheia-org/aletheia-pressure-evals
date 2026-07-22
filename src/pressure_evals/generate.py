@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from pressure_evals.ollama_client import chat
-from pressure_evals.prompts import render_system_prompt
+from pressure_evals.prompts import PROMPT_VERSION, render_system_prompt
 from pressure_evals.schemas import Condition, GenerationRecord, Scenario
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
@@ -35,9 +35,11 @@ def load_scenarios(path: Path = SCENARIOS_PATH) -> list[Scenario]:
     return scenarios
 
 
-def _completed_keys(output_path: Path) -> set[tuple[str, str, str]]:
-    """(scenario_id, model, condition) keys with an existing success=True row."""
-    keys: set[tuple[str, str, str]] = set()
+def _completed_keys(output_path: Path) -> set[tuple[str, str, str, int]]:
+    """Cell identity is (scenario_id, model, condition, replicate_id); this
+    returns the keys that already have a successful record so a duplicate
+    successful cell is never generated twice."""
+    keys: set[tuple[str, str, str, int]] = set()
     if not output_path.exists():
         return keys
     with output_path.open() as f:
@@ -47,7 +49,9 @@ def _completed_keys(output_path: Path) -> set[tuple[str, str, str]]:
                 continue
             row = json.loads(line)
             if row.get("success"):
-                keys.add((row["scenario_id"], row["model"], row["condition"]))
+                keys.add(
+                    (row["scenario_id"], row["model"], row["condition"], row.get("replicate_id", 0))
+                )
     return keys
 
 
@@ -65,6 +69,8 @@ def generate_one(
     temperature: float,
     top_p: float,
     max_tokens: int,
+    model_digest: str | None = None,
+    replicate_id: int = 0,
 ) -> GenerationRecord:
     """Make one model call and package the result, success or failure."""
     system_prompt = render_system_prompt(condition)
@@ -107,6 +113,9 @@ def generate_one(
         scenario_id=scenario.scenario_id,
         domain=scenario.domain,
         model=model,
+        model_digest=model_digest,
+        prompt_version=PROMPT_VERSION,
+        replicate_id=replicate_id,
         condition=condition,
         system_prompt=system_prompt,
         user_prompt=user_prompt,
@@ -135,19 +144,24 @@ def run_generation(
     top_p: float,
     max_tokens: int,
     output_path: Path,
+    model_digests: dict[str, str] | None = None,
+    replicate_id: int = 0,
     progress_callback=None,
 ) -> list[GenerationRecord]:
-    """Generate every missing (scenario, model, condition) cell, appending
-    each record to output_path as soon as it's produced (crash-safe)."""
+    """Generate every missing (scenario, model, condition, replicate_id)
+    cell, appending each record to output_path as soon as it's produced
+    (crash-safe). `model_digests` is fetched once by the caller (a single
+    Ollama metadata call per model) rather than per generation call."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     done = _completed_keys(output_path)
     new_records: list[GenerationRecord] = []
+    model_digests = model_digests or {}
 
     with output_path.open("a") as f:
         for scenario in scenarios:
             for model in models:
                 for condition in conditions:
-                    key = (scenario.scenario_id, model, condition.value)
+                    key = (scenario.scenario_id, model, condition.value, replicate_id)
                     if key in done:
                         if progress_callback:
                             progress_callback(key, skipped=True)
@@ -161,6 +175,8 @@ def run_generation(
                         temperature=temperature,
                         top_p=top_p,
                         max_tokens=max_tokens,
+                        model_digest=model_digests.get(model),
+                        replicate_id=replicate_id,
                     )
                     f.write(record.model_dump_json() + "\n")
                     f.flush()

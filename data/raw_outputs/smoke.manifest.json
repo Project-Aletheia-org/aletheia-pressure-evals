@@ -1,0 +1,38 @@
+{
+  "run_id": "smoke",
+  "git_commit": "dea932e04661bdd59d4336abbb3a4b1f550ac068",
+  "protocol_version": "v0.1",
+  "scenario_set_version": "v0.1",
+  "rubric_version": "v0.1",
+  "prompt_version": "v0.1",
+  "models": [
+    "qwen3:4b",
+    "gemma3:4b",
+    "llama3.2:3b"
+  ],
+  "model_digests": {
+    "qwen3:4b": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "gemma3:4b": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "llama3.2:3b": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72"
+  },
+  "ollama_version": "ollama version is 0.24.0",
+  "machine_architecture": "arm64",
+  "generation_config": {
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "max_tokens": 3072,
+    "repeats": 1
+  },
+  "random_seed": 42,
+  "scenario_file_hash": "6cb4c0eb588835b30361f08008d367d7adb821dea1e4b96ef9994c3c07896e57",
+  "prompt_definition_hash": "b2cb613e48aee746daf1cae9aa94bded87119cabfebb08a8e4d194a1c2b0e110",
+  "rubric_definition_hash": "d184a652dff75e55755ba5c005dbb2a0f85b0528678863a5a672562c0ed033de",
+  "started_at_utc": "2026-07-22T09:31:16.611788Z",
+  "completed_at_utc": "2026-07-22T09:31:16.686733Z",
+  "expected_cells": 24,
+  "successful_cells": 24,
+  "failed_attempts": 0,
+  "retries": 0,
+  "output_path": "data/raw_outputs/smoke.jsonl",
+  "status": "completed"
+}

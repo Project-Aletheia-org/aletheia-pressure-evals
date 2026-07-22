@@ -4,6 +4,7 @@ and a single retrying chat call used by both generation and evaluation.
 
 from __future__ import annotations
 
+import subprocess
 import time
 from dataclasses import dataclass
 
@@ -55,6 +56,41 @@ def missing_models(required: list[str], host: str = DEFAULT_HOST) -> list[str]:
 def install_instructions(missing: list[str]) -> str:
     lines = [f"ollama pull {m}" for m in missing]
     return "\n".join(lines)
+
+
+def ollama_version() -> str:
+    result = subprocess.run(
+        ["ollama", "--version"], capture_output=True, text=True, check=True
+    )
+    return result.stdout.strip()
+
+
+@dataclass
+class ModelInfo:
+    digest: str
+    quantization_level: str
+    parameter_size: str
+    family: str
+
+
+def model_info(model: str, host: str = DEFAULT_HOST) -> ModelInfo:
+    """Fetch digest/quantization metadata for one installed model, for the
+    run manifest's cell-identity and provenance fields."""
+    resp = ollama.Client(host=host).list()
+    for m in resp.models:
+        if m.model == model:
+            details = m.details
+            return ModelInfo(
+                digest=m.digest,
+                quantization_level=details.quantization_level or "",
+                parameter_size=details.parameter_size or "",
+                family=details.family or "",
+            )
+    raise OllamaUnavailableError(f"Model {model!r} not found in `ollama list`")
+
+
+def model_digests(models: list[str], host: str = DEFAULT_HOST) -> dict[str, str]:
+    return {m: model_info(m, host=host).digest for m in models}
 
 
 def ensure_ready(required_models: list[str], host: str = DEFAULT_HOST) -> None:

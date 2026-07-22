@@ -9,13 +9,17 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from datetime import datetime, timezone
+
 from pressure_evals.config import load_yaml_strict
 from pressure_evals.generate import (
     RAW_OUTPUTS_DIR,
+    SCENARIOS_PATH,
     load_scenarios,
     new_run_id,
     run_generation,
 )
+from pressure_evals.manifest import build_manifest, count_cells, write_manifest
 from pressure_evals.ollama_client import (
     OllamaUnavailableError,
     ensure_ready,
@@ -23,6 +27,7 @@ from pressure_evals.ollama_client import (
     install_instructions,
     is_ollama_reachable,
     missing_models,
+    model_digests as fetch_model_digests,
 )
 from pressure_evals.schemas import Condition
 
@@ -30,6 +35,11 @@ app = typer.Typer(help="aletheia-pressure-evals: goal-pressure/manipulation pilo
 console = Console()
 
 CONFIG_PATH = Path(__file__).resolve().parents[2] / "configs" / "experiment.yaml"
+
+# Versioned research objects (see reports/study_protocol.md Section 2 and 12).
+PROTOCOL_VERSION = "v0.1"
+SCENARIO_SET_VERSION = "v0.1"
+RUBRIC_VERSION = "v0.1"
 
 
 def _load_config() -> dict:
@@ -91,6 +101,7 @@ def _run_generation_job(
     if limit_scenarios is not None:
         scenarios = scenarios[:limit_scenarios]
     conditions = [Condition(c) for c in config["conditions"]]
+    digests = fetch_model_digests(config["models"])
 
     total_cells = len(scenarios) * len(config["models"]) * len(conditions)
     console.print(
@@ -99,8 +110,26 @@ def _run_generation_job(
         f"(existing successes are skipped)"
     )
 
+    started_at = datetime.now(timezone.utc)
+    manifest = build_manifest(
+        run_id=run_id,
+        protocol_version=PROTOCOL_VERSION,
+        scenario_set_version=SCENARIO_SET_VERSION,
+        rubric_version=RUBRIC_VERSION,
+        models=config["models"],
+        generation_config=config["generation"],
+        random_seed=config["random_seed"],
+        scenarios_path=SCENARIOS_PATH,
+        output_path=output_path,
+        started_at=started_at,
+        completed_at=None,
+        expected_cells=total_cells,
+        status="running",
+    )
+    write_manifest(manifest)
+
     def progress(key, skipped, record=None):
-        scenario_id, model, condition = key
+        scenario_id, model, condition, replicate_id = key
         if skipped:
             console.print(f"  [dim]skip  {scenario_id} / {model} / {condition}[/dim]")
         elif record.success:
@@ -123,6 +152,7 @@ def _run_generation_job(
         top_p=config["generation"]["top_p"],
         max_tokens=config["generation"]["max_tokens"],
         output_path=output_path,
+        model_digests=digests,
         progress_callback=progress,
     )
     n_success = sum(1 for r in records if r.success)
@@ -130,6 +160,36 @@ def _run_generation_job(
     console.print(
         f"\nDone. {len(records)} new records written to {output_path} "
         f"({n_success} success, {n_fail} failed)."
+    )
+
+    completed_at = datetime.now(timezone.utc)
+    final_manifest = build_manifest(
+        run_id=run_id,
+        protocol_version=PROTOCOL_VERSION,
+        scenario_set_version=SCENARIO_SET_VERSION,
+        rubric_version=RUBRIC_VERSION,
+        models=config["models"],
+        generation_config=config["generation"],
+        random_seed=config["random_seed"],
+        scenarios_path=SCENARIOS_PATH,
+        output_path=output_path,
+        started_at=started_at,
+        completed_at=completed_at,
+        expected_cells=total_cells,
+        status="completed" if final_successful_cells_complete(output_path, total_cells) else "completed_with_failures",
+    )
+    write_manifest(final_manifest)
+    console.print(f"Manifest written: {manifest_summary(final_manifest)}")
+
+
+def final_successful_cells_complete(output_path: Path, expected_cells: int) -> bool:
+    return count_cells(output_path)["successful_cells"] >= expected_cells
+
+
+def manifest_summary(m) -> str:
+    return (
+        f"{m.successful_cells}/{m.expected_cells} successful cells, "
+        f"{m.failed_attempts} failed attempts, {m.retries} retries, status={m.status}"
     )
 
 

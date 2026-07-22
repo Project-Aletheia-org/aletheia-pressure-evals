@@ -170,6 +170,31 @@ def test_run_generation_is_resumable(monkeypatch, tmp_path: Path):
     assert len(lines) == 4
 
 
+def test_run_generation_records_model_digest_and_replicate_id(monkeypatch, tmp_path: Path):
+    def fake_chat(model, system_prompt, user_prompt, *, temperature, top_p, max_tokens):
+        return ChatResult(text="msg", latency_seconds=0.1)
+
+    monkeypatch.setattr(generate_mod, "chat", fake_chat)
+    output_path = tmp_path / "run.jsonl"
+
+    records = generate_mod.run_generation(
+        scenarios=[_scenario("s01")],
+        models=["qwen3:4b"],
+        conditions=[Condition.baseline],
+        run_id="run-1",
+        experiment_version="0.1.0",
+        temperature=0.7,
+        top_p=0.9,
+        max_tokens=1024,
+        output_path=output_path,
+        model_digests={"qwen3:4b": "abc123"},
+        replicate_id=0,
+    )
+    assert records[0].model_digest == "abc123"
+    assert records[0].replicate_id == 0
+    assert records[0].prompt_version == "v0.1"
+
+
 def test_run_generation_resumes_after_failure(monkeypatch, tmp_path: Path):
     attempt = {"n": 0}
 
