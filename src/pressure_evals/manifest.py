@@ -34,7 +34,7 @@ def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _relative_to_repo(path: Path) -> str:
+def relative_to_repo(path: Path) -> str:
     """Store paths relative to the repo root so manifests never embed the
     local machine's absolute filesystem path (e.g. a home directory name)."""
     try:
@@ -111,7 +111,7 @@ def build_manifest(
         successful_cells=counts["successful_cells"],
         failed_attempts=counts["failed_attempts"],
         retries=counts["retries"],
-        output_path=_relative_to_repo(output_path),
+        output_path=relative_to_repo(output_path),
         status=status,
     )
 
