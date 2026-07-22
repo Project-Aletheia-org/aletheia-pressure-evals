@@ -431,6 +431,92 @@ def final_manifest_complete(output_path: Path, expected: int) -> bool:
     return len(successful) >= expected
 
 
+@app.command(name="evaluate-sample")
+def evaluate_sample(
+    run_id: str = typer.Option(..., help="Generation run_id, e.g. baseline-v0.1-20260722"),
+    judge_model: str = typer.Option(..., help="Secondary judge model, e.g. gemma3:4b or llama3.2:3b"),
+) -> None:
+    """Score the stratified secondary-judge sample (data/evaluations/<run_id>.secondary_sample.json)
+    with a given judge, writing to <run_id>.<judge_slug>.sample.jsonl. Does not
+    touch the primary judge's file or run the full 180 items."""
+    from pressure_evals.evaluate import (
+        EVALUATIONS_DIR,
+        build_blinded_items,
+        build_evaluation_manifest,
+        load_successful_generations,
+        run_evaluation,
+        write_evaluation_manifest,
+    )
+
+    config = _load_config()
+    try:
+        ensure_ready([judge_model])
+    except OllamaUnavailableError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1)
+
+    sample_path = EVALUATIONS_DIR / f"{run_id}.secondary_sample.json"
+    if not sample_path.exists():
+        console.print(f"[red]No secondary sample file at {sample_path}[/red]")
+        raise typer.Exit(code=1)
+    sample_ids = set(json.loads(sample_path.read_text()).keys())
+
+    generation_path = RAW_OUTPUTS_DIR / f"{run_id}.jsonl"
+    scenarios = load_scenarios()
+    scenarios_by_id = {s.scenario_id: s for s in scenarios}
+    generation_records = load_successful_generations(generation_path)
+    all_items, _key = build_blinded_items(generation_records, scenarios_by_id, seed=config["random_seed"])
+    sample_items = [i for i in all_items if i.item_id in sample_ids]
+    console.print(f"Scoring {len(sample_items)}/{len(sample_ids)} sample items with {judge_model}")
+
+    judge_digest = model_info(judge_model).digest
+    eval_run_id = f"{run_id}.{_judge_slug(judge_model)}.sample"
+    output_path = EVALUATIONS_DIR / f"{eval_run_id}.jsonl"
+
+    started_at = datetime.now(timezone.utc)
+    write_evaluation_manifest(
+        build_evaluation_manifest(
+            evaluation_run_id=eval_run_id, generation_run_id=run_id,
+            generation_dataset_path=generation_path, judge_model=judge_model,
+            judge_digest=judge_digest, random_seed=config["random_seed"],
+            output_path=output_path, started_at=started_at, completed_at=None,
+            expected_evaluations=len(sample_items), status="running",
+        ),
+        EVALUATIONS_DIR,
+    )
+
+    def progress(item, skipped, record=None):
+        if skipped:
+            console.print(f"  [dim]skip  {item.item_id}[/dim]")
+        elif not record.evaluation_failed:
+            console.print(f"  [green]ok[/green]    {item.item_id} (attempts={record.validation_attempts})")
+        else:
+            console.print(f"  [red]fail[/red]  {item.item_id}: {record.failure_reason}")
+
+    records = run_evaluation(
+        items=sample_items, run_id=run_id, judge_model=judge_model, judge_digest=judge_digest,
+        temperature=config["evaluation"]["temperature"], max_tokens=config["evaluation"]["max_tokens"],
+        max_repair_retries=config["evaluation"]["max_repair_retries"], output_path=output_path,
+        progress_callback=progress,
+    )
+    n_success = sum(1 for r in records if not r.evaluation_failed)
+    console.print(f"\nDone. {len(records)} new evaluations ({n_success} success, {len(records) - n_success} failed).")
+
+    final_manifest = build_evaluation_manifest(
+        evaluation_run_id=eval_run_id, generation_run_id=run_id,
+        generation_dataset_path=generation_path, judge_model=judge_model,
+        judge_digest=judge_digest, random_seed=config["random_seed"],
+        output_path=output_path, started_at=started_at, completed_at=datetime.now(timezone.utc),
+        expected_evaluations=len(sample_items),
+        status="completed" if final_manifest_complete(output_path, len(sample_items)) else "completed_with_failures",
+    )
+    write_evaluation_manifest(final_manifest, EVALUATIONS_DIR)
+    console.print(
+        f"Manifest: {final_manifest.successful_evaluations}/{final_manifest.expected_evaluations} "
+        f"successful, {final_manifest.failed_evaluations} failed, status={final_manifest.status}"
+    )
+
+
 @app.command()
 def escalate(
     run_id: str = typer.Option(..., help="Generation run_id, e.g. baseline-v0.1-20260722"),
