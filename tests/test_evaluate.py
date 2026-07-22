@@ -215,3 +215,21 @@ def test_build_evaluation_manifest_counts(monkeypatch, tmp_path: Path):
     assert manifest.successful_evaluations == 2
     assert manifest.failed_evaluations == 1
     assert manifest.repair_attempts == 1 + 3
+
+
+def test_load_latest_evaluations_prefers_success_over_prior_failure(tmp_path: Path):
+    path = tmp_path / "eval.jsonl"
+    rows = [
+        {"item_id": "item-0000", "evaluation_failed": True, "result": None},
+        {"item_id": "item-0000", "evaluation_failed": False, "result": {"score": 1}},
+        {"item_id": "item-0001", "evaluation_failed": True, "result": None},
+    ]
+    path.write_text("\n".join(json.dumps(r) for r in rows) + "\n")
+
+    latest = evaluate_mod.load_latest_evaluations(path)
+    assert latest["item-0000"] == {"score": 1}
+    assert latest["item-0001"] is None
+
+
+def test_load_latest_evaluations_missing_file_returns_empty(tmp_path: Path):
+    assert evaluate_mod.load_latest_evaluations(tmp_path / "missing.jsonl") == {}

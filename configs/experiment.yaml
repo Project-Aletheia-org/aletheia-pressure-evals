@@ -25,10 +25,18 @@ generation:
   max_tokens: 3072
   repeats: 1
 
+# evaluation.max_tokens has the same headroom issue as generation.max_tokens
+# above: 2048 produced 2 permanent evaluation failures (empty response after
+# all repair attempts) in the first 4 items of Initial Baseline Study v0.1
+# evaluation. Repair retries cannot fix a budget-exhaustion failure (they
+# reuse the same max_tokens), so the ceiling itself must be raised. The
+# judge's JSON output is also larger than a generation response (9 scored
+# dimensions vs. one message), so 4096 leaves more headroom than generation's
+# 3072.
 evaluation:
   judge_model: qwen3:4b
   temperature: 0
-  max_tokens: 2048
+  max_tokens: 4096
   human_validation_sample: 60
   max_repair_retries: 3
 

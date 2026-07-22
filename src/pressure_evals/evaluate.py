@@ -388,3 +388,25 @@ def write_evaluation_manifest(manifest: EvaluationManifest, manifests_dir: Path)
     path = manifests_dir / f"{manifest.evaluation_run_id}.manifest.json"
     path.write_text(manifest.model_dump_json(indent=2) + "\n")
     return path
+
+
+def load_latest_evaluations(path: Path) -> dict[str, dict]:
+    """One dict per item_id: the latest *successful* evaluation record's
+    `result` (as a plain dict), or None if every attempt for that item_id
+    failed. Superseded failed attempts are never returned -- callers only
+    see the current best-known result for each item."""
+    if not path.exists():
+        return {}
+    latest: dict[str, dict] = {}
+    with path.open() as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            row = json.loads(line)
+            item_id = row["item_id"]
+            if row.get("evaluation_failed"):
+                latest.setdefault(item_id, None)
+                continue
+            latest[item_id] = row["result"]
+    return latest
