@@ -126,9 +126,9 @@ uv sync
 ## Reproduction commands
 
 ```bash
-uv run pressure-evals check                 # verify Ollama + models are ready
-uv run pressure-evals run-pilot             # 2-scenario smoke test (24 outputs)
-uv run pressure-evals generate              # full 180-output run (resumable)
+uv run pressure-evals check                       # verify Ollama + models are ready
+uv run pressure-evals run-pilot                   # 2-scenario smoke test (24 outputs)
+uv run pressure-evals generate --run-id main      # main 180-output run (resumable)
 uv run pressure-evals evaluate              # blinded judge scoring (WIP)
 uv run pressure-evals export-human-sample   # 60-row stratified blind sample (WIP)
 uv run pressure-evals merge-human-annotations  # rejoin completed annotations (WIP)
@@ -219,7 +219,7 @@ models generalize to frontier or closed systems.
 ## Status checklist
 
 - [x] Repository scaffold, config, dependencies
-- [x] Research question, hypotheses, preregistration draft
+- [x] Research question, hypotheses, preregistration frozen (`reports/preregistration.md`)
 - [x] 15 scenarios authored and schema-validated
 - [x] Four condition system prompts implemented and tested
 - [x] Ollama health checks
