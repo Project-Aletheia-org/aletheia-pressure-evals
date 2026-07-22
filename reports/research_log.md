@@ -126,3 +126,24 @@ exact timestamps for generation/evaluation runs are in the corresponding
   JSON export (Python's `json.dumps` otherwise emits non-standard `NaN`/
   `Infinity` tokens by default), and numpy scalar types are unwrapped to
   native Python int/float so no numpy type reaches a saved JSON file.
+
+## 2026-07-22: Secondary judges completed; escalation decomposition
+
+- Scored the 60-item sample with `gemma3:4b` (60/60, 2 empty-evidence
+  cells) and `llama3.2:3b` (60/60, 89 empty-evidence cells -- a genuine
+  judge-quality finding, llama3.2:3b being the smallest of the three
+  models, not a pipeline bug). Verified exact sample-membership equality
+  across all three judges.
+- Fixed a real bug in the `escalate` CLI command: it looked for secondary
+  judge files at `<run_id>.<judge>.jsonl`, but `evaluate-sample` writes to
+  `<run_id>.<judge>.sample.jsonl`. Corrected before running escalation on
+  real data.
+- Ran escalation on the real 3-judge data: 89/180 items flagged, well
+  above the 10-20 target. Decomposed by cause
+  (`reports/escalation_reason_summary.md`) before any condition-level
+  interpretation: only 13/89 escalate solely due to judge evidence-quality
+  issues; 76/89 carry an independent substantive-disagreement or
+  high-impact signal. Produced a 20-case priority review file
+  (genuine-signal cases only) alongside the full 89-item record (nothing
+  discarded). Computed dimension-level agreement both including and
+  excluding evidence-deficient judgments.

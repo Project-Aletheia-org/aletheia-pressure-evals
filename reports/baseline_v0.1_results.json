@@ -1,0 +1,436 @@
+{
+  "confirmatory": {
+    "manipulation_score": {
+      "pressure_minus_baseline": {
+        "pooled": {
+          "n_pairs": 45,
+          "mean_diff": 0.0,
+          "median_diff": 0.0,
+          "cohens_d_paired": 0.0,
+          "bootstrap_ci_low": -0.1111111111111111,
+          "bootstrap_ci_high": 0.1111111111111111,
+          "permutation_p_value": 1.0,
+          "mann_whitney_p_value": 1.0,
+          "n_scenario_model_pairs_positive_direction": 3,
+          "n_scenario_model_pairs_negative_direction": 3,
+          "n_scenario_model_pairs_zero": 39,
+          "proportion_positive_direction": 0.06666666666666667
+        },
+        "by_model": {
+          "gemma3:4b": {
+            "n_pairs": 15,
+            "mean_diff": 0.0,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": 0.0,
+            "bootstrap_ci_high": 0.0,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 0,
+            "n_scenarios_negative_direction": 0,
+            "proportion_positive_direction": 0.0
+          },
+          "llama3.2:3b": {
+            "n_pairs": 15,
+            "mean_diff": -0.06666666666666667,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": -0.3333333333333333,
+            "bootstrap_ci_high": 0.2,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 2,
+            "n_scenarios_negative_direction": 3,
+            "proportion_positive_direction": 0.13333333333333333
+          },
+          "qwen3:4b": {
+            "n_pairs": 15,
+            "mean_diff": 0.06666666666666667,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": 0.0,
+            "bootstrap_ci_high": 0.2,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 1,
+            "n_scenarios_negative_direction": 0,
+            "proportion_positive_direction": 0.06666666666666667
+          }
+        }
+      },
+      "pressure_autonomy_minus_pressure": {
+        "pooled": {
+          "n_pairs": 45,
+          "mean_diff": 0.022222222222222223,
+          "median_diff": 0.0,
+          "cohens_d_paired": 0.05580270573587945,
+          "bootstrap_ci_low": -0.08888888888888889,
+          "bootstrap_ci_high": 0.15555555555555556,
+          "permutation_p_value": 1.0,
+          "mann_whitney_p_value": 0.9804186596838326,
+          "n_scenario_model_pairs_positive_direction": 2,
+          "n_scenario_model_pairs_negative_direction": 2,
+          "n_scenario_model_pairs_zero": 41,
+          "proportion_positive_direction": 0.044444444444444446
+        },
+        "by_model": {
+          "gemma3:4b": {
+            "n_pairs": 15,
+            "mean_diff": 0.0,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": -0.2,
+            "bootstrap_ci_high": 0.2,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 1,
+            "n_scenarios_negative_direction": 1,
+            "proportion_positive_direction": 0.06666666666666667
+          },
+          "llama3.2:3b": {
+            "n_pairs": 15,
+            "mean_diff": 0.06666666666666667,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": -0.2,
+            "bootstrap_ci_high": 0.4,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 1,
+            "n_scenarios_negative_direction": 1,
+            "proportion_positive_direction": 0.06666666666666667
+          },
+          "qwen3:4b": {
+            "n_pairs": 15,
+            "mean_diff": 0.0,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": 0.0,
+            "bootstrap_ci_high": 0.0,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 0,
+            "n_scenarios_negative_direction": 0,
+            "proportion_positive_direction": 0.0
+          }
+        }
+      },
+      "autonomy_minus_baseline": {
+        "pooled": {
+          "n_pairs": 45,
+          "mean_diff": -0.044444444444444446,
+          "median_diff": 0.0,
+          "cohens_d_paired": -0.14907119849998599,
+          "bootstrap_ci_low": -0.13333333333333333,
+          "bootstrap_ci_high": 0.044444444444444446,
+          "permutation_p_value": 0.6282,
+          "mann_whitney_p_value": 0.4059128745419658,
+          "n_scenario_model_pairs_positive_direction": 1,
+          "n_scenario_model_pairs_negative_direction": 3,
+          "n_scenario_model_pairs_zero": 41,
+          "proportion_positive_direction": 0.022222222222222223
+        },
+        "by_model": {
+          "gemma3:4b": {
+            "n_pairs": 15,
+            "mean_diff": 0.06666666666666667,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": 0.0,
+            "bootstrap_ci_high": 0.2,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 1,
+            "n_scenarios_negative_direction": 0,
+            "proportion_positive_direction": 0.06666666666666667
+          },
+          "llama3.2:3b": {
+            "n_pairs": 15,
+            "mean_diff": -0.2,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": -0.4,
+            "bootstrap_ci_high": 0.0,
+            "permutation_p_value": 0.2507,
+            "n_scenarios_positive_direction": 0,
+            "n_scenarios_negative_direction": 3,
+            "proportion_positive_direction": 0.0
+          },
+          "qwen3:4b": {
+            "n_pairs": 15,
+            "mean_diff": 0.0,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": 0.0,
+            "bootstrap_ci_high": 0.0,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 0,
+            "n_scenarios_negative_direction": 0,
+            "proportion_positive_direction": 0.0
+          }
+        }
+      }
+    },
+    "autonomy_score": {
+      "pressure_minus_baseline": {
+        "pooled": {
+          "n_pairs": 45,
+          "mean_diff": 0.022222222222222223,
+          "median_diff": 0.0,
+          "cohens_d_paired": 0.08542159614461595,
+          "bootstrap_ci_low": -0.044444444444444446,
+          "bootstrap_ci_high": 0.08888888888888889,
+          "permutation_p_value": 1.0,
+          "mann_whitney_p_value": 0.5680185330756798,
+          "n_scenario_model_pairs_positive_direction": 2,
+          "n_scenario_model_pairs_negative_direction": 1,
+          "n_scenario_model_pairs_zero": 42,
+          "proportion_positive_direction": 0.044444444444444446
+        },
+        "by_model": {
+          "gemma3:4b": {
+            "n_pairs": 15,
+            "mean_diff": -0.06666666666666667,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": -0.2,
+            "bootstrap_ci_high": 0.0,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 0,
+            "n_scenarios_negative_direction": 1,
+            "proportion_positive_direction": 0.0
+          },
+          "llama3.2:3b": {
+            "n_pairs": 15,
+            "mean_diff": 0.13333333333333333,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": 0.0,
+            "bootstrap_ci_high": 0.3333333333333333,
+            "permutation_p_value": 0.4935,
+            "n_scenarios_positive_direction": 2,
+            "n_scenarios_negative_direction": 0,
+            "proportion_positive_direction": 0.13333333333333333
+          },
+          "qwen3:4b": {
+            "n_pairs": 15,
+            "mean_diff": 0.0,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": 0.0,
+            "bootstrap_ci_high": 0.0,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 0,
+            "n_scenarios_negative_direction": 0,
+            "proportion_positive_direction": 0.0
+          }
+        }
+      },
+      "pressure_autonomy_minus_pressure": {
+        "pooled": {
+          "n_pairs": 45,
+          "mean_diff": -0.022222222222222223,
+          "median_diff": 0.0,
+          "cohens_d_paired": -0.08542159614461595,
+          "bootstrap_ci_low": -0.1111111111111111,
+          "bootstrap_ci_high": 0.044444444444444446,
+          "permutation_p_value": 1.0,
+          "mann_whitney_p_value": 0.5680185330756798,
+          "n_scenario_model_pairs_positive_direction": 1,
+          "n_scenario_model_pairs_negative_direction": 2,
+          "n_scenario_model_pairs_zero": 42,
+          "proportion_positive_direction": 0.022222222222222223
+        },
+        "by_model": {
+          "gemma3:4b": {
+            "n_pairs": 15,
+            "mean_diff": 0.06666666666666667,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": 0.0,
+            "bootstrap_ci_high": 0.2,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 1,
+            "n_scenarios_negative_direction": 0,
+            "proportion_positive_direction": 0.06666666666666667
+          },
+          "llama3.2:3b": {
+            "n_pairs": 15,
+            "mean_diff": -0.06666666666666667,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": -0.2,
+            "bootstrap_ci_high": 0.0,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 0,
+            "n_scenarios_negative_direction": 1,
+            "proportion_positive_direction": 0.0
+          },
+          "qwen3:4b": {
+            "n_pairs": 15,
+            "mean_diff": -0.06666666666666667,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": -0.2,
+            "bootstrap_ci_high": 0.0,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 0,
+            "n_scenarios_negative_direction": 1,
+            "proportion_positive_direction": 0.0
+          }
+        }
+      },
+      "autonomy_minus_baseline": {
+        "pooled": {
+          "n_pairs": 45,
+          "mean_diff": 0.044444444444444446,
+          "median_diff": 0.0,
+          "cohens_d_paired": 0.2132557998641786,
+          "bootstrap_ci_low": 0.0,
+          "bootstrap_ci_high": 0.1111111111111111,
+          "permutation_p_value": 0.4949,
+          "mann_whitney_p_value": 0.15959836014433126,
+          "n_scenario_model_pairs_positive_direction": 2,
+          "n_scenario_model_pairs_negative_direction": 0,
+          "n_scenario_model_pairs_zero": 43,
+          "proportion_positive_direction": 0.044444444444444446
+        },
+        "by_model": {
+          "gemma3:4b": {
+            "n_pairs": 15,
+            "mean_diff": 0.0,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": 0.0,
+            "bootstrap_ci_high": 0.0,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 0,
+            "n_scenarios_negative_direction": 0,
+            "proportion_positive_direction": 0.0
+          },
+          "llama3.2:3b": {
+            "n_pairs": 15,
+            "mean_diff": 0.13333333333333333,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": 0.0,
+            "bootstrap_ci_high": 0.3333333333333333,
+            "permutation_p_value": 0.4935,
+            "n_scenarios_positive_direction": 2,
+            "n_scenarios_negative_direction": 0,
+            "proportion_positive_direction": 0.13333333333333333
+          },
+          "qwen3:4b": {
+            "n_pairs": 15,
+            "mean_diff": 0.0,
+            "median_diff": 0.0,
+            "bootstrap_ci_low": 0.0,
+            "bootstrap_ci_high": 0.0,
+            "permutation_p_value": 1.0,
+            "n_scenarios_positive_direction": 0,
+            "n_scenarios_negative_direction": 0,
+            "proportion_positive_direction": 0.0
+          }
+        }
+      }
+    }
+  },
+  "exploratory": {
+    "manipulation_clustered_regression": {
+      "params": {
+        "const": 0.0888888888888888,
+        "pressure": 3.3306690738754696e-16,
+        "autonomy": -0.044444444444444155,
+        "pressure:autonomy": 0.06666666666666611,
+        "model_0": 0.04999999999999992,
+        "model_1": -0.0500000000000001
+      },
+      "pvalues": {
+        "const": 0.15515565576238105,
+        "pressure": 0.9999999999999943,
+        "autonomy": 0.14790913234919606,
+        "pressure:autonomy": 0.41709105138068814,
+        "model_0": 0.4804295913948846,
+        "model_1": 0.37557645553745433
+      },
+      "n_obs": 180,
+      "r_squared": 0.025749559082892337
+    }
+  },
+  "descriptive_by_condition": {
+    "baseline": {
+      "n": 45,
+      "manipulation_mean": 0.08888888888888889,
+      "manipulation_median": 0,
+      "manipulation_sd": 0.2877990320141519,
+      "autonomy_mean": 3.9555555555555557,
+      "autonomy_median": 4,
+      "autonomy_sd": 0.2084090771399927
+    },
+    "pressure": {
+      "n": 45,
+      "manipulation_mean": 0.08888888888888889,
+      "manipulation_median": 0,
+      "manipulation_sd": 0.2877990320141519,
+      "autonomy_mean": 3.977777777777778,
+      "autonomy_median": 4,
+      "autonomy_sd": 0.14907119849998599
+    },
+    "autonomy": {
+      "n": 45,
+      "manipulation_mean": 0.044444444444444446,
+      "manipulation_median": 0,
+      "manipulation_sd": 0.2084090771399927,
+      "autonomy_mean": 4,
+      "autonomy_median": 4,
+      "autonomy_sd": 0.0
+    },
+    "pressure_autonomy": {
+      "n": 45,
+      "manipulation_mean": 0.1111111111111111,
+      "manipulation_median": 0,
+      "manipulation_sd": 0.38270699819136633,
+      "autonomy_mean": 3.9555555555555557,
+      "autonomy_median": 4,
+      "autonomy_sd": 0.2084090771399927
+    }
+  },
+  "descriptive_by_model_condition": {
+    "gemma3:4b|baseline": {
+      "n": 15,
+      "manipulation_mean": 0.06666666666666667,
+      "manipulation_sd": 0.25819888974716115
+    },
+    "gemma3:4b|pressure": {
+      "n": 15,
+      "manipulation_mean": 0.06666666666666667,
+      "manipulation_sd": 0.25819888974716115
+    },
+    "gemma3:4b|autonomy": {
+      "n": 15,
+      "manipulation_mean": 0.13333333333333333,
+      "manipulation_sd": 0.3518657752744984
+    },
+    "gemma3:4b|pressure_autonomy": {
+      "n": 15,
+      "manipulation_mean": 0.06666666666666667,
+      "manipulation_sd": 0.25819888974716115
+    },
+    "llama3.2:3b|baseline": {
+      "n": 15,
+      "manipulation_mean": 0.2,
+      "manipulation_sd": 0.4140393356054125
+    },
+    "llama3.2:3b|pressure": {
+      "n": 15,
+      "manipulation_mean": 0.13333333333333333,
+      "manipulation_sd": 0.3518657752744984
+    },
+    "llama3.2:3b|autonomy": {
+      "n": 15,
+      "manipulation_mean": 0,
+      "manipulation_sd": 0.0
+    },
+    "llama3.2:3b|pressure_autonomy": {
+      "n": 15,
+      "manipulation_mean": 0.2,
+      "manipulation_sd": 0.5606119105813882
+    },
+    "qwen3:4b|baseline": {
+      "n": 15,
+      "manipulation_mean": 0,
+      "manipulation_sd": 0.0
+    },
+    "qwen3:4b|pressure": {
+      "n": 15,
+      "manipulation_mean": 0.06666666666666667,
+      "manipulation_sd": 0.25819888974716115
+    },
+    "qwen3:4b|autonomy": {
+      "n": 15,
+      "manipulation_mean": 0,
+      "manipulation_sd": 0.0
+    },
+    "qwen3:4b|pressure_autonomy": {
+      "n": 15,
+      "manipulation_mean": 0.06666666666666667,
+      "manipulation_sd": 0.25819888974716115
+    }
+  }
+}
