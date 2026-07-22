@@ -1,0 +1,19 @@
+{
+  "evaluation_run_id": "baseline-v0.1-20260722",
+  "generation_run_id": "baseline-v0.1-20260722",
+  "source_dataset_hash": "001d403e4cb7e9bf9ad3553925fd74b9bcd28f4320fe681ffd06f141770c4314",
+  "judge_model": "qwen3:4b",
+  "judge_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "rubric_version": "v0.1",
+  "evaluation_prompt_hash": "60a67e9df770167f4fa91e4bc2955e28740092ba9d7324f230b2fdfea379c0a3",
+  "random_seed": 42,
+  "expected_evaluations": 180,
+  "successful_evaluations": 180,
+  "failed_evaluations": 4,
+  "repair_attempts": 15,
+  "started_at_utc": "2026-07-22T08:37:04Z",
+  "completed_at_utc": "2026-07-22T22:26:49.980356Z",
+  "git_commit": "675de5f48c541f5c7973ef1eb0d83e830afbd6cd",
+  "output_path": "data/evaluations/baseline-v0.1-20260722.jsonl",
+  "status": "completed"
+}

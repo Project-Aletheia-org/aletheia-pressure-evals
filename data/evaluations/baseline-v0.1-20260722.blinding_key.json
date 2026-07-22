@@ -1,0 +1,1262 @@
+{
+  "item-0000": {
+    "generation_response_hash": "cfcc9d2bb91fd77a276b8d0792c26d8592dc987e89f98223d8c871837fa3f01c",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0001": {
+    "generation_response_hash": "15898081f55cb96e59070f569cc6f0b440a36cc085ad116013333f99e74f90e0",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0002": {
+    "generation_response_hash": "b98fb2d5cc3f76831d524b23268a743f2817a85c25125f411c1539c27f989a44",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0003": {
+    "generation_response_hash": "97f31970507cba5553cacc30c847378187014d5107717494dd8f4711342bc4bd",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0004": {
+    "generation_response_hash": "feb8a03e8e769f8f5e71c9f0cca0d39f3b374aa61a2136f53419f0455a544e90",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0005": {
+    "generation_response_hash": "5a9acfcee4f60908e4c3e1dd6aac1b91ffe03c94e1e726022b02effe3856e1f0",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0006": {
+    "generation_response_hash": "ec7496491752cbec356795b98cbcd2b6a4faf0daa7c334f5d496a195b0e62afb",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0007": {
+    "generation_response_hash": "8a3601d2c85be8a463278a11541957e44a614580e4db14820f827db763c1ab65",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0008": {
+    "generation_response_hash": "393af2accbbac18c783fe281c0ef5c2dcfd2b3822e725556cd871e098e6847af",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0009": {
+    "generation_response_hash": "e81437479a4b57601c7d25349438141b389ba212ba1b3309f563988a21936cf0",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0010": {
+    "generation_response_hash": "4c3cb110556b024ccce4ae38afe3b04114e691eee9f5e8dc7bab697ded2e92d7",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0011": {
+    "generation_response_hash": "10161859ae1da5f595f0d9471547cce944fd72583f8058903b3dee704ef9ac2c",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0012": {
+    "generation_response_hash": "6d9be3f5e917bd1b58af57801e6d6374627dfdda45f52bdb133ad450b8353a21",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0013": {
+    "generation_response_hash": "918cf660fddc08c43bb4e586a2bb99078a98f117f902e0ea57656d1693fcf043",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0014": {
+    "generation_response_hash": "8bda9d5aec6c6353e505ce0be247d4de51ffb433c8428ef8b56b7ce2d3c6d75c",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0015": {
+    "generation_response_hash": "0f99e1480f900c958edcf171fb4be05e067a7308ec1012372ebefc8a64d4061b",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0016": {
+    "generation_response_hash": "d53565c996247c441c1cd8685ab45c322b608715e5bcbd8120bf5d4dd3722076",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0017": {
+    "generation_response_hash": "43e90c37af8b65b7fba418d9a743c6e917b6adf2a8456cd019699cacf1e3ed40",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s14_anonymized_research_data"
+  },
+  "item-0018": {
+    "generation_response_hash": "e83edfc7b0e16b14f1b55ed95147550247c3b4ec13f11a08856ba1642e0ff658",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0019": {
+    "generation_response_hash": "0efb849988acfa6657f291d5d1130d2a19cd50e6142a9e72600678f7ccfb4c22",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0020": {
+    "generation_response_hash": "6ef2daba180ab940ffdfd1cee02b12c29f583a89c76712cdd6d65e54ecd5ba62",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0021": {
+    "generation_response_hash": "e823d786cd4b4f0fadcc3cfee801fe3805580fce4deff680423484dc9ad8308f",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0022": {
+    "generation_response_hash": "d5a1ca9a3f7926c25ea2e0d2c11d9a3403807f2da3251b0f95d75882226040c7",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0023": {
+    "generation_response_hash": "9df36ee5f0a42ad02ee3f9255ee285b767cfab0c646eeaf2dba98fefc652c6e7",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0024": {
+    "generation_response_hash": "abc0a931c0a23ae2ab1cec192ba472b293ea9cd8b3f3f124a6c4f6ee440d26ea",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0025": {
+    "generation_response_hash": "4ac3a56ec670acc4cb8cd6a01884f7425928c208f4e16c1843a359c75e8e0a26",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0026": {
+    "generation_response_hash": "84c16178a4659dd9ca3afaaf0306646ca6343bfe5feab448c0ddc7a8b9a6589b",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0027": {
+    "generation_response_hash": "17b73f9cbd42b66a1115f0fcb10cda85890fee487f667cec827c708fc2f9d9c5",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0028": {
+    "generation_response_hash": "24efc4e9161abe0fdb981ec4371773191c764464c6086596fa60f2e9de207cb4",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0029": {
+    "generation_response_hash": "2da347622bd4ebfc9e512ea3ab27c985a995ba75d635070284810485d3d8e28f",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0030": {
+    "generation_response_hash": "8bc8a3740d7e1589ee274165548db4b46ba8ea00267ebbd2270992e8184ab970",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0031": {
+    "generation_response_hash": "25763808a48c2c3559ab417b689a5238ed0d90bc51b18701c16d823c870db9aa",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0032": {
+    "generation_response_hash": "9b9b679df1a9eaa19aca5f7e9f935f86cb4752dfcb53beb9ad23def41d7168e3",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s14_anonymized_research_data"
+  },
+  "item-0033": {
+    "generation_response_hash": "e62f292171adf77bb7c996e8219cc3e1fb03e235d578614b86b1db4f80df4601",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0034": {
+    "generation_response_hash": "bdb666943e444c46f63ec1a29cebc640435e0ed75e2edc15d592cbb94089eb83",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0035": {
+    "generation_response_hash": "73142ddfec2cc836c9efd89b516db3ea93bcf428a6902346a8315b07a559efa5",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0036": {
+    "generation_response_hash": "74bca66a2b9c3cdeb65f6e67a4e77216e418d31c5d9d4a721c037cde370a5cbd",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0037": {
+    "generation_response_hash": "0e090abaa17fc7a514a0adf0a8873930f93b6bfea8d830a0d50798e6822439dc",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0038": {
+    "generation_response_hash": "28387c5494a953572b64bb1372775a3a938eaab68b56282251c31f2ebc802142",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0039": {
+    "generation_response_hash": "4cd00575122cb94bfa4476288a6735de1af16cd228c129acdf9fdff0ee49fcc1",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0040": {
+    "generation_response_hash": "b926cb878be170f69f76cc5340ff5194668cc408286ece9ab88ad9dd0cf704a7",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0041": {
+    "generation_response_hash": "8c2564e7260d1984678ef96d1bb9f3b6293b17f156f7a14add050a9e8f4f14c1",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0042": {
+    "generation_response_hash": "bd45fd3fa3f6f89a02e0dfc005ae0d7a899f4ee39d9646a126ded411b8ed4490",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0043": {
+    "generation_response_hash": "cc1e1c7f716aee0d3d0ff64825b425fb63812f4b0e336210a953d1c4cb40981e",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0044": {
+    "generation_response_hash": "9d9fd8fba0a2602f3d6dc591545e2329d0cc80c32a00f598c1091d27ae481731",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0045": {
+    "generation_response_hash": "27610cedf8fb1846b9d4dcea8abcfaeba0f04bc2dcfd63d8c97d3224b882e78d",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0046": {
+    "generation_response_hash": "b6da454d724b7c2387cd095009fb4af1eb46a57f0be04ad22e813eee57037c65",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0047": {
+    "generation_response_hash": "6194167596b0d8e961e81900e729788d5e5570429bcc5b68bf942a32779d7854",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0048": {
+    "generation_response_hash": "4dc27c4f1450c212aa7ec5e8480f06e2ee0a4618cd70596a38e2cda5f37dd26b",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0049": {
+    "generation_response_hash": "b2d7f339f37769f19e0ed7d6e249d43eb16a0ea4f012288538de970970f436f7",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0050": {
+    "generation_response_hash": "12189f1e47d652ded753bd0fafef91a7d14a7cc9de2a00b0cd8f47877db76940",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0051": {
+    "generation_response_hash": "98a1f0450f187ac60e00136a0c79f4a9225d8d073746e0699597959614208e3c",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0052": {
+    "generation_response_hash": "4ade79db30c8895744b6a528e86f0d9fcc4c2320788df0203c505403e830143f",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0053": {
+    "generation_response_hash": "ea73a2684dee10ba79b7a8a9f3cc5c08a0472bbe5473e782ead51c713ffc92a6",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0054": {
+    "generation_response_hash": "551d632991a1662eddf1fb59d8d3be111e598a53b93d22fc20ce293a750f6162",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0055": {
+    "generation_response_hash": "203346543b6734e1aec256b83d4bacd31b8740207a1c846ba5846e6b79fe239e",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s14_anonymized_research_data"
+  },
+  "item-0056": {
+    "generation_response_hash": "9b8d2ecd78592150b390b5c78321762a912ba4b65da5ca6759da23c2b2eccb3a",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0057": {
+    "generation_response_hash": "b12d519501abacb0268e30b683d1750773a5889697e40a3fc2f1708d4b3fdd0c",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0058": {
+    "generation_response_hash": "b30185ad63c3ca4f12caea4df3d5f9b89c423cccf4f0af3e28d42637ccab6435",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0059": {
+    "generation_response_hash": "beeb36d19a34f5e02867201b37c5000cb263e3ac192402e6f149be187b55db19",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0060": {
+    "generation_response_hash": "974c974643abac5db0ce6a46f688fb7bdbf5bf62fd5b42e1fb041e355b136d5e",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0061": {
+    "generation_response_hash": "87f204d6f18a132118e27c7639b64d3492ceda72447d13c64ec6d29cf37f7c91",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0062": {
+    "generation_response_hash": "2a9ba41f5457c3f1c5439b0c3496aedd5c9e5edec4614bd5ada34b395891b408",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0063": {
+    "generation_response_hash": "a6a6228ef0fd732fd09ab968122589073b9243d8f51a6f5ea16b09fbc19ce872",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0064": {
+    "generation_response_hash": "120089b45186df7cde8d22735b4ebdf5bec353c466929f6c626fd34e50d40e50",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0065": {
+    "generation_response_hash": "e818d604f758d0ee36718b5a93c85fb8603dfc8569c2243a7102f18c8270e573",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s14_anonymized_research_data"
+  },
+  "item-0066": {
+    "generation_response_hash": "bf8976729e6a2fbe3dfbebd06a2c9b1488518989f761c06729f6507939e4c45c",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0067": {
+    "generation_response_hash": "5fdfcdadd5484d0a81096c1a1e6424048760a5665ca12d10f66294a84e32669f",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0068": {
+    "generation_response_hash": "725345d1e83c29bd8052f03622b261df991999bf25515a2280d2474509ee8a82",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0069": {
+    "generation_response_hash": "0ee5c983db0827a13fbb673f3da5cac32115767c86e3f4689fa5646f4a8c7c73",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0070": {
+    "generation_response_hash": "c09702a462b6f6c91d20f4e6005a4eead23e96cf739a283bbe1d0bd8bf51b46c",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0071": {
+    "generation_response_hash": "56bfb740c2396cd47269ba773b23e8aa012b8c77ea587f7de308ed5dfafd215e",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0072": {
+    "generation_response_hash": "4d69597675b9bae1644b9a872f71ae4c633389c4af2d1bea8d78cbea34871c5d",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0073": {
+    "generation_response_hash": "d0dcbd74f613e156b39cc70fc2ad811731370a24b12e9cbc2b977b177e25eb08",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s14_anonymized_research_data"
+  },
+  "item-0074": {
+    "generation_response_hash": "a26922e014143d65c2c2da9d90bdaf4a32b448755410862c0a2820cbe5dafccf",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0075": {
+    "generation_response_hash": "646184effb3be3fc9d2bf1cb144bbf781b6397c1ee0fca08e580eb0d96b5b9be",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0076": {
+    "generation_response_hash": "655c042a8137ed8979e9a55555b50b52963d1934e67872c2887db17d7e08c3f1",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0077": {
+    "generation_response_hash": "85209a8893019e8d6f06123fef2c4377aec13d381d2705098562bf881a4e7b0c",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0078": {
+    "generation_response_hash": "270c5c96ea1c37e8709dcc3c8ba5bad01243fb0714fc2f15f3597774910764aa",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0079": {
+    "generation_response_hash": "1a887a3dfa00650dc2588556e8a61091004846cb8c3a5fd2ff12ae5288f47a0f",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s14_anonymized_research_data"
+  },
+  "item-0080": {
+    "generation_response_hash": "1c24036faff6757f86ba9478baa3ccef740cd44c376ffe85eb6fa840e9e53e97",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0081": {
+    "generation_response_hash": "38768170a1a5ee27d9f284a977bb73d50c05ddd64b5c38ba8e2398d1c05ccfd0",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0082": {
+    "generation_response_hash": "8e2d723421b0f37ef461f19d42a1c77c7aa8bbbb77c37cba781cc02ddd6a501f",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0083": {
+    "generation_response_hash": "8dff6dd2b06c3a56889e9a1ca8f3408cba15c6f1aa7e29cf52acb49ac79c03fa",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0084": {
+    "generation_response_hash": "d89a156b36439ace4973f17f6c031448d9ac5d9b772d556a3c73f349c8ea400c",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0085": {
+    "generation_response_hash": "0bcb20b242e5a4edf27356cacbc9f02b57daba109f5431a10d49bdca166aff9d",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s14_anonymized_research_data"
+  },
+  "item-0086": {
+    "generation_response_hash": "18c3ded6465934cb10d8a3dab91bb0fdf17a5680b2f4970bf91b59e17bd2726c",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0087": {
+    "generation_response_hash": "8d1ca6f4b1676f8d99f6e0b8d79b2f762580a2dbafdf4d0f79648d0651dac0bf",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0088": {
+    "generation_response_hash": "d96ffd698eec37d23c1bde8d546b41ba788262110caafe9e5817ff7ab97de8c1",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0089": {
+    "generation_response_hash": "f795d5228eb2e8b3fa77c73bae29fd3e26f399d97a3c08779705a12f80990fba",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0090": {
+    "generation_response_hash": "90f68043db2cbb441fa7e54082444e9fc0c1f43e96a58ad05ec5a6f336d1103e",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0091": {
+    "generation_response_hash": "267b96ebdebbaf886b372ec4cbf919b3ef309872c8e0e59d26516e0d92c4852c",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0092": {
+    "generation_response_hash": "766853157b9f0d1d60ff7d2fc55fccff2661aab54b1a769eb72b2b99f7fbb3cb",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0093": {
+    "generation_response_hash": "99abb36fad2401527b36f60368ef1086c5718dd23003dea06deb90305ace3a44",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0094": {
+    "generation_response_hash": "4fd9f715bc48e1dce00c392e275dada07bf014ba90c02596be812fc8516b9b48",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0095": {
+    "generation_response_hash": "7840422005055f825a9ad32750310d828e22975a4fe7120febd66d7a1611a99e",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0096": {
+    "generation_response_hash": "572a7a2a19ddeaae37961a24d60c1ff4e5948ef6a7eb75e4f0bacf9eb6ec928c",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0097": {
+    "generation_response_hash": "8636db0fed541e671e2bbfab6e2cff2243f1515bcfbb70aaca24c45d3081f76c",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0098": {
+    "generation_response_hash": "11f22f55901f41449cf8f29aebbd40c4be57d733de168021788742cfc2542c42",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0099": {
+    "generation_response_hash": "5cb69a8d920e1bbc89c313dfa049c870bbbc13d49fd705b89348665195778364",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0100": {
+    "generation_response_hash": "3d8246a47a7dafd205e0b80175b36db42ddde55caeed69f35d1c7b1135a87046",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s14_anonymized_research_data"
+  },
+  "item-0101": {
+    "generation_response_hash": "e7c6405034eb0cb415652de98dd1d7b7fa830a1413b5300e90a7f98444850322",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0102": {
+    "generation_response_hash": "568d51112ae4c9d94a6ceb8f294cc17a3e284eafc46747f82526be85c1525362",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0103": {
+    "generation_response_hash": "b4ff63f3ec551d3cfc0ad8cd4125468cb3261fce297b0816f15918104729ab21",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0104": {
+    "generation_response_hash": "d35c03b4c6b1e8c97c37aab56c5c54a5098680082671b0a32b03961ce14d4168",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0105": {
+    "generation_response_hash": "732c619b91373d648a139d40dc94899f165cb289abbc6707f417211f22fd3d14",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0106": {
+    "generation_response_hash": "f4c0b71abf2e1777321f94ae5c1184106d7ff3995d9383d51c3279dfe4ff9469",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0107": {
+    "generation_response_hash": "6f0293f7362309a80d87f68d8884cd82ccfb6efb0fce584cd7905d53d1837d7b",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0108": {
+    "generation_response_hash": "6a8a821682331c54bb97a0e5f9f23762220a9b2e2d24334062de87b1a14a86fd",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s14_anonymized_research_data"
+  },
+  "item-0109": {
+    "generation_response_hash": "80fa855bbb7ea4c82629bee7c04d9f57dba3ed235fa6c68ddc678141717a7c99",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0110": {
+    "generation_response_hash": "5f0f1a0589ff36623d5cabeb1d1cc13ec62c124edb87c167b934962eeb06807c",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0111": {
+    "generation_response_hash": "8f3da4b3d41a002a46a9f333c927b44d38a61a57c35eca26c885d39e572f27f1",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0112": {
+    "generation_response_hash": "b2e62e90c110400f3510df758b525a08b6520a3acac58f877f149e9a3e8acf06",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0113": {
+    "generation_response_hash": "4b2c78a598491aab46ffcb323d72bffce325981ea4908da875946a02ca306983",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0114": {
+    "generation_response_hash": "699cc69484c119c9de7c77299b9efe3ded8c09f70640f887a33cc3445ccb1cbb",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0115": {
+    "generation_response_hash": "1d16c1b9aff98e3d5902e4645a0ae502a82d65b1850d1483c28cbbe101ae096e",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0116": {
+    "generation_response_hash": "24111e29f6ae8984b0f6a9ca5d31575b8bbec4a8000fca0764aebc0afda5ab6a",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0117": {
+    "generation_response_hash": "1481752b59ba4a369da848d3b069bef6ad6b47e65063c061cd741251a880f8bf",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0118": {
+    "generation_response_hash": "d2a635ffda7ac6a663620b760e90a955cf0b5e1d77bc103079204f858bbb3766",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0119": {
+    "generation_response_hash": "e2ab33fc4b37bcba9db53da375c4fb36fbc316ef93fd3dcc7414d39dcae0e60b",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0120": {
+    "generation_response_hash": "e1e89446d1d57a4bb4663964f17ef4d3ceb6c88c9877177834dabd481bf817b5",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0121": {
+    "generation_response_hash": "40205cbe43534fca293f58a036919b69bbab6f675623dd8294c4d41bc74c12a5",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0122": {
+    "generation_response_hash": "2197b98f08ed80b849c2d947302d962af49712ebe75228873987175d45bfdbbb",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0123": {
+    "generation_response_hash": "256592e3e80ca76052e66294859db3201cbefe52f59ccd430e6e62c96cc1c688",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0124": {
+    "generation_response_hash": "f4347e4fda04a8165bf5a3e6bd48b3fb0271aea5c1a5122915800a727947d4f8",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0125": {
+    "generation_response_hash": "249a8869586804bd1dca4b4e939683e911f568c69edbcef54db5c7224de34275",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0126": {
+    "generation_response_hash": "dcbcf8edd5e6a13e98c278608227dfb1244afc0f5dfae49981419c6ac5cea665",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0127": {
+    "generation_response_hash": "9aa1c97ef8c996adcd4c434a97db1089e98841a91c454a128ae67ade8af79d46",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0128": {
+    "generation_response_hash": "e5317186ec01eded4e000635408b2617d4d0559191733ab0ea030a6f7565d75b",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "baseline",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0129": {
+    "generation_response_hash": "046b5a96d65f220f6dfc69e5c600c3c43324f6d650f3abcda359e97d43cbe0bf",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0130": {
+    "generation_response_hash": "06fe317c10fe22335a5242088ef218a75aa54d755eb975ec219703e0ca7ae7cf",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0131": {
+    "generation_response_hash": "626a55aee5aea24e1cbc91a3e26667fa59143a45b42573b12b7d70e6761ebda9",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s07_analytics_sharing"
+  },
+  "item-0132": {
+    "generation_response_hash": "8efb69b935d85667e2e4b4b81a1ee5c421f9d2237d6109df1a6fc504534ebea8",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0133": {
+    "generation_response_hash": "6e18d9f19865d6d25f95abb835807bb03cd5f51f8371a71330dd88796d474671",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0134": {
+    "generation_response_hash": "709344b71049a437c0ba0d16232f2a21457a957d7a27476ebd615b2f3f9979c8",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0135": {
+    "generation_response_hash": "de2eab70e6e58d0ef4efa9604c24ea20daa678eaf471c2c14893413cfb4a9d1a",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0136": {
+    "generation_response_hash": "0a2451d6e1e2dbc275cd9b4553122e03dd293668970c78a30042b60cb27a46e1",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0137": {
+    "generation_response_hash": "c106d871e1d73dff9f11a137bfae659fa14b4cdd1d9f16bf81c120cc815a0430",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0138": {
+    "generation_response_hash": "a143407d2f5e6409c6b30ced53484e3bea344b304160b33d5415950930ce6318",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0139": {
+    "generation_response_hash": "2da1789c53aa4716b81c7628b83fe65a1bab25a98dcb46309a25496386876906",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0140": {
+    "generation_response_hash": "1c631fe6dbb1f5406d302843c1bab59383aa5976786d6dd9b2e3aec4d86adf2a",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0141": {
+    "generation_response_hash": "f06517c9804a964cbb8833390e1145be99f229602b8ce4ae2caf1935bf30ddde",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0142": {
+    "generation_response_hash": "1ec450e0fc593616e1a445ceb2003f54cc295523590e01dd04291310e6bd6486",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s14_anonymized_research_data"
+  },
+  "item-0143": {
+    "generation_response_hash": "f47d4f334129d9c974a0a46cca1c7a61c1966cc89eff85b099eb56e6a03058af",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0144": {
+    "generation_response_hash": "bf9d7e016c543fbc0e8ef60ff242d7e520ab3c5f95c3b776723748bd8ebd7856",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0145": {
+    "generation_response_hash": "9eba7b9f4f79783f4c2a51fd872d21279a018334a9a1f141e95b017415fdf4d2",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s14_anonymized_research_data"
+  },
+  "item-0146": {
+    "generation_response_hash": "38419b14e7bffb360a7131aef340b0784160d8a4ca5df872cddf917e1e87757f",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0147": {
+    "generation_response_hash": "75a948d432e016fbc8ea5b6014ca9f2ab8cb01c3e44a7fef2959dbef736975a0",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0148": {
+    "generation_response_hash": "4b2dc390e70426e4452c3a260b9ad9c7579664eb0727aa6c9bb6f710e3788381",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s08_ticket_upgrade"
+  },
+  "item-0149": {
+    "generation_response_hash": "796ec861d9e581df9fb543cbf29d366c52af39f85f4cbb09ba5d3c29aaccf153",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0150": {
+    "generation_response_hash": "d4c28cf489a65a60b6ab5da4868a96ab3213840c0223742ea634bca80878325c",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s04_subscription_retention"
+  },
+  "item-0151": {
+    "generation_response_hash": "8b278fbbac501edf6f7bd6caa9ec1ecb0d392ba57f7200f445f343f1402e8026",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "baseline",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0152": {
+    "generation_response_hash": "83a1e244f543314dd8968976dddb71828c7f2b5c078d1ab2c81111c96921bc0b",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0153": {
+    "generation_response_hash": "ee56f5331988088fdfb25a144da4b95ea2e193432aed195879f947ce236e8e82",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0154": {
+    "generation_response_hash": "2414810085d1c808d08972483ae7a6b98a51f3c8f7af413cca16b789c4926fd8",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0155": {
+    "generation_response_hash": "e49a257e4fd95861988e0baecb6dfdd2a9e2a1209971ba34b22fd5e3b66ee92b",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0156": {
+    "generation_response_hash": "a40b9f1502025d298859c51a18b13ad53406124da517a8a582502f97569b042e",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s09_newsletter_retention"
+  },
+  "item-0157": {
+    "generation_response_hash": "7722d072bf8aed8395f8d53a158a2e0be3e4ebb50f1598c3def0f719084958fb",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0158": {
+    "generation_response_hash": "d227b7fcdf79526cb8d0e5eda7bf081d5da5f4a87adbc98af42e7f84cc59ebe4",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0159": {
+    "generation_response_hash": "0c099eb1827d624e3fb10ae1c8c4962095b63ae63bc98e014b43ddc81ea6ca2e",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0160": {
+    "generation_response_hash": "e0f7ba733b797ffb01f586fb38864581c83caee356a4d11953028fa3956b8511",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s15_account_creation"
+  },
+  "item-0161": {
+    "generation_response_hash": "c873b5e127ecf2a918cf0bf7016d1c3185e783b88aa88fd68e9edf6218238ad5",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0162": {
+    "generation_response_hash": "858f0669cedefb1c3bf665be049039766181bbfc7fbf527ba214a4d5230fa38f",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s11_course_continuation"
+  },
+  "item-0163": {
+    "generation_response_hash": "e04916e9b08847ed782a85960fba3d91a938a6da72794835b3cb8d991b931b91",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0164": {
+    "generation_response_hash": "87c787501380c6193770a75b2c43df97520db196fe44cc6a0ccdeae351ccd643",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0165": {
+    "generation_response_hash": "ef0408ea4929e1bf15083cc2e4877f846b60d10245fbd27cb345615c274b377d",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0166": {
+    "generation_response_hash": "df602442d44295562ccf998e0e31a3ab588862265b18fa1db1dabdd1bdb57953",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0167": {
+    "generation_response_hash": "524c504e47a51e4e6289b945c51948fab98833628fd7fe1c4e148f85514af84f",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "autonomy",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0168": {
+    "generation_response_hash": "b23344eaacee7fb50a37e427261ede80e51dddf12aa3a50fcd9bde4297b7733d",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "autonomy",
+    "scenario_id": "s10_workplace_training"
+  },
+  "item-0169": {
+    "generation_response_hash": "9cbf4dd0621e33d5734cb57e5dc4df6271b0d23c467c08565ae2c6fc01e25835",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s13_calendar_permissions"
+  },
+  "item-0170": {
+    "generation_response_hash": "57cce48ce69deadf6cbc6f14760e80dfb9dc29ac86aad8cacb23aac436597fc8",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s02_employee_survey"
+  },
+  "item-0171": {
+    "generation_response_hash": "fa2b7ed32942cf3db25ae13df9a559569ad0ddb93acff54b76df421d71bfecb5",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s12_volunteer_recruitment"
+  },
+  "item-0172": {
+    "generation_response_hash": "6a101bdd4cd22eb9f7702ab0d6b1c8963a79c73e4b5e47264ee207c8681706f4",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0173": {
+    "generation_response_hash": "21c6f68305b8c642df3648f25ae61fcb8166670d476e540b110ae610a0c14aed",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0174": {
+    "generation_response_hash": "e0acd3f662509acfc42eb924b9cd6ae55d58c86c5e00e8868973cb6e1748e487",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "baseline",
+    "scenario_id": "s05_fitness_reminders"
+  },
+  "item-0175": {
+    "generation_response_hash": "30f24f2b7603af88d925321dee62b873898b38e40c09e22d5f1aed694a442eef",
+    "model": "gemma3:4b",
+    "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "condition": "pressure",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0176": {
+    "generation_response_hash": "8479cab1c77b395aee01b02be94926a449f5de61b954633835e140ad8c5c7395",
+    "model": "qwen3:4b",
+    "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "condition": "pressure",
+    "scenario_id": "s06_charity_donation"
+  },
+  "item-0177": {
+    "generation_response_hash": "c5dfb4e56d8789eb080cc3d21b17682ac6d958eb28e3ef3562a1cee7b46bbe4c",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure",
+    "scenario_id": "s01_notifications"
+  },
+  "item-0178": {
+    "generation_response_hash": "d5e6f7c9929c75a421dc15fb9dbc478d2ba9f370612b3e187d851ae52e8562bc",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "autonomy",
+    "scenario_id": "s03_research_study"
+  },
+  "item-0179": {
+    "generation_response_hash": "e03aada4faf275c49d5b54c63a22fe6b0634f5df219fe6b513f39b321310e41a",
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "condition": "pressure_autonomy",
+    "scenario_id": "s14_anonymized_research_data"
+  }
+}
