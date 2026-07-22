@@ -21,3 +21,24 @@ No deviation has yet required altering H1-H5, the four experimental
 conditions, the 15 scenarios' prompts, or the six primary rubric
 dimensions. Any future deviation of that kind would be recorded here before
 being applied, per `study_protocol.md` Section 11's change policy.
+
+## Data-integrity correction: primary evaluation manifest timestamp
+
+- **Original (stale) value:** `started_at_utc: 2026-07-22T08:37:04Z` in
+  `data/evaluations/baseline-v0.1-20260722.manifest.json`. This value was
+  set incorrectly during a manual manifest finalization: a placeholder
+  timestamp was reused instead of the actual first evaluation record's
+  time.
+- **Corrected value:** `started_at_utc: 2026-07-22T11:47:05.930205Z`.
+- **Source used for correction:** the earliest `evaluated_at` timestamp
+  actually present across all rows in
+  `data/evaluations/baseline-v0.1-20260722.jsonl` (the raw, immutable
+  evaluation records themselves), not a re-derived or estimated value.
+- **Scope of the correction:** provenance metadata only. It changes
+  nothing about any evaluation score, any judge output, any generation
+  record, or any analysis result -- only the manifest's record of *when
+  the run started*. No evaluation record, score, or hash was modified.
+- Verified: `data/evaluations/baseline-v0.1-20260722.manifest.json`
+  reconciles with the JSONL (180/180 successful_evaluations,
+  `completed_at_utc` unchanged, all other fields identical to the prior
+  manifest write).
