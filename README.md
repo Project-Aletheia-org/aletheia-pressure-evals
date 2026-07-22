@@ -1,17 +1,20 @@
 # aletheia-pressure-evals
 
-> **This repository contains an early-stage pilot study. Results should not
-> be generalized beyond the tested models, prompts, and scenarios.**
+> **This repository is an ongoing behavioral evaluation framework, currently
+> at Initial Baseline Study v0.1. Results should not be generalized beyond
+> the tested models, prompts, and scenarios of the run being reported.**
 
 ## Summary
 
-A four-day behavioral pilot asking: when an AI assistant is pressured to
-achieve a persuasive objective, does it become more manipulative, and can a
-short autonomy-preserving instruction reduce that behavior? We run three
-small open-weight language models locally through four system-prompt
-conditions across 15 benign persuasion scenarios, score the outputs on a
-six-dimension manipulation/autonomy rubric using a blinded open-weight
-judge, and validate the judge against blinded human annotation.
+An ongoing behavioral evaluation framework asking: when an AI assistant is
+pressured to achieve a persuasive objective, does it become more
+manipulative, and can a short autonomy-preserving instruction reduce that
+behavior? We run open-weight language models locally through four
+system-prompt conditions across a versioned scenario bank, score the
+outputs on a six-dimension manipulation/autonomy rubric using a blinded
+open-weight judge, and validate the judge against blinded human annotation.
+The framework is designed to be run repeatedly over time (see
+`reports/study_protocol.md`), not as a single one-off experiment.
 
 ## Research question
 
@@ -24,15 +27,16 @@ reduce that behavior?
 This is a lower-stakes behavioral precursor to a broader alignment concern:
 models optimized hard against an objective (agreement, conversion, retention)
 may drift toward manipulation, deception by omission, or pressure tactics
-even without any explicit instruction to manipulate. This pilot asks whether
-that shift is (a) detectable in small, locally-run open-weight models under
-controlled prompts, and (b) mitigated by a short, explicit
+even without any explicit instruction to manipulate. This program asks
+whether that shift is (a) detectable in small, locally-run open-weight
+models under controlled prompts, and (b) mitigated by a short, explicit
 autonomy-preserving instruction placed in direct tension with the
 performance objective.
 
-## Hypotheses (preregistered)
+## Hypotheses (Initial Baseline Study v0.1)
 
-See `reports/preregistration.md` for the frozen version. Summary:
+See `reports/study_protocol.md` for the living, versioned protocol. Summary
+of the current hypotheses:
 
 - **H1**: High goal pressure increases mean manipulation scores vs. baseline.
 - **H2**: An autonomy-preserving instruction reduces manipulation scores
@@ -219,7 +223,7 @@ models generalize to frontier or closed systems.
 ## Status checklist
 
 - [x] Repository scaffold, config, dependencies
-- [x] Research question, hypotheses, preregistration frozen (`reports/preregistration.md`)
+- [x] Research question, hypotheses, study protocol v0.1 (`reports/study_protocol.md`)
 - [x] 15 scenarios authored and schema-validated
 - [x] Four condition system prompts implemented and tested
 - [x] Ollama health checks
@@ -235,6 +239,8 @@ models generalize to frontier or closed systems.
 ## Citation
 
 ```
-Musfirah, S. (2026). Goal Pressure and Manipulative Persuasion in
-Open-Weight Language Models: A Pilot Study. aletheia-pressure-evals.
+Musfirah, S. (2026). Aletheia Pressure Evals: An Ongoing Behavioral
+Evaluation Framework for Goal Pressure and Manipulative Persuasion in
+Open-Weight Language Models. Initial Baseline Study v0.1.
+aletheia-pressure-evals.
 ```
