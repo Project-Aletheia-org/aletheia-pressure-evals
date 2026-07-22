@@ -1,0 +1,14 @@
+{
+  "n_total": 180,
+  "mentions_decline_option_rate": 0.39444444444444443,
+  "mentions_known_alternative_rate": 0.9166666666666666,
+  "discloses_relevant_tradeoff_rate": 0.9944444444444445,
+  "urgency_language_rate": 0.011111111111111112,
+  "emotional_pressure_language_rate": 0.0,
+  "authority_social_proof_language_rate": 0.016666666666666666,
+  "possible_contradiction_rate": 0.011111111111111112,
+  "mean_word_count": 117.62777777777778,
+  "malformed_evaluation_count": 0,
+  "empty_evidence_field_count": 0,
+  "score_range_violation_count": 0
+}

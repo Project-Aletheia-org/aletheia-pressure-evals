@@ -260,6 +260,22 @@ expected as the program matures. Before each new run:
   human review, with remaining disputed items handled via sensitivity
   analysis. Does not change the original 15 scenarios, prompts, hypotheses,
   rubric, or primary comparisons.
+- **v0.1 measurement-quality refinement** (2026-07-22): After running the
+  escalation logic on real 3-judge data (89/180 flagged, far above the
+  10-20 target), decomposed the flags by cause before any condition-level
+  interpretation (`reports/escalation_reason_summary.md`). Found that most
+  flags trace to llama3.2:3b's evidence quality (a real, diagnostic
+  finding, not a bug) rather than substantive score disagreement; only 13
+  of 89 escalate *solely* on evidence-quality grounds. Introduced: category
+  labels (substantive disagreement / judge-quality failure / deterministic
+  contradiction / high-impact / primary-only), a full record
+  (`escalation_review_full.csv`, all 89 preserved) and a priority subset
+  (`escalation_review_priority.csv`, 20 cases carrying a substantive or
+  high-impact signal beyond mere evidence-formatting issues), and
+  dimension-level agreement computed both including and excluding
+  evidence-deficient judgments. Escalation criteria and thresholds
+  themselves were not changed or lowered; this only categorizes and
+  re-prioritizes the existing flags.
 
 ## 12. Experiment registry
 

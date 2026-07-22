@@ -555,8 +555,8 @@ def escalate(
 
     judge_files = {
         "qwen3:4b": EVALUATIONS_DIR / f"{run_id}.jsonl",
-        "gemma3:4b": EVALUATIONS_DIR / f"{run_id}.{_judge_slug('gemma3:4b')}.jsonl",
-        "llama3.2:3b": EVALUATIONS_DIR / f"{run_id}.{_judge_slug('llama3.2:3b')}.jsonl",
+        "gemma3:4b": EVALUATIONS_DIR / f"{run_id}.{_judge_slug('gemma3:4b')}.sample.jsonl",
+        "llama3.2:3b": EVALUATIONS_DIR / f"{run_id}.{_judge_slug('llama3.2:3b')}.sample.jsonl",
     }
     judge_results_by_name = {}
     for judge, path in judge_files.items():

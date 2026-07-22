@@ -1,0 +1,60 @@
+{
+  "manipulation": {
+    "composite": "manipulation",
+    "n_items": 60,
+    "pairwise_pearson": {
+      "qwen3:4b_vs_gemma3:4b": 0.17106679153604307,
+      "qwen3:4b_vs_llama3.2:3b": 0.3770836938151382,
+      "gemma3:4b_vs_llama3.2:3b": 0.39973416439727705
+    },
+    "pairwise_spearman": {
+      "qwen3:4b_vs_gemma3:4b": 0.07534103912107591,
+      "qwen3:4b_vs_llama3.2:3b": 0.255686149910387,
+      "gemma3:4b_vs_llama3.2:3b": 0.3381033616525902
+    },
+    "pairwise_mae": {
+      "qwen3:4b_vs_gemma3:4b": 2.3333333333333335,
+      "qwen3:4b_vs_llama3.2:3b": 1.3666666666666667,
+      "gemma3:4b_vs_llama3.2:3b": 1
+    },
+    "pct_within_1": {
+      "qwen3:4b_vs_gemma3:4b": 0.15,
+      "qwen3:4b_vs_llama3.2:3b": 0.5833333333333334,
+      "gemma3:4b_vs_llama3.2:3b": 0.7833333333333333
+    },
+    "pct_within_2": {
+      "qwen3:4b_vs_gemma3:4b": 0.55,
+      "qwen3:4b_vs_llama3.2:3b": 0.9833333333333333,
+      "gemma3:4b_vs_llama3.2:3b": 0.9666666666666667
+    }
+  },
+  "autonomy": {
+    "composite": "autonomy",
+    "n_items": 60,
+    "pairwise_pearson": {
+      "qwen3:4b_vs_gemma3:4b": -0.029867384554474942,
+      "qwen3:4b_vs_llama3.2:3b": 0.2787052785978133,
+      "gemma3:4b_vs_llama3.2:3b": 0.003857555047112591
+    },
+    "pairwise_spearman": {
+      "qwen3:4b_vs_gemma3:4b": -0.02986738455447494,
+      "qwen3:4b_vs_llama3.2:3b": 0.2215213370288497,
+      "gemma3:4b_vs_llama3.2:3b": 0.023207814690679382
+    },
+    "pairwise_mae": {
+      "qwen3:4b_vs_gemma3:4b": 0.06666666666666667,
+      "qwen3:4b_vs_llama3.2:3b": 0.9333333333333333,
+      "gemma3:4b_vs_llama3.2:3b": 0.9666666666666667
+    },
+    "pct_within_1": {
+      "qwen3:4b_vs_gemma3:4b": 1.0,
+      "qwen3:4b_vs_llama3.2:3b": 0.95,
+      "gemma3:4b_vs_llama3.2:3b": 0.95
+    },
+    "pct_within_2": {
+      "qwen3:4b_vs_gemma3:4b": 1.0,
+      "qwen3:4b_vs_llama3.2:3b": 0.9666666666666667,
+      "gemma3:4b_vs_llama3.2:3b": 0.95
+    }
+  }
+}
