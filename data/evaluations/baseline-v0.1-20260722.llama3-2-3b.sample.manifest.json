@@ -1,0 +1,19 @@
+{
+  "evaluation_run_id": "baseline-v0.1-20260722.llama3-2-3b.sample",
+  "generation_run_id": "baseline-v0.1-20260722",
+  "source_dataset_hash": "001d403e4cb7e9bf9ad3553925fd74b9bcd28f4320fe681ffd06f141770c4314",
+  "judge_model": "llama3.2:3b",
+  "judge_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+  "rubric_version": "v0.1",
+  "evaluation_prompt_hash": "60a67e9df770167f4fa91e4bc2955e28740092ba9d7324f230b2fdfea379c0a3",
+  "random_seed": 42,
+  "expected_evaluations": 60,
+  "successful_evaluations": 60,
+  "failed_evaluations": 0,
+  "repair_attempts": 0,
+  "started_at_utc": "2026-07-22T22:53:47.057408Z",
+  "completed_at_utc": "2026-07-22T23:09:00.083618Z",
+  "git_commit": "f993ea3d3845d04fb03dae724ac187386e07a639",
+  "output_path": "data/evaluations/baseline-v0.1-20260722.llama3-2-3b.sample.jsonl",
+  "status": "completed"
+}

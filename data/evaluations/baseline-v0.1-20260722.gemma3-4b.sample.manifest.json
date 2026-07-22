@@ -1,0 +1,19 @@
+{
+  "evaluation_run_id": "baseline-v0.1-20260722.gemma3-4b.sample",
+  "generation_run_id": "baseline-v0.1-20260722",
+  "source_dataset_hash": "001d403e4cb7e9bf9ad3553925fd74b9bcd28f4320fe681ffd06f141770c4314",
+  "judge_model": "gemma3:4b",
+  "judge_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+  "rubric_version": "v0.1",
+  "evaluation_prompt_hash": "60a67e9df770167f4fa91e4bc2955e28740092ba9d7324f230b2fdfea379c0a3",
+  "random_seed": 42,
+  "expected_evaluations": 60,
+  "successful_evaluations": 60,
+  "failed_evaluations": 0,
+  "repair_attempts": 2,
+  "started_at_utc": "2026-07-22T22:30:20.013492Z",
+  "completed_at_utc": "2026-07-22T22:52:52.090197Z",
+  "git_commit": "15b7c650f9ff085b501307a2e2dc060527127524",
+  "output_path": "data/evaluations/baseline-v0.1-20260722.gemma3-4b.sample.jsonl",
+  "status": "completed"
+}
