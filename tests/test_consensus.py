@@ -1,3 +1,5 @@
+import pytest
+
 from pressure_evals.audit import DeterministicAuditResult
 from pressure_evals.consensus import (
     PRIMARY_DIMENSIONS,
@@ -218,3 +220,148 @@ def test_dimension_level_agreement_perfect_agreement():
     )
     assert agreement.exact_agreement_rate == 1.0
     assert agreement.mean_range == 0.0
+    assert agreement.majority_agreement_rate == 1.0
+    assert agreement.mean_absolute_disagreement == 0.0
+    assert agreement.n_items == 5
+
+
+def test_composite_agreement_perfect_vs_varied():
+    from pressure_evals.consensus import composite_agreement
+
+    items = []
+    for i in range(10):
+        # vary manipulation-relevant scores across items so correlation is meaningful
+        val = i % 3
+        scores = {d: val for d in PRIMARY_DIMENSIONS}
+        judge_results = {
+            "qwen3:4b": _judge_result(scores),
+            "gemma3:4b": _judge_result(scores),  # identical -> perfect agreement
+        }
+        items.append(
+            compute_item_consensus(
+                item_id=f"item-{i:04d}", scenario_context="ctx", visible_response="resp",
+                judge_results=judge_results,
+            )
+        )
+    agreement = composite_agreement(items, "manipulation", ["qwen3:4b", "gemma3:4b"])
+    key = "qwen3:4b_vs_gemma3:4b"
+    assert agreement.pairwise_mae[key] == 0.0
+    assert agreement.pct_within_1[key] == 1.0
+    assert agreement.pct_within_2[key] == 1.0
+    assert agreement.pairwise_pearson[key] == pytest.approx(1.0, abs=0.01)
+
+
+def test_composite_agreement_with_disagreement():
+    from pressure_evals.consensus import composite_agreement
+
+    items = []
+    for i in range(10):
+        val = i % 3
+        scores_a = {d: val for d in PRIMARY_DIMENSIONS}
+        scores_b = {d: min(2, val + 1) for d in PRIMARY_DIMENSIONS}  # consistently off by one dim... 4 dims -> +4 manipulation
+        judge_results = {
+            "qwen3:4b": _judge_result(scores_a),
+            "gemma3:4b": _judge_result(scores_b),
+        }
+        items.append(
+            compute_item_consensus(
+                item_id=f"item-{i:04d}", scenario_context="ctx", visible_response="resp",
+                judge_results=judge_results,
+            )
+        )
+    agreement = composite_agreement(items, "manipulation", ["qwen3:4b", "gemma3:4b"])
+    key = "qwen3:4b_vs_gemma3:4b"
+    assert agreement.pairwise_mae[key] > 0
+
+
+def test_dimension_agreement_handles_missing_judge_result():
+    """One item where a judge is missing entirely (e.g. that judge failed);
+    dimension_level_agreement must skip it rather than crash or divide by
+    a wrong denominator."""
+    items = []
+    for i in range(5):
+        scores = {d: 1 for d in PRIMARY_DIMENSIONS}
+        judge_results = {
+            "qwen3:4b": _judge_result(scores),
+            "gemma3:4b": _judge_result(scores) if i != 2 else None,
+        }
+        items.append(
+            compute_item_consensus(
+                item_id=f"item-{i:04d}", scenario_context="ctx", visible_response="resp",
+                judge_results=judge_results,
+            )
+        )
+    agreement = dimension_level_agreement(items, "deceptive_omission", ["qwen3:4b", "gemma3:4b"])
+    assert agreement.n_items == 4  # the item with a missing judge is excluded, not miscounted
+
+
+def test_dimension_agreement_constant_scores_do_not_crash_kappa():
+    """All judges agree on the same constant score for every item -- kappa
+    is mathematically undefined here (no variance), and sklearn returns NaN
+    with a warning rather than raising. The function must not crash, and
+    the NaN must be sanitizable via to_json_safe rather than leaking into
+    a JSON export."""
+    from pressure_evals.consensus import to_json_safe
+
+    items = []
+    for i in range(5):
+        scores = {d: 0 for d in PRIMARY_DIMENSIONS}
+        judge_results = {"qwen3:4b": _judge_result(scores), "gemma3:4b": _judge_result(scores)}
+        items.append(
+            compute_item_consensus(
+                item_id=f"item-{i:04d}", scenario_context="ctx", visible_response="resp",
+                judge_results=judge_results,
+            )
+        )
+    agreement = dimension_level_agreement(items, "deceptive_omission", ["qwen3:4b", "gemma3:4b"])
+    safe = to_json_safe(agreement)
+    import json
+
+    dumped = json.dumps(safe)
+    assert "NaN" not in dumped
+    assert "Infinity" not in dumped
+
+
+def test_to_json_safe_converts_nan_inf_and_numpy_scalars():
+    import json
+
+    import numpy as np
+
+    from pressure_evals.consensus import to_json_safe
+
+    payload = {
+        "a": float("nan"),
+        "b": float("inf"),
+        "c": float("-inf"),
+        "d": np.float64(0.42),
+        "e": np.int64(3),
+        "f": [float("nan"), 1.0, np.float64(2.5)],
+    }
+    safe = to_json_safe(payload)
+    assert safe["a"] is None
+    assert safe["b"] is None
+    assert safe["c"] is None
+    assert safe["d"] == pytest.approx(0.42)
+    assert type(safe["d"]) is float
+    assert safe["e"] == 3
+    assert type(safe["e"]) is int
+    assert safe["f"] == [None, 1.0, 2.5]
+
+    dumped = json.dumps(safe)  # must not raise, and must not contain non-standard tokens
+    assert "NaN" not in dumped
+    assert "Infinity" not in dumped
+    json.loads(dumped)  # round-trips as strict JSON
+
+
+def test_to_json_safe_handles_dataclass():
+    from pressure_evals.consensus import DimensionAgreement, to_json_safe
+
+    d = DimensionAgreement(
+        dimension="deceptive_omission", mean_score=1.0, median_score=1.0, mean_range=0.0,
+        exact_agreement_rate=1.0, majority_agreement_rate=1.0, pairwise_kappa={"a_vs_b": float("nan")},
+        pairwise_spearman={"a_vs_b": None}, mean_absolute_disagreement=0.0,
+        confidence_weighted_disagreement=0.0, evidence_overlap_rate=1.0, ambiguity_rate=0.0, n_items=5,
+    )
+    safe = to_json_safe(d)
+    assert isinstance(safe, dict)
+    assert safe["pairwise_kappa"]["a_vs_b"] is None

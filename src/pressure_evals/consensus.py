@@ -14,6 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from statistics import mean, median
 
+from scipy.stats import spearmanr
 from sklearn.metrics import cohen_kappa_score
 
 from pressure_evals.audit import DeterministicAuditResult, evidence_is_grounded
@@ -220,18 +221,26 @@ class DimensionAgreement:
     median_score: float
     mean_range: float
     exact_agreement_rate: float
+    majority_agreement_rate: float
     pairwise_kappa: dict
+    pairwise_spearman: dict
+    mean_absolute_disagreement: float
     confidence_weighted_disagreement: float
     evidence_overlap_rate: float
+    ambiguity_rate: float
+    n_items: int
 
 
 def dimension_level_agreement(items: list[ItemConsensus], dimension: str, judges: list[str]) -> DimensionAgreement:
     per_judge_scores = {j: [] for j in judges}
     ranges = []
     exact_matches = 0
+    majority_matches = 0
     n_valid = 0
     weighted_disagreements = []
+    abs_disagreements = []
     overlap_hits = 0
+    ambiguous_hits = 0
     for item in items:
         scores = {}
         for j in judges:
@@ -248,9 +257,18 @@ def dimension_level_agreement(items: list[ItemConsensus], dimension: str, judges
         ranges.append(rng)
         if len(set(vals)) == 1:
             exact_matches += 1
+        counts = {v: vals.count(v) for v in set(vals)}
+        if max(counts.values()) >= 2:
+            majority_matches += 1
+        # mean absolute pairwise disagreement across all judge pairs for this item
+        pair_abs = [abs(vals[a] - vals[b]) for a in range(len(vals)) for b in range(a + 1, len(vals))]
+        if pair_abs:
+            abs_disagreements.append(mean(pair_abs))
         confs = [item.judge_confidence[j] for j in scores if item.judge_confidence.get(j) is not None]
         avg_conf = mean(confs) if confs else 1.0
         weighted_disagreements.append(rng * (1 - avg_conf))
+        if any(item.judge_ambiguous.get(j) for j in scores):
+            ambiguous_hits += 1
 
         evidences = [item.judge_evidence[j][dimension] for j in scores]
         words_sets = [set(e.lower().split()) for e in evidences]
@@ -264,6 +282,7 @@ def dimension_level_agreement(items: list[ItemConsensus], dimension: str, judges
                 overlap_hits += 1
 
     pairwise_kappa = {}
+    pairwise_spearman = {}
     for a in range(len(judges)):
         for b in range(a + 1, len(judges)):
             ja, jb = judges[a], judges[b]
@@ -274,6 +293,7 @@ def dimension_level_agreement(items: list[ItemConsensus], dimension: str, judges
             ]
             if len(paired) < 2:
                 pairwise_kappa[f"{ja}_vs_{jb}"] = None
+                pairwise_spearman[f"{ja}_vs_{jb}"] = None
                 continue
             y1, y2 = zip(*paired)
             try:
@@ -281,6 +301,13 @@ def dimension_level_agreement(items: list[ItemConsensus], dimension: str, judges
             except ValueError:
                 kappa = None
             pairwise_kappa[f"{ja}_vs_{jb}"] = kappa
+            try:
+                rho = spearmanr(y1, y2).statistic
+                if rho != rho:  # NaN check (e.g. constant input)
+                    rho = None
+            except ValueError:
+                rho = None
+            pairwise_spearman[f"{ja}_vs_{jb}"] = rho
 
     all_scores = [v for vals in per_judge_scores.values() for v in vals]
     return DimensionAgreement(
@@ -288,8 +315,105 @@ def dimension_level_agreement(items: list[ItemConsensus], dimension: str, judges
         mean_score=mean(all_scores) if all_scores else float("nan"),
         median_score=median(all_scores) if all_scores else float("nan"),
         mean_range=mean(ranges) if ranges else float("nan"),
+        majority_agreement_rate=(majority_matches / n_valid) if n_valid else float("nan"),
+        pairwise_spearman=pairwise_spearman,
+        mean_absolute_disagreement=mean(abs_disagreements) if abs_disagreements else float("nan"),
+        ambiguity_rate=(ambiguous_hits / n_valid) if n_valid else float("nan"),
+        n_items=n_valid,
         exact_agreement_rate=(exact_matches / n_valid) if n_valid else float("nan"),
         pairwise_kappa=pairwise_kappa,
         confidence_weighted_disagreement=mean(weighted_disagreements) if weighted_disagreements else float("nan"),
         evidence_overlap_rate=(overlap_hits / n_valid) if n_valid else float("nan"),
     )
+
+
+@dataclass
+class CompositeAgreement:
+    composite: str  # "manipulation_score" or "autonomy_score"
+    n_items: int
+    pairwise_pearson: dict
+    pairwise_spearman: dict
+    pairwise_mae: dict
+    pct_within_1: dict
+    pct_within_2: dict
+
+
+def composite_agreement(items: list[ItemConsensus], composite: str, judges: list[str]) -> CompositeAgreement:
+    """composite must be 'manipulation' or 'autonomy' (matches the score()
+    helper below, which reconstructs the composite from judge_scores rather
+    than relying on a possibly-stale per-item consensus field)."""
+
+    def score(item: ItemConsensus, judge: str) -> float | None:
+        s = item.judge_scores.get(judge)
+        if s is None:
+            return None
+        if composite == "manipulation":
+            return sum(s[d] for d in MANIPULATION_DIMS)
+        return sum(s[d] for d in AUTONOMY_DIMS)
+
+    pearson, spearman, mae, within1, within2 = {}, {}, {}, {}, {}
+    n_items = 0
+    for a in range(len(judges)):
+        for b in range(a + 1, len(judges)):
+            ja, jb = judges[a], judges[b]
+            paired = [
+                (score(item, ja), score(item, jb))
+                for item in items
+                if score(item, ja) is not None and score(item, jb) is not None
+            ]
+            key = f"{ja}_vs_{jb}"
+            n_items = max(n_items, len(paired))
+            if len(paired) < 2:
+                pearson[key] = spearman[key] = mae[key] = within1[key] = within2[key] = None
+                continue
+            x = [p[0] for p in paired]
+            y = [p[1] for p in paired]
+            diffs = [abs(xi - yi) for xi, yi in zip(x, y)]
+            mae[key] = mean(diffs)
+            within1[key] = sum(1 for d in diffs if d <= 1) / len(diffs)
+            within2[key] = sum(1 for d in diffs if d <= 2) / len(diffs)
+            try:
+                if len(set(x)) > 1 and len(set(y)) > 1:
+                    from scipy.stats import pearsonr
+
+                    pearson[key] = pearsonr(x, y).statistic
+                    spearman[key] = spearmanr(x, y).statistic
+                else:
+                    pearson[key] = spearman[key] = None
+            except ValueError:
+                pearson[key] = spearman[key] = None
+
+    return CompositeAgreement(
+        composite=composite, n_items=n_items,
+        pairwise_pearson=pearson, pairwise_spearman=spearman, pairwise_mae=mae,
+        pct_within_1=within1, pct_within_2=within2,
+    )
+
+
+def to_json_safe(value):
+    """Recursively sanitize a value (dataclass, dict, list, numpy scalar,
+    float) for JSON export: NaN/Infinity become None with the reason
+    preserved by the caller's schema (not silently zero), numpy scalar
+    types become native Python int/float so no numpy type ever reaches
+    `json.dumps`, and dataclasses become plain dicts.
+    """
+    if is_dataclass_instance(value):
+        return {k: to_json_safe(v) for k, v in vars(value).items()}
+    if isinstance(value, dict):
+        return {k: to_json_safe(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [to_json_safe(v) for v in value]
+    if isinstance(value, float):
+        if value != value or value in (float("inf"), float("-inf")):  # NaN or +/-Inf
+            return None
+        return float(value)
+    if hasattr(value, "item") and callable(getattr(value, "item")):
+        # numpy scalar (np.float64, np.int64, ...): unwrap to native Python type
+        return to_json_safe(value.item())
+    return value
+
+
+def is_dataclass_instance(value) -> bool:
+    from dataclasses import is_dataclass
+
+    return is_dataclass(value) and not isinstance(value, type)
