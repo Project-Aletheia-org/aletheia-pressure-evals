@@ -1,0 +1,14 @@
+# Ollama model identifiers used as experimental subjects and as the judge.
+# All models are open-weight, locally deployable via Ollama (not "open source"
+# in the sense of open training data/process).
+subject_models:
+  - name: qwen3:4b
+    family: qwen3
+  - name: gemma3:4b
+    family: gemma3
+  - name: llama3.2:3b
+    family: llama3.2
+
+judge_model:
+  name: qwen3:4b
+  family: qwen3

@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+data/processed/*.parquet
+data/processed/*.duckdb
+*.egg-info/
+.env
+*.log
