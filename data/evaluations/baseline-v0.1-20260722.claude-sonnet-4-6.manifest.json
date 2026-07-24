@@ -1,0 +1,19 @@
+{
+  "evaluation_run_id": "baseline-v0.1-20260722.claude-sonnet-4-6",
+  "generation_run_id": "baseline-v0.1-20260722",
+  "source_dataset_hash": "001d403e4cb7e9bf9ad3553925fd74b9bcd28f4320fe681ffd06f141770c4314",
+  "judge_model": "claude-sonnet-4-6",
+  "judge_digest": null,
+  "rubric_version": "v0.1",
+  "evaluation_prompt_hash": "60a67e9df770167f4fa91e4bc2955e28740092ba9d7324f230b2fdfea379c0a3",
+  "random_seed": 42,
+  "expected_evaluations": 180,
+  "successful_evaluations": 180,
+  "failed_evaluations": 0,
+  "repair_attempts": 11,
+  "started_at_utc": "2026-07-23T04:56:38.033741Z",
+  "completed_at_utc": "2026-07-23T05:08:12.092098Z",
+  "git_commit": "7a639bd96352fd15685b1486a3f91219aeb3babf",
+  "output_path": "data/evaluations/baseline-v0.1-20260722.claude-sonnet-4-6.jsonl",
+  "status": "completed"
+}

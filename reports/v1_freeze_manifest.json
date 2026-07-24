@@ -1,0 +1,145 @@
+{
+  "frozen_at_utc": "2026-07-23T08:58:47.287239+00:00",
+  "git_commit": "7a639bd96352fd15685b1486a3f91219aeb3babf",
+  "files": {
+    "data/raw_outputs/baseline-v0.1-20260722.jsonl": {
+      "sha256": "001d403e4cb7e9bf9ad3553925fd74b9bcd28f4320fe681ffd06f141770c4314",
+      "size_bytes": 640862
+    },
+    "data/raw_outputs/baseline-v0.1-20260722.manifest.json": {
+      "sha256": "b91e8444260998775be07617100a5da0f8d8746f7d256f1ea89b5ab42edce00c",
+      "size_bytes": 1360
+    },
+    "data/evaluations/baseline-v0.1-20260722.jsonl": {
+      "sha256": "f343bac5c514d434b14d6cc589b29c6e4fd4b7d78ff050c2b38a5c49e9d17aa1",
+      "size_bytes": 791465
+    },
+    "data/evaluations/baseline-v0.1-20260722.manifest.json": {
+      "sha256": "1301c9fd182bc998e586921b53f652dc72a3230cfa15925b271d99e9badb83e7",
+      "size_bytes": 825
+    },
+    "data/evaluations/baseline-v0.1-20260722.blinding_key.json": {
+      "sha256": "79d380573b93cbe05cbd4afa069026cb191c0c62d7d2e4fa5e479994a2a8d755",
+      "size_bytes": 56040
+    },
+    "data/evaluations/baseline-v0.1-20260722.gemma3-4b.sample.jsonl": {
+      "sha256": "4e2f85348916b28243591ec31bba7604193fcd72a61b36efe4f280642aab663e",
+      "size_bytes": 218373
+    },
+    "data/evaluations/baseline-v0.1-20260722.gemma3-4b.sample.manifest.json": {
+      "sha256": "1da1f6a2dca7e6b093595bb7e65279355372805bda485ae42f49353357af756f",
+      "size_bytes": 857
+    },
+    "data/evaluations/baseline-v0.1-20260722.llama3-2-3b.sample.jsonl": {
+      "sha256": "ecc79f62fc0d34ec4385bf8292debbd6cbc1c0a68c105025ba4d63ce7db6cdda",
+      "size_bytes": 168036
+    },
+    "data/evaluations/baseline-v0.1-20260722.llama3-2-3b.sample.manifest.json": {
+      "sha256": "eb835fbda04bf468a27759f974bc8cdbb01971e1ec7552d0b1070bf42f0b6806",
+      "size_bytes": 863
+    },
+    "data/evaluations/baseline-v0.1-20260722.secondary_sample.json": {
+      "sha256": "02bcaab4b74f4dca6568ded379c766ebe206e00bcdf3c0787a370864f1be0fc9",
+      "size_bytes": 3028
+    },
+    "data/evaluations/baseline-v0.1-20260722.claude-sonnet-4-6.jsonl": {
+      "sha256": "797755fd1a0432063e95c712156c321d99237031091692d64cb7ee5e013cc93a",
+      "size_bytes": 1093130
+    },
+    "data/evaluations/baseline-v0.1-20260722.claude-sonnet-4-6.manifest.json": {
+      "sha256": "5b6f3abd4f86bf4cee897651b82f96f2bac53d414ffa11580d293c82dd06653d",
+      "size_bytes": 808
+    },
+    "data/scenarios.jsonl": {
+      "sha256": "6cb4c0eb588835b30361f08008d367d7adb821dea1e4b96ef9994c3c07896e57",
+      "size_bytes": 23566
+    },
+    "configs/experiment.yaml": {
+      "sha256": "38b2b7c09805c8a9ded9c11ac524d4d7f15cf88db64343edcda1924e472f534b",
+      "size_bytes": 1407
+    },
+    "reports/baseline_v0.1_results.json": {
+      "sha256": "28e928a34d13489991b6484c97ec2d3b8ebda06af3054998fc82ef87f126cd50",
+      "size_bytes": 14932
+    },
+    "reports/baseline_v0.1_report.md": {
+      "sha256": "2a22fbef93d717af8926abf5b908381b14257106e9c09632665e6e08a300de2f",
+      "size_bytes": 6267
+    },
+    "reports/baseline_v0.1_executive_summary.md": {
+      "sha256": "c3d529c22f39b3c3958baa26391024ca72493dc38cd167faad04ca2f7bd97ee9",
+      "size_bytes": 1802
+    },
+    "reports/judge_agreement.csv": {
+      "sha256": "a70a8c4dbb8480fe12d10fbadff7ae1c2d416a2eabbf5d1866f2ed7e6f6775ba",
+      "size_bytes": 1674
+    },
+    "reports/tables/composite_agreement.json": {
+      "sha256": "3c0ae38dad17732563fbf570660b7bbdeafc48784d64541125fb33d032f4433f",
+      "size_bytes": 1919
+    },
+    "reports/claude_external_judge_results.json": {
+      "sha256": "6617fb13e3d91f52337aca7d1579c2ecc2df5fa2bec4069b1332b8e80aec2856",
+      "size_bytes": 528968
+    },
+    "reports/claude_external_judge_analysis.md": {
+      "sha256": "486af6b7681c6852116f6e3965272f447e879eb1c4a11e8711a7d13ca96c46ac",
+      "size_bytes": 7259
+    },
+    "reports/judge_sensitivity_summary.md": {
+      "sha256": "7071e2637b2b56a388b33b182093fd34d1ebfd87b8a9f45bdb6b1c671fa27e4a",
+      "size_bytes": 8383
+    },
+    "reports/qwen_claude_agreement.csv": {
+      "sha256": "72fd38f7d4c56b294d89a6da7aac1a25ac401bfdeec4ab06be089a017685bbfb",
+      "size_bytes": 1458
+    },
+    "reports/public_result_update.md": {
+      "sha256": "764f627172f29a6b8ce557ed132fc33318b147faec4dfae3993647ef6e9d891d",
+      "size_bytes": 4017
+    },
+    "reports/qwen_claude_high_disagreement_review.md": {
+      "sha256": "b6320c9cd0e3e44665ffe5111709d616b770483ed37b6fe6bc53613802aa161e",
+      "size_bytes": 252379
+    },
+    "reports/qwen_claude_high_disagreement_review.csv": {
+      "sha256": "c768125692db9413e30f8268576c0f7eb541a26573739f731265221dd3f630a3",
+      "size_bytes": 157480
+    },
+    "reports/qwen_claude_high_disagreement_unblinding_key.csv": {
+      "sha256": "b63cc1093b919477eaeceb833fd29bf6cd4cbbcaeb7ea86cf17e62a0febcbcdc",
+      "size_bytes": 5956
+    },
+    "reports/human_adjudication_blinded_15.md": {
+      "sha256": "e2a3ad61eb8941101ea4143e84902bbb36ee11e5649cdfa72425ddcb798234dc",
+      "size_bytes": 26457
+    },
+    "reports/human_adjudication_blinded_15.csv": {
+      "sha256": "c1e0940fcf5cb66e0f9c32580baf6749da0116728eb825adaf0489ec09239bdc",
+      "size_bytes": 19468
+    },
+    "reports/human_adjudication_unblinding_key.csv": {
+      "sha256": "ee468a5e67c9bda31a16aff2694559c5946ed463f980f160bfb5033a15a8d643",
+      "size_bytes": 2469
+    },
+    "src/pressure_evals/external_judge.py": {
+      "sha256": "d047bfcfd5917846a7a424fc36c809f2895d28a1181768ee178316b96d1745a5",
+      "size_bytes": 15468
+    },
+    "tests/test_external_judge.py": {
+      "sha256": "d4f7faaf3445eafd892b7e79c1b4283c3f3e4777d0e869bc0f1cf21296f6578f",
+      "size_bytes": 11072
+    }
+  },
+  "test_suite": {
+    "command": "uv run pytest -q",
+    "result": "109 passed, 15 warnings",
+    "run_at_freeze": true
+  },
+  "human_adjudication_status": {
+    "packet_created": true,
+    "packet_path": "reports/human_adjudication_blinded_15.md",
+    "ratings_completed": false,
+    "note": "15-item blinded packet generated and opened for review, but no scoring fields were saved back to reports/human_adjudication_blinded_15.md or .csv as of freeze time. Human-vs-judge comparison is NOT included in this V1 freeze; the V1 classification below rests on the Qwen-vs-Claude automated comparison only. This is an open action item, not a completed and excluded one -- see reports/v1_completion_checklist.md."
+  }
+}

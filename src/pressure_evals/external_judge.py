@@ -1,4 +1,4 @@
-"""External sensitivity judge: claude-sonnet-5 via the Anthropic Messages
+"""External sensitivity judge: claude-sonnet-4-6 via the Anthropic Messages
 API, scoring the same 180 blinded items as the local judges.
 
 This is a measurement-validation extension, not a replacement for the
@@ -17,6 +17,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -28,7 +31,7 @@ from pydantic import ValidationError
 from pressure_evals.evaluate import BlindedItem, _JUDGE_SYSTEM_PROMPT, evaluation_prompt_hash
 from pressure_evals.schemas import EvaluationRecord, EvaluationResult, JudgeRawOutput
 
-EXTERNAL_JUDGE_MODEL = "claude-sonnet-5"
+EXTERNAL_JUDGE_MODEL = "claude-sonnet-4-6"
 
 # Anthropic Sonnet-class published rates as of this study; not independently
 # re-verified per call. Treat cost figures derived from these as estimates,
@@ -267,4 +270,129 @@ def run_external_judge(
                 done.add(item.generation_response_hash)
             if progress_callback:
                 progress_callback(item, skipped=False, record=record)
+    return new_records
+
+
+def evaluate_one_claude_with_retry(
+    item: BlindedItem,
+    *,
+    run_id: str,
+    client: "anthropic.Anthropic",
+    max_tokens: int = 1024,
+    max_repair_retries: int = 2,
+    timeout: float = 60.0,
+    max_network_retries: int = 3,
+    backoff_base_seconds: float = 2.0,
+) -> ExternalJudgeRecord:
+    """Wraps evaluate_one_claude with exponential-backoff retry, but only
+    for exception-classified (network/API) failures -- identifiable because
+    evaluate_one_claude leaves raw_response empty in that path, versus a
+    non-empty raw_response once malformed-JSON repairs are exhausted. The
+    two retry mechanisms are independent: schema repairs happen inside a
+    single evaluate_one_claude call, this retries the whole call."""
+    attempt = 0
+    while True:
+        record = evaluate_one_claude(
+            item, run_id=run_id, client=client, max_tokens=max_tokens,
+            max_repair_retries=max_repair_retries, timeout=timeout,
+        )
+        er = record.evaluation_record
+        is_network_failure = er.evaluation_failed and not er.raw_response
+        if not is_network_failure or attempt >= max_network_retries:
+            return record
+        time.sleep(backoff_base_seconds ** attempt)
+        attempt += 1
+
+
+def run_external_judge_concurrent(
+    *,
+    items: list[BlindedItem],
+    run_id: str,
+    client: "anthropic.Anthropic",
+    output_path: Path,
+    max_tokens: int = 1024,
+    max_repair_retries: int = 2,
+    spend_ceiling_usd: float = HARD_SPEND_CEILING_USD,
+    concurrency: int = 5,
+    max_network_retries: int = 3,
+    timeout: float = 60.0,
+    progress_callback=None,
+) -> list[ExternalJudgeRecord]:
+    """Concurrent counterpart to run_external_judge: same resumability and
+    spend-ceiling guarantees, processing `concurrency` items at a time via a
+    thread pool (the Anthropic SDK call is I/O-bound), retrying network/API
+    failures with backoff via evaluate_one_claude_with_retry.
+
+    All shared mutable state (the output file, running_cost, done) is only
+    ever touched from the main thread, inside the same lock, immediately
+    after each future resolves in the `as_completed` loop below -- worker
+    threads only compute evaluate_one_claude_with_retry and never write
+    anything themselves. This is a hard stop on *projected* spend: before
+    dispatching each batch we require the remaining budget to cover a
+    conservative per-call cost estimate (a generous assumed input-token
+    count at this evaluation's max_tokens output ceiling), shrinking the
+    batch size near the ceiling rather than only checking cost already
+    spent after the fact.
+    """
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    done = _completed_response_hashes(output_path)
+    pending = [item for item in items if item.generation_response_hash not in done]
+    for item in items:
+        if item.generation_response_hash in done and progress_callback:
+            progress_callback(item, skipped=True)
+
+    running_cost = 0.0
+    if output_path.exists():
+        with output_path.open() as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    running_cost += json.loads(line).get("estimated_cost_usd", 0.0)
+
+    conservative_input_tokens = 4000  # generous upper bound on scenario_context + visible_response
+    per_call_cost_estimate = estimate_cost_usd(conservative_input_tokens, max_tokens)
+
+    new_records: list[ExternalJudgeRecord] = []
+    state_lock = threading.Lock()
+
+    with output_path.open("a") as f:
+        i = 0
+        while i < len(pending):
+            remaining_budget = spend_ceiling_usd - running_cost
+            if remaining_budget < per_call_cost_estimate:
+                raise RuntimeError(
+                    f"Spend ceiling would be exceeded (spent ${running_cost:.2f}, "
+                    f"next call estimated at up to ${per_call_cost_estimate:.4f}, "
+                    f"ceiling ${spend_ceiling_usd:.2f}); halting before further API "
+                    "calls. All prior records preserved."
+                )
+            max_affordable = max(1, int(remaining_budget // per_call_cost_estimate))
+            batch_size = min(concurrency, max_affordable, len(pending) - i)
+            batch = pending[i : i + batch_size]
+            i += batch_size
+            with ThreadPoolExecutor(max_workers=batch_size) as pool:
+                futures = {
+                    pool.submit(
+                        evaluate_one_claude_with_retry,
+                        item, run_id=run_id, client=client, max_tokens=max_tokens,
+                        max_repair_retries=max_repair_retries, timeout=timeout,
+                        max_network_retries=max_network_retries,
+                    ): item
+                    for item in batch
+                }
+                for fut in as_completed(futures):
+                    item = futures[fut]
+                    record = fut.result()
+                    with state_lock:
+                        succeeded = not record.evaluation_record.evaluation_failed
+                        if succeeded and item.generation_response_hash in done:
+                            continue  # duplicate success already recorded; never double-write
+                        f.write(json.dumps(record.to_json_dict()) + "\n")
+                        f.flush()
+                        new_records.append(record)
+                        running_cost += record.estimated_cost_usd
+                        if succeeded:
+                            done.add(item.generation_response_hash)
+                    if progress_callback:
+                        progress_callback(item, skipped=False, record=record)
     return new_records

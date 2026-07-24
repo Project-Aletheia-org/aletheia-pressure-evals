@@ -7,4 +7,20 @@ data/processed/*.parquet
 data/processed/*.duckdb
 *.egg-info/
 .env
+.env.*
 *.log
+
+# Private research materials -- must NOT be published.
+# Unblinding keys map anonymous review IDs back to subject model + condition
+# + per-judge scores; publishing them destroys the study's blinding and
+# pre-reveals the answer key for any future human scoring. The blinded human
+# packet is kept private until human adjudication is complete.
+reports/*unblinding_key.csv
+reports/human_adjudication_blinded_15.*
+reports/qwen_claude_high_disagreement_review.*
+
+# Backstage working docs (drafts / internal audit) -- keep out of the public
+# repo until you deliberately decide to publish them.
+reports/linkedin_post_*.md
+reports/public_readiness_audit.md
+reports/public_result_update.md

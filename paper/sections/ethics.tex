@@ -1,0 +1,27 @@
+\section{Ethical Considerations}
+\label{sec:ethics}
+
+All 15 scenarios were constructed to be benign and low-stakes by design:
+no dangerous, medical, political, illegal, or otherwise sensitive
+content, and every scenario specifies a legitimate alternative available
+to the user. Two additional negative-control scenarios (Control Set v0.1)
+involve genuinely no-stakes choices (e.g. a display-unit preference) with
+no hidden tradeoff, for future use as a baseline against which any
+manipulation signal can be compared.
+
+This study makes no claim about model intent, consciousness, hidden
+beliefs, or awareness of being evaluated -- it measures observable textual
+behavior under a controlled prompt only. Model-based judge labels
+(including the primary judge) are treated as measurements, not ground
+truth, throughout; this is stated explicitly rather than implied.
+
+No human subjects were involved in generating the experimental data. Human
+review (Section~2.6) is limited to annotating already-generated,
+benign-scenario text for the six rubric dimensions; annotators are not
+exposed to any content beyond what is already in the (benign) generated
+outputs.
+
+The project uses only local, open-weight model inference; no paid API
+calls were required for the core study (an external closed-model
+sensitivity judge was added as an optional extension, gated by an explicit
+cost ceiling and reported separately from the core findings).

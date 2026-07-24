@@ -1,4 +1,5 @@
 import json
+import threading
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -9,7 +10,9 @@ from pressure_evals.external_judge import (
     HARD_SPEND_CEILING_USD,
     estimate_cost_usd,
     evaluate_one_claude,
+    evaluate_one_claude_with_retry,
     run_external_judge,
+    run_external_judge_concurrent,
 )
 from pressure_evals.prompts import AUTONOMY_ADDITION, BASELINE_PROMPT, PRESSURE_ADDITION
 
@@ -50,6 +53,32 @@ class FakeMessagesResource:
 class FakeClient:
     def __init__(self, responses_or_exceptions):
         self.messages = FakeMessagesResource(responses_or_exceptions)
+
+
+class KeyedFakeMessagesResource:
+    """Thread-safe fake keyed by a unique substring of the user content
+    (item_id's response text), since concurrent execution does not
+    guarantee call order the way the plain FakeMessagesResource assumes."""
+
+    def __init__(self, responses_by_key):
+        self._queues = {k: list(v) for k, v in responses_by_key.items()}
+        self._lock = threading.Lock()
+        self.calls = []
+
+    def create(self, **kwargs):
+        content = kwargs["messages"][0]["content"]
+        with self._lock:
+            self.calls.append(kwargs)
+            key = next(k for k in self._queues if k in content)
+            item = self._queues[key].pop(0)
+        if isinstance(item, Exception):
+            raise item
+        return item
+
+
+class KeyedFakeClient:
+    def __init__(self, responses_by_key):
+        self.messages = KeyedFakeMessagesResource(responses_by_key)
 
 
 def _item(item_id="item-0000", scenario_context="ctx", visible_response="You can always decline this.", response_hash=None):
@@ -159,3 +188,75 @@ def test_estimate_cost_usd_reasonable():
 
 def test_hard_spend_ceiling_constant_is_ten():
     assert HARD_SPEND_CEILING_USD == 10.0
+
+
+def test_retry_wrapper_retries_network_failure_then_succeeds():
+    client = FakeClient([RuntimeError("timeout"), _mock_response(VALID_TOOL_INPUT)])
+    record = evaluate_one_claude_with_retry(
+        _item(), run_id="run-1", client=client, max_network_retries=3, backoff_base_seconds=0.001,
+    )
+    assert record.evaluation_record.evaluation_failed is False
+    assert len(client.messages.calls) == 2
+
+
+def test_retry_wrapper_gives_up_after_max_network_retries():
+    client = FakeClient([RuntimeError("timeout")] * 3)
+    record = evaluate_one_claude_with_retry(
+        _item(), run_id="run-1", client=client, max_network_retries=2, backoff_base_seconds=0.001,
+    )
+    assert record.evaluation_record.evaluation_failed is True
+    assert len(client.messages.calls) == 3  # 1 initial + 2 retries
+
+
+def test_retry_wrapper_does_not_retry_schema_failures():
+    bad_input = {"deceptive_omission": {"score": 5, "evidence": "bad"}}
+    client = FakeClient([_mock_response(bad_input)] * 3)
+    record = evaluate_one_claude_with_retry(
+        _item(), run_id="run-1", client=client, max_repair_retries=2,
+        max_network_retries=5, backoff_base_seconds=0.001,
+    )
+    assert record.evaluation_record.evaluation_failed is True
+    # schema repairs (max_repair_retries=2) exhausted internally; the outer
+    # network-retry wrapper must not add further calls on top of that
+    assert len(client.messages.calls) == 3
+
+
+def test_run_external_judge_concurrent_is_resumable(tmp_path: Path):
+    items = [_item(f"item-000{i}", visible_response=f"response {i} you can decline") for i in range(6)]
+    responses_by_key = {f"response {i} you can decline": [_mock_response(VALID_TOOL_INPUT)] for i in range(6)}
+    client = KeyedFakeClient(responses_by_key)
+    output_path = tmp_path / "claude.jsonl"
+
+    first = run_external_judge_concurrent(
+        items=items, run_id="run-1", client=client, output_path=output_path, concurrency=3,
+    )
+    assert len(first) == 6
+    assert len(client.messages.calls) == 6
+
+    second = run_external_judge_concurrent(
+        items=items, run_id="run-1", client=client, output_path=output_path, concurrency=3,
+    )
+    assert len(second) == 0
+    assert len(client.messages.calls) == 6
+
+    lines = output_path.read_text().strip().splitlines()
+    assert len(lines) == 6
+    assert len({json.loads(line)["generation_response_hash"] for line in lines}) == 6
+
+
+def test_run_external_judge_concurrent_halts_at_spend_ceiling(tmp_path: Path):
+    items = [_item(f"item-000{i}", visible_response=f"resp {i} decline ok") for i in range(5)]
+    expensive = {
+        f"resp {i} decline ok": [_mock_response(VALID_TOOL_INPUT, input_tokens=2_000_000, output_tokens=2_000_000)]
+        for i in range(5)
+    }
+    client = KeyedFakeClient(expensive)
+    output_path = tmp_path / "claude.jsonl"
+
+    with pytest.raises(RuntimeError, match="Spend ceiling"):
+        run_external_judge_concurrent(
+            items=items, run_id="run-1", client=client, output_path=output_path,
+            spend_ceiling_usd=1.0, concurrency=2,
+        )
+    lines = output_path.read_text().strip().splitlines()
+    assert 1 <= len(lines) < 5
