@@ -1,0 +1,115 @@
+\section{Results}
+
+\subsection{Primary confirmatory contrasts: no detectable effect}
+
+Table~\ref{tab:contrasts} reports the three preregistered contrasts on
+both composites, pooled across the three subject models
+($n=45$ scenario-model pairs per contrast). All permutation $p$-values are
+$\geq 0.63$; all bootstrap 95\% confidence intervals include (or lie
+essentially at) zero.
+
+\begin{table}[h]
+\centering
+\caption{Primary contrasts, pooled across models ($n=45$ scenario-model pairs each). Bootstrap CIs: 5{,}000 scenario-blocked resamples. Permutation $p$: 10{,}000 sign-flip permutations.}
+\label{tab:contrasts}
+\begin{tabular}{lccc}
+\toprule
+Contrast (Outcome) & Mean diff. & 95\% Bootstrap CI & Permutation $p$ \\
+\midrule
+pressure $-$ baseline (manipulation) & 0.000 & [$-$0.111, 0.111] & 1.000 \\
+pressure\_autonomy $-$ pressure (manipulation) & 0.022 & [$-$0.089, 0.156] & 1.000 \\
+autonomy $-$ baseline (manipulation) & $-$0.044 & [$-$0.133, 0.044] & 0.628 \\
+pressure $-$ baseline (autonomy) & 0.022 & [$-$0.044, 0.089] & 1.000 \\
+pressure\_autonomy $-$ pressure (autonomy) & $-$0.022 & [$-$0.111, 0.044] & 1.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figure~\ref{fig:manip} and Figure~\ref{fig:auto} show manipulation and
+autonomy scores by condition. Descriptively, manipulation\_score is
+compressed near the floor in every condition (mean 0.04--0.11 of a
+possible 0--8; median 0 in all four conditions), and autonomy\_score is
+compressed near the ceiling (mean 3.96--4.00 of 0--4; in the
+\emph{autonomy} condition specifically, all 45 observations score exactly
+4/4, SD $=0$). Of the 45 scenario-model pairs per contrast, 39--43 show
+\emph{zero} difference between the two compared conditions across the
+five contrast/outcome combinations reported in Table~\ref{tab:contrasts}
+(Appendix~\ref{app:additional}).
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/manipulation_score_by_condition.png}
+\caption{Manipulation score by condition (mean $\pm$ bootstrap 95\% CI, $n=45$/condition, pooled across 3 models).}
+\label{fig:manip}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/autonomy_score_by_condition.png}
+\caption{Autonomy score by condition (mean $\pm$ bootstrap 95\% CI, $n=45$/condition). Dashed line: maximum possible score.}
+\label{fig:auto}
+\end{figure}
+
+\subsection{Verification that the null result is not a pipeline artifact}
+
+We manually inspected matched baseline/pressure outputs for the same
+scenario and model (\texttt{s01\_notifications}, \texttt{qwen3:4b}): the
+judge produces distinct, response-specific evidence text for each, and
+both happen to score 0 manipulation because both preserve disclosure and
+decline language. This rules out a trivial scoring shortcut (e.g. all
+outputs scored identically regardless of content).
+
+\subsection{Independent corroboration via deterministic audit}
+
+The code-only text audit across all 180 outputs found urgency language in
+1.1\% of responses, emotional-pressure language in 0.0\%, and
+authority/social-proof language in 1.7\%, with 99.4\% disclosing the
+relevant tradeoff and 91.7\% mentioning the known alternative -- consistent
+with the judge's near-zero manipulation scores via a completely different
+(non-model, keyword-based) measurement.
+
+\subsection{Exploratory regression}
+
+The scenario-clustered OLS regression
+(manipulation\_score $\sim$ pressure + autonomy + pressure$\times$autonomy
++ model) found no coefficient distinguishable from zero (all $p > 0.14$)
+and near-zero explanatory power ($R^2 = 0.026$, $n=180$). This is
+exploratory and is reported for completeness, not as a secondary
+confirmatory finding.
+
+\subsection{Robustness}
+
+Excluding the 20 priority-escalated (genuinely disputed) items and
+recomputing pressure$-$baseline on manipulation\_score (160/180 remaining,
+34 scenario-model pairs): mean diff 0.029, bootstrap 95\% CI $[0.000,
+0.088]$, permutation $p=1.000$ -- the null result is unchanged. Further
+robustness checks (per-scenario exclusion, per-model exclusion,
+bounded-sensitivity analysis for disputed items) were not run as separate
+artifacts given the near-uniform null pattern already observed across
+scenarios and models; this is an honest limitation of the robustness
+analysis, not a claim that these checks were performed.
+
+\subsection{Multi-judge agreement}
+
+Across the 60-item tri-judge overlap sample, agreement is highest on
+\texttt{respect\_for\_refusal} (exact agreement 90\%, mean absolute
+disagreement 0.089) and \texttt{artificial\_urgency} (exact agreement
+87\%), and lower on \texttt{deceptive\_omission} (exact agreement 8\%) and
+\texttt{authority\_social\_pressure} (exact agreement 13\%), consistent
+with the floor-compressed score distribution making small integer
+disagreements (0 vs.\ 1) more common than substantive disagreement about
+whether a response is manipulative overall. \texttt{llama3.2:3b} produced
+empty evidence text on 89 of 360 (60 items $\times$ 6 dimensions) scored
+cells, versus 2 of 360 for \texttt{gemma3:4b} -- a genuine judge-quality
+finding for the smallest of the three models, not a pipeline defect, and
+the dominant (though rarely solely decisive) driver of the 89 escalation
+flags (Table~\ref{tab:judge_agreement}, full detail in
+\texttt{reports/judge\_agreement.csv} and
+\texttt{reports/escalation\_reason\_summary.md}).
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/judge_agreement_heatmap.png}
+\caption{Pairwise weighted Cohen's kappa by rubric dimension, 60-item tri-judge overlap sample.}
+\label{tab:judge_agreement}
+\end{figure}

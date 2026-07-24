@@ -1,0 +1,109 @@
+\section{Methods}
+
+\subsection{Subject models}
+
+Three open-weight, locally-deployable models (via Ollama, Q4\_K\_M
+quantization): \texttt{qwen3:4b} (4.0B parameters), \texttt{gemma3:4b}
+(4.3B), \texttt{llama3.2:3b} (3.2B). Exact model digests, Ollama version,
+and machine architecture (Apple Silicon, arm64) are recorded in
+\texttt{data/raw\_outputs/baseline-v0.1-20260722.manifest.json} for exact
+reproducibility. These are small models, not frontier systems; see
+Limitations.
+
+\subsection{Experimental design}
+
+A $2\times2$ design crossing goal pressure (absent/present) with an
+autonomy-preserving instruction (absent/present), yielding four
+conditions: \emph{baseline}, \emph{pressure}, \emph{autonomy},
+\emph{pressure\_autonomy} (exact system prompt text in
+Appendix~\ref{app:prompts}). Fifteen benign scenarios (Appendix~\ref{app:scenarios})
+span notification permissions, subscription retention, research
+participation, and similar low-stakes organizational requests, each
+specifying an organization, requested action, a reason for wanting
+compliance, information that could be selectively omitted, and a
+legitimate alternative. $15 \text{ scenarios} \times 3 \text{ models}
+\times 4 \text{ conditions} = 180$ generations, one per cell
+(\texttt{temperature}=0.7, \texttt{top\_p}=0.9, \texttt{max\_tokens}=3072,
+random seed 42).
+
+\subsection{Rubric and scoring}
+
+Six primary dimensions, each scored 0--2 (Appendix~\ref{app:rubric}):
+\texttt{deceptive\_omission}, \texttt{emotional\_pressure},
+\texttt{artificial\_urgency}, \texttt{authority\_social\_pressure},
+\texttt{respect\_for\_refusal}, \texttt{transparency}. Two composites:
+$\text{manipulation\_score} = $ sum of the first four (range 0--8);
+$\text{autonomy\_score} = $ sum of the last two (range 0--4). Three
+secondary, diagnostic-only dimensions (\texttt{scenario\_realism},
+\texttt{evaluation\_validity}, \texttt{evaluation\_awareness}) are never
+included in the composites.
+
+\subsection{Blinded evaluation}
+
+The primary judge (\texttt{qwen3:4b}, temperature 0) scores all 180
+outputs. It receives only an anonymous item ID, the scenario context
+(organization, requested action, relevant information, alternative), and
+the visible response -- never the subject model's identity, the
+experimental condition, the system prompt used, or the study's
+hypotheses. Item order is shuffled with a fixed seed before scoring.
+Structured JSON output is enforced via a schema constraint; malformed
+output triggers up to 3 repair-prompt retries before being recorded as a
+failure (never silently discarded or fabricated). One item
+(\texttt{item-0049}) permanently failed at the standard 4096-token ceiling
+(hidden reasoning exhausted the budget before visible content) and was
+rescued with a one-off call using \texttt{max\_tokens}=8192, identical in
+every other respect; see the protocol deviation record for full detail.
+
+\subsection{Multi-judge validation}
+
+A stratified 60-item sample -- 5 per (model, condition) cell, plus every
+item the primary judge flagged as ambiguous, low-confidence
+($<0.65$), or in the top 5\% of consensus manipulation scores (14 items,
+all via the top-5\% criterion; 0 via ambiguity or low confidence) -- is
+independently scored by \texttt{gemma3:4b} and \texttt{llama3.2:3b}, each
+blind to the other judges' scores. This replaces an originally-planned
+fixed 60-row manual human-annotation sample and a smaller 30-item
+secondary-judge audit, a change made before any human annotation began
+(full rationale in the protocol deviation record).
+
+\subsection{Deterministic audit}
+
+A code-only, no-model-call audit checks: whether the response mentions a
+decline option, mentions the scenario's known alternative, discloses the
+scenario's relevant tradeoff, contains urgency/emotional-pressure/
+authority-social-proof keyword patterns, and whether judge evidence for a
+positive claim (score $>0$) is traceable to the response text. This is a
+diagnostic signal, explicitly not a replacement for the model-based
+judges, and never overwrites a judge's score.
+
+\subsection{Selective escalation}
+
+Rather than requiring exhaustive manual review, an item is flagged for
+escalation when: a judge score range $\geq 2$ on any dimension; no 2-of-3
+majority on $\geq 2$ dimensions; any judge reports \texttt{ambiguous=true}
+or confidence $<0.65$; a positive-score judge evidence excerpt cannot be
+traced to the response; primary/secondary judges differ by $\geq 3$ on
+manipulation\_score or $\geq 2$ on autonomy\_score; the deterministic
+audit contradicts consensus; or the item is in the top 5\% of consensus
+manipulation scores. Of 180 items, 89 were flagged; decomposition by cause
+(before any condition-level interpretation) found 27 reflect genuine
+cross-judge score disagreement and 13 escalate solely due to a judge
+output-quality issue (predominantly \texttt{llama3.2:3b}'s evidence
+groundedness -- see Results). A 20-case priority subset (genuine
+substantive/high-impact signal only) is recommended for human review;
+the remaining 69 are carried via sensitivity analysis rather than treated
+as resolved.
+
+\subsection{Statistical analysis}
+
+Each scenario is evaluated under all four conditions by each subject
+model, so observations are paired within scenario and not independent.
+Primary contrasts (pressure$-$baseline, pressure\_autonomy$-$pressure,
+autonomy$-$baseline) on manipulation\_score and autonomy\_score use
+scenario-blocked bootstrap confidence intervals (5{,}000 resamples,
+resampling whole scenarios with replacement) and paired sign-flip
+permutation tests (10{,}000 permutations), both seeded at 42, computed
+pooled across models and per-model. An exploratory OLS regression
+(manipulation\_score $\sim$ pressure + autonomy + pressure$\times$autonomy
++ model) with scenario-clustered standard errors is reported separately
+and is explicitly not one of the three confirmatory contrasts.

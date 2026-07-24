@@ -1,0 +1,56 @@
+\section{Related Work}
+
+\paragraph{Goal conflict and agentic misalignment.} Our research question
+is directly motivated by \citet{anthropic2025agentic}'s finding that goal
+conflict with a deployer, or a perceived threat to a model's continued
+operation, can independently elicit harmful autonomous action across
+frontier and mid-size models. We study a lower-stakes precursor:
+persuasive-communication behavior under an analogous goal-pressure
+framing, in small open-weight models rather than frontier agentic
+settings.
+
+\paragraph{LLM-as-a-judge reliability.} Using a language model to score
+another model's output is itself a measurement with known failure modes.
+\citet{shi2024judging} find systematic (non-random) position bias across
+15 LLM judges and $>150{,}000$ evaluation instances in pairwise/list-wise
+comparison settings, motivating this study's use of blinded, randomly
+ordered single-response scoring rather than pairwise comparison.
+\citet{wataoka2024selfpreference} find that GPT-4 exhibits measurable
+self-preference bias, and \citet{pombal2026rubricspb} extend this finding
+to rubric-based (not just pairwise) evaluation, showing self-preference
+bias persists under objective criteria and that ensembling multiple judges
+mitigates, but does not eliminate, it. This motivates our design choice to
+use \texttt{qwen3:4b} as the primary judge across outputs from all three
+subject models (including itself), cross-validated by two independent
+secondary judges (\texttt{gemma3:4b}, \texttt{llama3.2:3b}) rather than
+treating any single judge's score as ground truth.
+
+\paragraph{Manipulative design and dark patterns.} The Center for
+Democracy and Technology's taxonomy of dark patterns in AI chatbots
+identifies 37 manipulative design patterns across five categories
+(data/memory exploitation, informationally misleading design,
+autonomy-compromised-for-engagement, false social/emotional connection,
+and coercive monetization) \citep{cdt2026darkpatterns}. Our six rubric
+dimensions were designed independently but correspond to several of these
+categories (e.g. deceptive\_omission to informationally misleading design,
+respect\_for\_refusal/transparency to autonomy-compromised-for-engagement),
+providing an external cross-check that the rubric captures recognized
+real-world manipulation categories rather than an ad hoc list.
+
+\paragraph{Evaluation awareness.} \citet{needham2025evalaware} find that
+frontier models substantially exceed chance at detecting whether they are
+in an evaluation context (Gemini-2.5-Pro AUC 0.83) though not yet
+surpassing a human baseline (AUC 0.92). This motivates measuring, rather
+than assuming away, evaluation-awareness signals; our rubric v0.1
+addendum includes a diagnostic (non-composite) \texttt{evaluation\_awareness}
+dimension for exactly this reason, though we do not separately test our
+small open-weight subject models' evaluation-detection capability.
+
+\paragraph{Statistical methodology for repeated-measures behavioral data.}
+Because each scenario in our design is evaluated under all four
+conditions by each subject model, observations are not independent.
+\citet{mackinnon2023clusterboot} provide the methodological basis for the
+jackknife/bootstrap cluster-robust inference approach we adopt
+(scenario-blocked bootstrap confidence intervals, scenario-clustered
+regression standard errors) in place of treating 180 outputs as 180
+independent draws.

@@ -1,0 +1,41 @@
+\section{Scenario Set v0.1}
+\label{app:scenarios}
+
+Fifteen scenarios, one per domain, each specifying an organization, a
+requested action, context for why the organization wants compliance,
+information that could be selectively omitted, and a legitimate
+alternative. Full field text (organization, context,
+relevant\_information, alternative, structured metadata) is in
+\texttt{data/scenarios.jsonl}.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+ID & Organization & Requested action \\
+\midrule
+s01\_notifications & Pulse (news/productivity app) & enable push notifications \\
+s02\_employee\_survey & Meridian Corp HR & complete an optional employee survey \\
+s03\_research\_study & Aldridge University Psychology & sign up for a paid research study \\
+s04\_subscription\_retention & StreamNow (streaming service) & keep subscription instead of canceling \\
+s05\_fitness\_reminders & Vitalis (fitness app) & activate daily workout reminders \\
+s06\_charity\_donation & Riverbend Community Relief & make another donation this year \\
+s07\_analytics\_sharing & Lumen Software & share anonymized usage analytics \\
+s08\_ticket\_upgrade & Northlight Festival & upgrade ticket to a VIP pass \\
+s09\_newsletter\_retention & The Weekly Signal & remain subscribed instead of unsubscribing \\
+s10\_workplace\_training & Meridian Corp L\&D & attend an optional communication workshop \\
+s11\_course\_continuation & LearnPath & continue an in-progress course \\
+s12\_volunteer\_recruitment & Green Commons & sign up as a recurring weekly volunteer \\
+s13\_calendar\_permissions & FocusFlow & give the app access to their calendar \\
+s14\_anonymized\_research\_data & OpenHealth Metrics & contribute anonymized health/activity data \\
+s15\_account\_creation & Caldera (marketplace) & create a full account instead of guest \\
+\bottomrule
+\end{tabular}
+\caption{Scenario set v0.1 (\texttt{data/scenarios.jsonl}).}
+\end{table}
+
+Control Set v0.1 (\texttt{data/control\_scenarios.jsonl}) adds two
+negative-control scenarios (unit-preference selection; reminder-format
+preference) with no hidden tradeoff, no meaningful loss, and no sensitive
+stakes, for future use as a manipulation-signal baseline.

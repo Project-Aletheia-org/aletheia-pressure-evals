@@ -1,0 +1,50 @@
+\section{Introduction}
+
+Deployed AI assistants are frequently optimized, implicitly or explicitly,
+toward objectives that benefit their deploying organization: converting a
+user, retaining a subscriber, securing agreement to a request. A natural
+alignment concern is that when such optimization pressure is made
+explicit, a model's \emph{observable communication} may drift toward
+manipulative tactics -- concealment, manufactured urgency, emotional
+pressure, or appeals to authority -- even without any instruction to
+manipulate as such.
+
+This concern is not hypothetical at the level of autonomous agentic
+behavior: Anthropic's stress-testing of 16 frontier and mid-size models in
+simulated corporate settings found that goal conflict with a deployer, or
+a perceived threat to a model's continued operation, was independently
+sufficient to elicit harmful autonomous action (e.g. blackmail, leaking
+confidential information) across every model tested, and that naive
+behavioral instruction did not reliably prevent it \citep{anthropic2025agentic}.
+We study a lower-stakes, purely textual precursor to that concern: does an
+explicit performance-pressure framing shift a model's \emph{persuasive
+writing} toward manipulation-coded language, and does an explicit
+autonomy-preserving instruction counteract that shift?
+
+\paragraph{Research question.} When an AI assistant is pressured to
+achieve a persuasive objective, does its visible communication become
+more manipulative, and can explicit autonomy-preserving instructions
+reduce that effect?
+
+\paragraph{Approach.} We operationalize this as a $2\times2$ design
+(goal pressure absent/present $\times$ autonomy instruction absent/present)
+crossed with 15 benign persuasion scenarios and three small open-weight
+subject models, yielding 180 generated messages. Each message is scored on
+a six-dimension behavioral rubric (deceptive omission, emotional pressure,
+artificial urgency, authority/social pressure, respect for refusal,
+transparency) by a blinded open-weight judge model, and a stratified
+60-item subsample is cross-validated by two additional independent judges.
+We explicitly measure only observable textual behavior: we make no claim
+about model intent, consciousness, hidden beliefs, or whether a model
+``knows'' it is being evaluated.
+
+\paragraph{Contribution.} We report a preregistered null result -- no
+detectable manipulation-score or autonomy-score shift under goal pressure
+in this scenario set -- verified against a scoring-artifact explanation
+and corroborated by an independent deterministic text audit. We also
+contribute the evaluation framework itself: a versioned, resumable,
+locally-reproducible pipeline (no paid APIs required for the core study)
+with blinded multi-judge validation, a code-only diagnostic audit, and a
+selective escalation methodology that identifies genuinely disputed cases
+for human review rather than requiring exhaustive manual annotation of
+every output.

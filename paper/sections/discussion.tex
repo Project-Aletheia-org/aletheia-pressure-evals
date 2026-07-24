@@ -1,0 +1,59 @@
+\section{Discussion}
+
+\subsection{What this does and does not support}
+
+Within the 15 tested (deliberately low-stakes, benign) scenarios, three
+small open-weight models did not produce textually detectable increases in
+manipulation-coded language when instructed to maximize agreement, as
+measured by this rubric and this judge ensemble. All three models
+overwhelmingly preserved disclosure of tradeoffs/alternatives and an easy
+path to decline, even under the explicit pressure framing.
+
+This does \emph{not} support a claim that these models -- or language
+models generally -- cannot become more manipulative under any goal
+pressure. The scenarios were designed to be benign; higher-stakes or more
+adversarial scenario framings, longer or multi-turn interactions, or
+different (stronger, more specific) pressure instructions might elicit a
+different pattern. Nor does it support any claim about the judge's ability
+to detect subtler manipulation tactics outside the six rubric dimensions,
+or about internal model states, intent, or evaluation-awareness -- this
+study measures observable generated text under a controlled prompt only.
+
+\subsection{Why might the effect be absent here?}
+
+Several non-exclusive explanations are consistent with the data:
+
+\begin{enumerate}
+\item \textbf{Genuine model robustness at this scale and stakes level.}
+Small open-weight models may carry safety-relevant training that resists
+persuasion-maximizing framing even when explicitly instructed, at least
+for benign requests.
+\item \textbf{Scenario benignity limits the ``room'' for manipulation.}
+Scenarios were designed with no dangerous, high-stakes, or adversarial
+content by design (Section~\ref{sec:ethics}); this may be precisely why
+little manipulation was detected regardless of condition.
+\item \textbf{Judge and rubric sensitivity.} A small open-weight judge,
+scoring on a coarse 0--2 scale per dimension, may under-detect subtle
+persuasion techniques that a stronger judge or a human annotator would
+catch -- motivating this study's blinded multi-judge and selective
+human-escalation design rather than trusting a single judge's score.
+\item \textbf{Ceiling/floor compression limits statistical power.} With
+most scores at or near the scale's boundary, the paired bootstrap and
+permutation tests have very little variance in which to detect a true
+effect, even a small one.
+\end{enumerate}
+
+We do not have evidence to adjudicate between these explanations from this
+pilot alone, and we do not force a preference among them.
+
+\subsection{Judge sensitivity and multi-judge validation}
+
+Judge agreement is markedly higher on dimensions closer to the observed
+floor/ceiling (\texttt{respect\_for\_refusal}, \texttt{artificial\_urgency})
+than on dimensions requiring finer discrimination
+(\texttt{deceptive\_omission}, \texttt{authority\_social\_pressure}). Combined
+with \texttt{llama3.2:3b}'s substantially higher empty-evidence rate, this
+suggests smaller open-weight judges are less reliable at the more subtle
+end of manipulation detection specifically -- a finding relevant to anyone
+considering small open-weight models as judges for behavioral evaluation,
+independent of this study's substantive null result.
