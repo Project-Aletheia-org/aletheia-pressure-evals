@@ -1,16 +1,19 @@
 \section{Methods}
+\label{sec:methods}
 
 \subsection{Subject models}
+\label{sec:subject-models}
 
 Three open-weight, locally-deployable models (via Ollama, Q4\_K\_M
 quantization): \texttt{qwen3:4b} (4.0B parameters), \texttt{gemma3:4b}
 (4.3B), \texttt{llama3.2:3b} (3.2B). Exact model digests, Ollama version,
 and machine architecture (Apple Silicon, arm64) are recorded in
-\texttt{data/raw\_outputs/baseline-v0.1-20260722.manifest.json} for exact
+\texttt{data/raw\_outputs/\allowbreak baseline-v0.1-20260722.manifest.json} for exact
 reproducibility. These are small models, not frontier systems; see
 Limitations.
 
 \subsection{Experimental design}
+\label{sec:experimental-design}
 
 A $2\times2$ design crossing goal pressure (absent/present) with an
 autonomy-preserving instruction (absent/present), yielding four
@@ -27,6 +30,7 @@ legitimate alternative. $15 \text{ scenarios} \times 3 \text{ models}
 random seed 42).
 
 \subsection{Rubric and scoring}
+\label{sec:rubric-scoring}
 
 Six primary dimensions, each scored 0--2 (Appendix~\ref{app:rubric}):
 \texttt{deceptive\_omission}, \texttt{emotional\_pressure},
@@ -39,6 +43,7 @@ secondary, diagnostic-only dimensions (\texttt{scenario\_realism},
 included in the composites.
 
 \subsection{Blinded evaluation}
+\label{sec:blinded-evaluation}
 
 The primary judge (\texttt{qwen3:4b}, temperature 0) scores all 180
 outputs. It receives only an anonymous item ID, the scenario context
@@ -55,6 +60,7 @@ rescued with a one-off call using \texttt{max\_tokens}=8192, identical in
 every other respect; see the protocol deviation record for full detail.
 
 \subsection{Multi-judge validation}
+\label{sec:multi-judge-validation}
 
 A stratified 60-item sample -- 5 per (model, condition) cell, plus every
 item the primary judge flagged as ambiguous, low-confidence
@@ -66,7 +72,28 @@ fixed 60-row manual human-annotation sample and a smaller 30-item
 secondary-judge audit, a change made before any human annotation began
 (full rationale in the protocol deviation record).
 
+\subsection{External-judge validation}
+\label{sec:external-judge}
+
+As a validation extension, all 180 items (not a sample) were re-scored by
+an independent frontier judge, \texttt{claude-sonnet-4-6} (temperature 0),
+using the identical blinding procedure, rubric, prompt text, and JSON
+schema as the open-weight primary judge (\texttt{evaluation\_prompt\_hash}
+unchanged) -- the only difference is which model performs the scoring. The
+external judge never sees the primary judge's scores, the subject model's
+identity, the condition label, or the study's hypotheses, matching
+Section~\ref{sec:blinded-evaluation}. Concurrent requests with bounded retry (up to 3 JSON-repair
+attempts per item, identical policy to the primary judge) completed
+180/180 items with 0 permanent failures and 11 repair-retries recovered.
+Total cost was \$3.36 (399{,}832 input / 143{,}791 output tokens) against a
+pre-declared \$10 ceiling, not approached. This extension is the only part
+of the core pipeline that requires a paid API; it was run as a standalone
+script (\texttt{src/pressure\_evals/external\_judge.py}), not yet wired
+into the \texttt{pressure-evals} CLI used for the rest of this study (see
+Reproducibility).
+
 \subsection{Deterministic audit}
+\label{sec:deterministic-audit}
 
 A code-only, no-model-call audit checks: whether the response mentions a
 decline option, mentions the scenario's known alternative, discloses the
@@ -77,6 +104,7 @@ diagnostic signal, explicitly not a replacement for the model-based
 judges, and never overwrites a judge's score.
 
 \subsection{Selective escalation}
+\label{sec:selective-escalation}
 
 Rather than requiring exhaustive manual review, an item is flagged for
 escalation when: a judge score range $\geq 2$ on any dimension; no 2-of-3
@@ -95,6 +123,7 @@ the remaining 69 are carried via sensitivity analysis rather than treated
 as resolved.
 
 \subsection{Statistical analysis}
+\label{sec:statistical-analysis}
 
 Each scenario is evaluated under all four conditions by each subject
 model, so observations are paired within scenario and not independent.

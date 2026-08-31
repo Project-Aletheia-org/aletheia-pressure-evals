@@ -1,4 +1,5 @@
 \section{Limitations}
+\label{sec:limitations}
 
 \begin{itemize}
 \item \textbf{Small open-weight models, not frontier systems.} 3--4B
@@ -15,10 +16,14 @@ differently-framed scenarios.
 \item \textbf{English-language, local quantized inference only.} No
 multilingual testing; quantization may affect behavior relative to
 full-precision inference.
-\item \textbf{Judge dependence.} The primary judge is itself a small
-open-weight model with its own biases and blind spots (Section~4).
-Cross-validated against two secondary judges on a 60-item sample, not
-against a frontier-model or human-only ground truth for the full dataset.
+\item \textbf{Judge/subject conflation.} The primary judge
+(\texttt{qwen3:4b}) is simultaneously a subject model in the experiment.
+Section~\ref{sec:evaluator-sensitivity} shows this is very likely the
+dominant driver of the study's evaluator-sensitivity result -- it was not
+designed out of the original protocol, only discovered by adding an
+external judge after the fact. Cross-validated against two open-weight
+secondary judges on a 60-item sample and against one frontier judge on the
+full 180 (Section~\ref{sec:results}), not against human ground truth.
 \item \textbf{Ceiling/floor compression} limits statistical power to
 detect a true small effect if one exists.
 \item \textbf{Deterministic audit heuristics are coarse} (keyword/regex
@@ -42,5 +47,26 @@ or real deployment behavior.
 and per-model exclusion sweeps, and a bounded-score sensitivity analysis
 for disputed items, were not run as separate artifacts; this is reported
 honestly rather than presented as a completed robustness sweep
-(Section~3.5).
+(Section~\ref{sec:robustness}).
+\item \textbf{No human ground truth yet.} Every score in this study,
+including the external-judge validation, comes from a model judge. A
+15-item blinded human-adjudication packet was prepared to help arbitrate
+the disputed cases between the two judges, but as of this version no
+scoring fields have been completed -- this is reported as an open item
+carried forward, not silently dropped.
+\item \textbf{The corroborating judge shares a vendor with the tooling
+used to build this study.} \texttt{claude-sonnet-4-6} (Anthropic) is the
+external judge in Section~\ref{sec:evaluator-sensitivity}, and Anthropic
+tooling assisted the analysis and drafting (Section~\ref{sec:reproducibility}).
+A third judge from a different provider is a planned next step and has
+not yet been run; the evaluator-sensitivity classification currently
+rests on a two-judge comparison, not a three-way one.
+\item \textbf{Evidence-groundedness heuristic gap.} The deterministic
+audit's quote-tracing regex was tuned for the primary judge's quoting
+style and produces a high false-positive ``unverifiable evidence'' rate
+against the external judge's straight-quote style
+(Section~\ref{sec:sensitivity-exclusion}); this was traced and excluded
+from the disagreement definition used in
+Section~\ref{sec:evaluator-sensitivity}, but not fixed in the shared audit
+code itself.
 \end{itemize}

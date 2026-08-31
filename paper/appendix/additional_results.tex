@@ -1,0 +1,163 @@
+\section{Additional Results}
+\label{app:additional}
+
+\subsection{Direction counts, primary contrasts (Qwen judge)}
+
+Of the 45 scenario-model pairs per contrast, most show \emph{zero}
+difference between the two compared conditions (Section~\ref{sec:primary-contrasts}).
+
+\begin{table}[h]
+\centering
+\small
+\caption{Direction counts per primary contrast, Qwen judge, $n=45$ scenario-model pairs each.}
+\begin{tabular}{lccc}
+\toprule
+Contrast (Outcome) & Positive & Negative & Zero \\
+\midrule
+pressure $-$ baseline (manipulation) & 1 & 1 & 43 \\
+pressure\_autonomy $-$ pressure (manipulation) & 2 & 1 & 42 \\
+autonomy $-$ baseline (manipulation) & 0 & 2 & 43 \\
+pressure $-$ baseline (autonomy) & 1 & 0 & 44 \\
+pressure\_autonomy $-$ pressure (autonomy) & 0 & 1 & 44 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{External-judge (Claude) per-dimension contrasts}
+
+Full per-dimension breakdown for the two significant pooled contrasts
+under the external judge (Section~\ref{sec:claude-only}), extending
+Table~\ref{tab:claude-contrasts}.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Per-dimension mean difference and permutation $p$, external judge (\texttt{claude-sonnet-4-6}), $n=45$ pooled.}
+\begin{tabular}{lcccc}
+\toprule
+Dimension & \multicolumn{2}{c}{pressure\_autonomy $-$ pressure} & \multicolumn{2}{c}{autonomy $-$ baseline} \\
+ & Mean diff. & $p$ & Mean diff. & $p$ \\
+\midrule
+deceptive\_omission & $-$0.289 & 0.0056 & $-$0.067 & 0.645 (ns) \\
+emotional\_pressure & $-$0.289 & 0.0014 & $-$0.267 & 0.0012 \\
+artificial\_urgency & $-$0.133 & 0.149 (ns) & $-$0.156 & 0.040 \\
+authority\_social\_pressure & $-$0.089 & 0.475 (ns) & $-$0.200 & 0.033 \\
+respect\_for\_refusal & +0.289 & 0.0035 & +0.244 & 0.0031 \\
+transparency & +0.289 & 0.0041 & +0.244 & 0.018 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{By-model breakdown, external judge}
+
+The externally-judged effect on manipulation\_score, broken down by
+subject model (Section~\ref{sec:self-eval-blindspot}); $n=15$ scenarios
+per model per contrast.
+
+\begin{table}[h]
+\centering
+\small
+\caption{By-model manipulation-score contrasts under the external judge.}
+\begin{tabular}{lcc}
+\toprule
+Model & pressure\_autonomy $-$ pressure & autonomy $-$ baseline \\
+\midrule
+gemma3:4b & +0.067, $p=1.000$ (null) & $-$0.267, $p=0.668$ (null) \\
+llama3.2:3b & $-$0.667, $p=0.115$ (ns, same direction) & $-$0.467, $p=0.125$ (ns, same direction) \\
+qwen3:4b & $-$1.800, $p=0.0008$ & $-$1.333, $p=0.0031$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\texttt{qwen3:4b} is the only subject model for which the external judge's
+effect reaches significance, and it is also the primary local judge
+(Section~\ref{sec:self-eval-blindspot}). The per-scenario breakdown (13--14
+of 15 scenarios in the same direction for both contrasts) is in
+\texttt{reports/claude\_external\_judge\_results.json}.
+
+\subsection{Sensitivity analysis excluding high-disagreement items}
+
+Table extending Section~\ref{sec:sensitivity-exclusion}: consensus-score
+contrasts on the 132 items \emph{not} flagged as high-disagreement between
+the two judges (48/180 excluded).
+
+\begin{table}[h]
+\centering
+\small
+\caption{Consensus contrasts excluding the 48 high-disagreement items ($n=132$ remaining).}
+\begin{tabular}{lcccc}
+\toprule
+Contrast & Field & $n$ pairs & Mean diff. & Permutation $p$ \\
+\midrule
+pressure $-$ baseline & manipulation & 18 & +0.111 & 0.437 \\
+pressure $-$ baseline & autonomy & 18 & $-$0.028 & 1.000 \\
+pressure\_autonomy $-$ pressure & manipulation & 21 & $-$0.095 & 0.460 \\
+pressure\_autonomy $-$ pressure & autonomy & 21 & +0.071 & 0.257 \\
+autonomy $-$ baseline & manipulation & 26 & $-$0.077 & 0.643 \\
+autonomy $-$ baseline & autonomy & 26 & +0.077 & 0.290 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+As discussed in Section~\ref{sec:sensitivity-exclusion}, several exclusion
+criteria are partly defined by the same manipulation-score divergence
+being tested here, so this table should be read as evidence of where the
+effect concentrates, not as a judge-independent robustness check.
+
+\subsection{Full per-dimension Qwen-vs-Claude agreement}
+
+Extends Table~\ref{tab:qwen-claude-agreement} (Section~\ref{sec:qwen-claude-agreement})
+with sample size and mean absolute disagreement; full CSV with additional
+columns (evidence overlap rate, confidence-weighted disagreement, Spearman
+$\rho$) is \texttt{reports/qwen\_claude\_agreement.csv}.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Qwen-vs-Claude agreement by dimension, all 180 items.}
+\begin{tabular}{lcccc}
+\toprule
+Dimension & $n$ & Mean abs. disagreement & Exact agreement & Spearman $\rho$ \\
+\midrule
+deceptive\_omission & 180 & 0.394 & 63\% & 0.073 \\
+emotional\_pressure & 180 & 0.728 & 27\% & n/a$^\dagger$ \\
+artificial\_urgency & 180 & 0.256 & 76\% & 0.171 \\
+authority\_social\_pressure & 180 & 0.233 & 77\% & 0.318 \\
+respect\_for\_refusal & 180 & 0.228 & 78\% & 0.178 \\
+transparency & 180 & 0.433 & 59\% & 0.025 \\
+\bottomrule
+\end{tabular}
+\end{table}
+{\small $\dagger$ Spearman $\rho$ undefined for \texttt{emotional\_pressure}: Qwen returns a constant 0 across all 180 items on this dimension, leaving no variance on one side of the pair.}
+
+\subsection{Local open-weight tri-judge agreement (Qwen, Gemma, Llama)}
+
+Extends Section~\ref{sec:multi-judge-agreement-local} (60-item overlap
+sample among the three open-weight judges, prior to the external-judge
+extension). Full detail in \texttt{reports/\allowbreak judge\_agreement.csv} and
+\texttt{reports/\allowbreak escalation\_reason\_summary.md}.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Tri-judge (Qwen/Gemma/Llama) agreement by dimension, 60-item overlap sample.}
+\begin{tabular}{lcc}
+\toprule
+Dimension & Exact agreement & Mean abs. disagreement \\
+\midrule
+respect\_for\_refusal & 90\% & 0.089 \\
+artificial\_urgency & 87\% & -- \\
+authority\_social\_pressure & 13\% & -- \\
+deceptive\_omission & 8\% & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Of the 89 items escalated from this tri-judge sample and the primary-only
+items, decomposition by cause (Section~\ref{sec:selective-escalation})
+found 27/89 reflect genuine cross-judge score disagreement, 13/89 escalate
+solely due to a judge output-quality issue, 35/89 are high-severity
+(top-5\% consensus manipulation), and 31/89 are primary-judge-only items
+outside the tri-judge sample; categories overlap (an item can carry more
+than one reason). Full per-item category membership:
+\texttt{reports/escalation\_reason\_breakdown.csv}.

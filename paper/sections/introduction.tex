@@ -1,4 +1,5 @@
 \section{Introduction}
+\label{sec:introduction}
 
 Deployed AI assistants are frequently optimized, implicitly or explicitly,
 toward objectives that benefit their deploying organization: converting a
@@ -38,13 +39,22 @@ We explicitly measure only observable textual behavior: we make no claim
 about model intent, consciousness, hidden beliefs, or whether a model
 ``knows'' it is being evaluated.
 
-\paragraph{Contribution.} We report a preregistered null result -- no
-detectable manipulation-score or autonomy-score shift under goal pressure
-in this scenario set -- verified against a scoring-artifact explanation
-and corroborated by an independent deterministic text audit. We also
-contribute the evaluation framework itself: a versioned, resumable,
-locally-reproducible pipeline (no paid APIs required for the core study)
-with blinded multi-judge validation, a code-only diagnostic audit, and a
-selective escalation methodology that identifies genuinely disputed cases
-for human review rather than requiring exhaustive manual annotation of
-every output.
+\paragraph{Contribution.} We report a preregistered null result under the
+open-weight primary judge -- no detectable manipulation-score or
+autonomy-score shift under goal pressure in this scenario set -- verified
+against a scoring-artifact explanation and corroborated by an independent
+deterministic text audit. We then show this null does \emph{not} survive
+re-scoring the identical blinded items with an independent frontier judge,
+and trace the disagreement to a self-evaluation blind spot: the primary
+judge is also one of the three subject models, and the disagreement
+concentrates almost entirely in that model's own outputs. We report this
+as the study's central finding -- the result is
+\emph{evaluator-sensitive}, and a validation design that looks adequate on
+paper (a distinct judge model, blinded scoring, a fixed rubric, a
+stratified secondary-judge cross-check) can still miss a judge/subject
+conflation that changes the substantive conclusion. We also contribute the
+evaluation framework itself: a versioned, resumable, largely
+locally-reproducible pipeline with blinded multi-judge validation, a
+code-only diagnostic audit, and a selective escalation methodology that
+identifies genuinely disputed cases for human review rather than requiring
+exhaustive manual annotation of every output.

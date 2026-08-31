@@ -16,12 +16,19 @@ behavior under a controlled prompt only. Model-based judge labels
 truth, throughout; this is stated explicitly rather than implied.
 
 No human subjects were involved in generating the experimental data. Human
-review (Section~2.6) is limited to annotating already-generated,
-benign-scenario text for the six rubric dimensions; annotators are not
-exposed to any content beyond what is already in the (benign) generated
-outputs.
+review (Section~\ref{sec:selective-escalation}) is limited to annotating
+already-generated, benign-scenario text for the six rubric dimensions;
+annotators are not exposed to any content beyond what is already in the
+(benign) generated outputs.
 
-The project uses only local, open-weight model inference; no paid API
-calls were required for the core study (an external closed-model
-sensitivity judge was added as an optional extension, gated by an explicit
-cost ceiling and reported separately from the core findings).
+The project uses only local, open-weight model inference for generation
+and the primary judge; no paid API calls were required for that core
+pipeline. The external validation judge (Section~\ref{sec:external-judge})
+is a paid, closed-weight model, gated by an explicit cost ceiling and
+reported separately as an extension. This creates a disclosure obligation
+we state directly rather than leave implicit: the corroborating judge
+(\texttt{claude-sonnet-4-6}) is an Anthropic model, and Anthropic tooling
+assisted the analysis and drafting of this manuscript
+(Section~\ref{sec:reproducibility}). A non-Anthropic third judge is a
+planned next step specifically to address this (Section~\ref{sec:limitations}).
+No score in this study, from any judge, is treated as human ground truth.

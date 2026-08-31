@@ -10,6 +10,14 @@ data/processed/*.duckdb
 .env.*
 *.log
 
+# LaTeX build artifacts
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/*.toc
+paper/*.pdf
+
 # Private research materials -- must NOT be published.
 # Unblinding keys map anonymous review IDs back to subject model + condition
 # + per-judge scores; publishing them destroys the study's blinding and

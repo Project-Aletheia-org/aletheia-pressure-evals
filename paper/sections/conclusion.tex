@@ -1,17 +1,36 @@
 \section{Conclusion}
+\label{sec:conclusion}
 
 We tested whether an explicit performance-pressure framing shifts small
 open-weight models' persuasive writing toward manipulation-coded language,
 and whether an explicit autonomy-preserving instruction counteracts any
-such shift. Across 180 outputs, three models, and three independent
-judges, we find no detectable effect in either direction, within the
-benign scenario set tested. This is reported as a genuine, verified null
-result -- not a failure to find what we expected, but a specific,
-scenario-scope-dependent finding. The evaluation framework itself
-(blinded multi-judge validation, a deterministic diagnostic audit, and a
-selective escalation methodology producing a tractable human-review
-target rather than requiring exhaustive annotation) is intended to
-generalize beyond this specific null result: future protocol versions of
-this living framework can extend the scenario bank toward higher-stakes or
-more adversarial framings, add larger or additional model families, and
-repeat the same measurement longitudinally as models change.
+such shift. Scored by the open-weight primary judge, we find no detectable
+effect in either direction, within the benign scenario set tested. Scored
+by an independent frontier judge on the identical blinded items, the
+autonomy-preserving instruction significantly reduces manipulation-coded
+language and increases autonomy-respecting behavior, and the two judges
+agree at barely above chance. We report both as findings rather than
+picking one: the study is \textbf{evaluator-sensitive}, and the
+disagreement traces to a specific, checkable mechanism -- the primary
+judge is also one of the three subject models, and the disagreement
+concentrates in that model's own outputs.
+
+The evaluation framework itself (blinded multi-judge validation, a
+deterministic diagnostic audit, and a selective escalation methodology
+producing a tractable human-review target rather than requiring exhaustive
+annotation) is intended to generalize beyond this specific study, but this
+result changes what that framework must guarantee structurally, not only
+what scenarios or models it covers: a model should not be the primary
+judge of outputs that include its own generations. A separate,
+config-driven successor (\texttt{aletheia-pressure-evals-v2}) is under
+active development and adopts this as a structural rule -- automatic
+model discovery, pre-run compatibility checks that forbid a model from
+grading its own outputs in the primary analysis, and disagreement
+escalation built into the core pipeline rather than added after the fact
+as an extension, as it was here. Its Phase 1 foundation is complete and
+tested; no full V2 experiment has been run yet. Beyond that, future
+protocol versions of this framework can extend the scenario bank toward
+higher-stakes or more adversarial framings, add larger or additional model
+families, complete the human-adjudication layer this version left open
+(Section~\ref{sec:limitations}), and repeat the same measurement longitudinally as models
+change.

@@ -85,9 +85,16 @@ provider-neutral successor pipeline described below.
 src/pressure_evals/   pipeline: generation, blinded judging, audit, consensus, analysis
 data/                 scenarios, raw outputs, evaluations, manifests (append-only)
 reports/              analysis outputs, study reports, limitations
-paper/                LaTeX write-up (in revision to fold in the evaluator-sensitive result)
+paper/                LaTeX write-up -- evaluator-sensitivity is now the paper's headline finding
 tests/                109 tests
 ```
+
+The manuscript (`paper/main.tex`) compiles cleanly to a 24-page PDF
+(`pdflatex` + `bibtex` + `pdflatex` x2; requires `texlive-latex-extra`,
+`texlive-bibtex-extra`, `texlive-fonts-recommended`) and its narrative now
+matches this README: the evaluator-sensitivity result is the reported
+finding, not a forthcoming revision. Submission checklist:
+`reports/arxiv_submission_checklist.md`.
 
 ## What's next (V2)
 

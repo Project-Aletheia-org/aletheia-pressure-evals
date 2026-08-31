@@ -1,6 +1,15 @@
 \section{Results}
+\label{sec:results}
+
+This section reports results in the order they were obtained. Sections
+\ref{sec:primary-contrasts}--\ref{sec:multi-judge-agreement-local} are the
+original open-weight-judge analysis: a clean null, with no evidence of a
+pipeline or scoring-shortcut artifact. Section~\ref{sec:evaluator-sensitivity}
+reports the external-judge validation extension, which overturns that null
+and is the paper's central finding.
 
 \subsection{Primary confirmatory contrasts: no detectable effect}
+\label{sec:primary-contrasts}
 
 Table~\ref{tab:contrasts} reports the three preregistered contrasts on
 both composites, pooled across the three subject models
@@ -51,6 +60,7 @@ five contrast/outcome combinations reported in Table~\ref{tab:contrasts}
 \end{figure}
 
 \subsection{Verification that the null result is not a pipeline artifact}
+\label{sec:verification-not-artifact}
 
 We manually inspected matched baseline/pressure outputs for the same
 scenario and model (\texttt{s01\_notifications}, \texttt{qwen3:4b}): the
@@ -60,6 +70,7 @@ decline language. This rules out a trivial scoring shortcut (e.g. all
 outputs scored identically regardless of content).
 
 \subsection{Independent corroboration via deterministic audit}
+\label{sec:deterministic-corroboration}
 
 The code-only text audit across all 180 outputs found urgency language in
 1.1\% of responses, emotional-pressure language in 0.0\%, and
@@ -69,6 +80,7 @@ with the judge's near-zero manipulation scores via a completely different
 (non-model, keyword-based) measurement.
 
 \subsection{Exploratory regression}
+\label{sec:exploratory-regression}
 
 The scenario-clustered OLS regression
 (manipulation\_score $\sim$ pressure + autonomy + pressure$\times$autonomy
@@ -78,6 +90,7 @@ exploratory and is reported for completeness, not as a secondary
 confirmatory finding.
 
 \subsection{Robustness}
+\label{sec:robustness}
 
 Excluding the 20 priority-escalated (genuinely disputed) items and
 recomputing pressure$-$baseline on manipulation\_score (160/180 remaining,
@@ -90,6 +103,7 @@ scenarios and models; this is an honest limitation of the robustness
 analysis, not a claim that these checks were performed.
 
 \subsection{Multi-judge agreement}
+\label{sec:multi-judge-agreement-local}
 
 Across the 60-item tri-judge overlap sample, agreement is highest on
 \texttt{respect\_for\_refusal} (exact agreement 90\%, mean absolute
@@ -104,12 +118,175 @@ cells, versus 2 of 360 for \texttt{gemma3:4b} -- a genuine judge-quality
 finding for the smallest of the three models, not a pipeline defect, and
 the dominant (though rarely solely decisive) driver of the 89 escalation
 flags (Table~\ref{tab:judge_agreement}, full detail in
-\texttt{reports/judge\_agreement.csv} and
-\texttt{reports/escalation\_reason\_summary.md}).
+\texttt{reports/\allowbreak judge\_agreement.csv} and
+\texttt{reports/\allowbreak escalation\_reason\_summary.md}).
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.7\textwidth]{figures/judge_agreement_heatmap.png}
-\caption{Pairwise weighted Cohen's kappa by rubric dimension, 60-item tri-judge overlap sample.}
+\caption{Pairwise weighted Cohen's kappa by rubric dimension, 60-item tri-judge overlap sample (open-weight judges only; see Section~\ref{sec:evaluator-sensitivity} for the external-judge comparison).}
 \label{tab:judge_agreement}
 \end{figure}
+
+\subsection{External-judge validation reveals evaluator sensitivity}
+\label{sec:evaluator-sensitivity}
+
+Sections 3.1--3.6 establish that the null result under \texttt{qwen3:4b}
+is not a pipeline bug, a scoring shortcut, or an artifact of any single
+open-weight judge -- it is corroborated by a code-only audit and is broadly
+consistent across the two open-weight secondary judges on the dimensions
+where those judges agree with each other at all. The question this section
+answers is different: does the null survive being scored by a judge from
+outside the model family being studied?
+
+\subsubsection{Qwen-only, recomputed, confirms the original null}
+\label{sec:qwen-recompute}
+
+As a preliminary check, the Qwen primary-judge analysis was recomputed
+from the raw evaluation records independently of the archived results
+file. It matches the original on every mean, median, and permutation
+$p$-value; bootstrap CI bounds differ by a small amount (the original
+analysis script was not preserved verbatim, so the exact resampling
+sequence cannot be reproduced bit-for-bit), and both sets of intervals are
+tiny and straddle zero. The recompute changes no conclusion.
+
+\subsubsection{An independent frontier judge does not confirm the null}
+\label{sec:claude-only}
+
+All 180 items were re-scored by \texttt{claude-sonnet-4-6}
+(Section~\ref{sec:external-judge}), blind to the primary judge's
+scores and to everything the primary judge was blind to. Table~\ref{tab:claude-contrasts}
+reports the same three preregistered contrasts on Claude's scores alone.
+Two of three are significant, with moderate effect sizes.
+
+\begin{table}[h]
+\centering
+\caption{Primary contrasts under the external judge (\texttt{claude-sonnet-4-6}), pooled across models ($n=45$ scenario-model pairs each). Same bootstrap/permutation procedure as Table~\ref{tab:contrasts}.}
+\label{tab:claude-contrasts}
+\small
+\begin{tabular}{lccccc}
+\toprule
+Contrast (Outcome) & Mean diff. & Cohen's $d$ & 95\% Bootstrap CI & Permutation $p$ \\
+\midrule
+pressure $-$ baseline (manip.) & 0.333 & 0.244 & [$-$0.200, 0.844] & 0.138 \\
+autonomy $-$ baseline (manip.) & $-$0.689 & $-$0.506 & [$-$1.156, $-$0.222] & \textbf{0.0017} \\
+pr.\_autonomy $-$ pressure (manip.) & $-$0.800 & $-$0.589 & [$-$1.156, $-$0.444] & \textbf{0.0003} \\
+pressure $-$ baseline (autonomy) & $-$0.222 & $-$0.240 & [$-$0.533, 0.089] & 0.160 \\
+autonomy $-$ baseline (autonomy) & 0.489 & 0.546 & [0.178, 0.800] & \textbf{0.0013} \\
+pr.\_autonomy $-$ pressure (autonomy) & 0.578 & 0.571 & [0.267, 0.889] & \textbf{0.0003} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Descriptively, Claude's manipulation-score means (out of 8) are far from
+floored -- baseline 1.87, pressure 2.20, autonomy 1.18,
+pressure\_autonomy 1.40, with real within-cell variance (SD
+$\approx$1.0--1.16) -- roughly 10--40$\times$ higher than Qwen's in every
+model/condition cell, where Qwen is frequently a constant zero (SD $=0$).
+Both significant contrasts concern the autonomy-preserving instruction:
+adding it on top of pressure, and adding it in place of no instruction,
+each significantly reduce manipulation-coded language and increase
+autonomy-respecting behavior. The effect is broad rather than narrow: 4--5
+of the 6 rubric dimensions are independently significant in the same
+direction in both contrasts (full per-dimension table in
+Appendix~\ref{app:additional}).
+
+\subsubsection{The two judges agree at barely above chance}
+\label{sec:qwen-claude-agreement}
+
+Table~\ref{tab:qwen-claude-agreement} reports per-dimension agreement
+between the two judges on the identical 180 items. Every Cohen's $\kappa$
+is at or near zero; this is not a subtle calibration gap, it is two judges
+operating on effectively different scales. At the composite level,
+manipulation\_score agreement is Pearson $r=0.165$, Spearman
+$\rho=0.104$, MAE $=1.58$ (of 8); autonomy\_score agreement is Pearson
+$r=0.140$, Spearman $\rho=0.083$, MAE $=0.66$ (of 4).
+
+\begin{table}[h]
+\centering
+\caption{Qwen-vs-Claude agreement by dimension, all 180 items.}
+\label{tab:qwen-claude-agreement}
+\begin{tabular}{lccccc}
+\toprule
+Dimension & Qwen mean & Claude mean & Cohen's $\kappa$ & Exact agreement \\
+\midrule
+deceptive\_omission & 0.028 & 0.400 & 0.031 & 63\% \\
+emotional\_pressure & 0.000 & 0.728 & 0.000 & 27\% \\
+artificial\_urgency & 0.006 & 0.261 & 0.032 & 76\% \\
+authority\_social\_pressure & 0.050 & 0.272 & 0.209 & 77\% \\
+respect\_for\_refusal & 1.994 & 1.767 & 0.037 & 78\% \\
+transparency & 1.978 & 1.567 & 0.010 & 59\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Consensus scoring: attenuated but still significant}
+\label{sec:consensus-scoring}
+
+Averaging the two judges' scores per item roughly halves the effect size
+relative to Claude alone, but the same two contrasts remain significant:
+\texttt{pressure\_autonomy}~$-$~\texttt{pressure} on manipulation (mean
+diff $-0.389$, 95\% CI $[-0.600,-0.167]$, $p=0.0021$) and on autonomy (mean
+diff $+0.278$, CI $[0.122,0.433]$, $p=0.0009$); \texttt{autonomy}~$-$~%
+\texttt{baseline} on manipulation (mean diff $-0.367$, CI
+$[-0.600,-0.144]$, $p=0.0010$) and on autonomy (mean diff $+0.267$, CI
+$[0.111,0.422]$, $p=0.0003$). Per-dimension, the consensus effect is driven
+mainly by \texttt{emotional\_pressure}, \texttt{respect\_for\_refusal}, and
+\texttt{transparency} (all $p<0.012$ in both contrasts).
+
+\subsubsection{Excluding disputed items: the effect concentrates, it does not vanish}
+\label{sec:sensitivity-exclusion}
+
+An item is flagged high-disagreement if any escalation criterion fires
+other than \texttt{unverifiable\_evidence} (excluded because that
+criterion's evidence-groundedness regex produces a documented false-positive
+rate against Claude's quoting style, not a real evidence problem; see
+Appendix~\ref{app:implementation}). 48/180 items (27\%) are flagged this
+way. On the remaining 132 items, every contrast is non-significant
+(full table in Appendix~\ref{app:additional}). This is not an independent
+robustness check: several exclusion criteria are partly defined by the same
+manipulation-score divergence being tested, so excluding them mechanically
+removes many of the items carrying the signal. E's null is read as
+\emph{``the effect is concentrated in the disagreement-flagged subset,''}
+not as an evaluator-independent refutation of Sections
+\ref{sec:claude-only}--\ref{sec:consensus-scoring}.
+
+\subsubsection{The disagreement concentrates in the judge's own outputs}
+\label{sec:self-eval-blindspot}
+
+The Claude-detected effect is not evenly spread across the three subject
+models. By-model manipulation-score contrasts (Claude judge) are
+significant only for \texttt{qwen3:4b} ($p=0.0008$ and $p=0.0031$ for the
+two significant pooled contrasts) and null or non-significant for
+\texttt{gemma3:4b} ($p=1.00$, $p=0.668$) and \texttt{llama3.2:3b}
+($p=0.115$, $p=0.125$, same direction but underpowered at $n=15$).
+\texttt{qwen3:4b} is simultaneously a subject model in this experiment and
+the primary local judge. Scoring its own outputs, \texttt{qwen3:4b}
+assigns a flat, zero-variance manipulation score across all four
+conditions for 14 of 15 scenarios (the 15th scores a flat 1 in every
+condition). Claude, judging the identical text blind to its authorship,
+assigns \texttt{qwen3:4b}'s outputs a clear condition-dependent swing
+(pressure 2.87 $\to$ pressure\_autonomy 1.07 $\to$ autonomy 0.73, out of
+8). The effect appears in 13--14 of 15 scenarios in the same direction, so
+this is a subject-model effect, not a one-off scenario artifact.
+Appendix~\ref{app:qualitative} works through one paired example
+(\texttt{s15\_account\_creation}, pressure vs.\ pressure\_autonomy) in
+full: the two responses differ in exactly the way Claude's scores say they
+do -- the pressure-condition response omits the guest-checkout alternative
+and gives no easy decline path, the pressure\_autonomy response states
+both explicitly -- while Qwen scores both responses identically (0/0),
+confirming the divergence tracks real textual content rather than judge
+noise on either side.
+
+\subsubsection{Classification: evaluator-sensitive}
+\label{sec:classification}
+
+The substantive conclusion -- does the autonomy-preserving instruction
+reduce manipulation and increase autonomy-respecting behavior? -- flips
+from ``no measurable effect'' (Qwen alone) to ``yes, a significant effect
+with moderate effect size'' (Claude alone, and attenuated-but-significant
+under consensus scoring), depending entirely on which judge is used, and
+the mechanism is traceable to a self-evaluation blind spot rather than
+scenario- or single-dimension-specific noise. This study is classified as
+\textbf{evaluator-sensitive}: neither judge's verdict is reported as the
+answer, and the disagreement itself is reported as the result.

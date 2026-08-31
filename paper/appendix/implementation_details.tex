@@ -1,0 +1,119 @@
+\section{Implementation Details}
+\label{app:implementation}
+
+\subsection{Pipeline architecture}
+
+The pipeline (\texttt{src/pressure\_evals/}) is a sequence of resumable,
+append-only stages, each invoked via the \texttt{pressure-evals} CLI and
+recorded as line-delimited JSON:
+
+\begin{description}
+\item[\texttt{generate}] calls each subject model under each condition/
+scenario cell (Section~\ref{sec:experimental-design}), writing one
+\texttt{GenerationRecord} per attempt to \texttt{data/raw\_outputs/}
+(failed attempts are preserved, never overwritten or discarded).
+\item[\texttt{evaluate}] runs the blinded primary judge
+(Section~\ref{sec:blinded-evaluation}) over the generation records,
+writing \texttt{data/evaluations/\{run\_id\}.jsonl}.
+\item[\texttt{evaluate-sample}] runs a named secondary judge over a
+selected item subset (Section~\ref{sec:multi-judge-validation}), writing a
+suffixed sibling file (e.g.\ \texttt{\{run\_id\}.gemma3-4b.sample.jsonl}).
+\item[\texttt{escalate}] runs the deterministic audit and consensus/
+escalation logic (below) over all evaluation files for a run, writing the
+escalation review artifacts.
+\end{description}
+
+Every stage writes a manifest (model digests, tool version, random seeds,
+generation/evaluation parameters, start/end timestamps) alongside its
+data file, and every record carries a SHA-256 hash of its own content.
+\texttt{generate} and \texttt{evaluate} are resumable: re-running skips
+any cell that already has a successful record and retries only failures,
+identified by matching on scenario/model/condition (generation) or
+\texttt{generation\_response\_hash} (evaluation) -- never by re-deriving
+an item's identity from its position in the file.
+
+\subsection{Blinding mechanism}
+
+Before evaluation, each generated response is assigned an opaque
+\texttt{item-NNNN} identifier via a fixed-seed shuffle, and a separate
+\texttt{blinding\_key.json} maps each identifier back to its true
+(scenario, model, condition, \texttt{generation\_response\_hash}) tuple.
+The judge-facing prompt is built from only the item ID, the scenario's
+public fields (organization, requested action, relevant information,
+alternative), and the response text (\texttt{\_build\_user\_prompt} in
+\texttt{src/pressure\_evals/evaluate.py} and
+\texttt{external\_judge.py}, byte-identical prompt-construction logic
+between the two). The blinding key is never passed to the judge and is
+only used after scoring, to re-attach condition/model labels for analysis.
+
+\subsection{External-judge script}
+
+The external-judge extension
+(\texttt{src/pressure\_evals/\allowbreak external\_judge.py}, Section~\ref{sec:external-judge})
+reuses the primary judge's system prompt, JSON schema, and prompt-hash
+function verbatim (\texttt{evaluation\_prompt\_hash()}), calling the
+external API instead of Ollama.
+\texttt{run\_external\_judge\_\allowbreak concurrent}
+issues requests with bounded concurrency and a per-item retry budget (up
+to 3 JSON-repair attempts, matching the primary judge's policy);
+\texttt{\_completed\_\allowbreak response\_hashes} makes the run resumable on the
+same basis as \texttt{evaluate}. This script is not yet wired into the
+\texttt{pressure-evals} CLI subcommand set -- it was added as a
+standalone validation extension and is a tracked consolidation item for
+the V2 successor (Section~\ref{sec:conclusion}).
+
+\subsection{Deterministic audit}
+
+The audit (\texttt{src/pressure\_evals/audit.py}) is entirely code-based:
+no model calls. It checks, per response: whether a decline option is
+mentioned; whether the scenario's known alternative is mentioned; whether
+the scenario's relevant tradeoff is disclosed; keyword/regex matches for
+urgency, emotional-pressure, and authority/social-proof language; and
+\texttt{evidence\_is\_grounded} -- whether a judge's quoted evidence
+string for a positive score ($>0$) can be located verbatim in the
+response text. This last check has a documented false-positive mode: its
+quote-matching regex was tuned against the primary judge's quoting
+conventions and does not recognize the external judge's use of ASCII
+straight single quotes (\texttt{'...'}), so it flags roughly 149/180
+external-judge items as ``unverifiable evidence'' even where the quoted
+text is present and accurate. This was traced by manual spot-checking
+and is excluded, by name, from the disagreement definition used in
+Section~\ref{sec:sensitivity-exclusion} -- treating it as a real
+evidence problem would have discarded most of the dataset for the wrong
+reason. It is not corrected in the shared audit code itself
+(Section~\ref{sec:limitations}), since the primary-judge-facing behavior
+of that code was out of scope for this validation extension.
+
+\subsection{Escalation rule}
+
+An item is flagged for escalation (\texttt{src/pressure\_evals/consensus.py})
+if any of the following fire: a judge score range $\geq 2$ on any
+dimension across the judges that scored it; no 2-of-3 majority on
+$\geq 2$ dimensions; any judge reports \texttt{ambiguous=true} or
+confidence $<0.65$; a positive-score judge evidence excerpt fails
+\texttt{evidence\_is\_grounded}; primary/secondary judges differ by
+$\geq 3$ on \texttt{manipulation\_score} or $\geq 2$ on
+\texttt{autonomy\_score}; the deterministic audit's aggregate signal
+contradicts the score consensus; or the item is in the top 5\% of
+consensus \texttt{manipulation\_score}. These thresholds were fixed
+before any condition-level scores were inspected and were not
+re-tuned after seeing the escalation counts they produced.
+
+\subsection{Cost and compute accounting}
+
+Generation and the open-weight judges ran entirely locally via Ollama on
+a single Apple Silicon machine: 180 generations in 3{,}802.8s of continuous
+model-call time (63.4 min), no GPU cluster, no cloud infrastructure, no
+paid API calls. The one paid component is the external-judge extension:
+180/180 items, \$3.36 actual cost (399{,}832 input / 143{,}791 output
+tokens) against a pre-declared \$10 ceiling, not approached. Full
+breakdown, including manually-interrupted-run wall-clock-vs-compute-time
+accounting: \texttt{reports/computational\_costs.md}.
+
+\subsection{Test coverage}
+
+109 automated tests (\texttt{tests/}) cover schema validation, prompt
+construction and hashing, the Ollama and external-judge clients, sampling
+and blinding, the deterministic audit, consensus/escalation logic, and
+the statistical analysis functions, and were passing at the time each
+artifact in this manuscript was produced.

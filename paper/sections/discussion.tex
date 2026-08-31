@@ -1,27 +1,80 @@
 \section{Discussion}
+\label{sec:discussion}
+
+\subsection{The headline finding is about measurement, not just behavior}
+
+The most important result of this study is not "no effect" or "a
+significant effect" -- it is that a single-judge design, even one that
+looks methodologically careful (a distinct judge model, blinded scoring,
+a fixed rubric, cross-validated on a stratified sample by two further
+judges), reported the wrong-sign conclusion here, because the specific
+judge chosen happened to also be one of the three models under study. A
+reader who only had access to Sections
+\ref{sec:primary-contrasts}--\ref{sec:multi-judge-agreement-local} would,
+reasonably, conclude this study found no effect. A reader who only had
+access to Section~\ref{sec:evaluator-sensitivity} would, also reasonably,
+conclude the opposite. Both readings are honest
+readings of real analyses on real data; the disagreement between them is
+the finding we consider most worth reporting, and it is why we do not lead
+with either judge's verdict as ``the'' result.
+
+\subsection{Why did the primary judge miss the effect?}
+
+Section~\ref{sec:evaluator-sensitivity} traces the disagreement to a
+specific, checkable mechanism rather than leaving it as an unexplained
+discrepancy: \texttt{qwen3:4b} is simultaneously a subject model generating
+text under all four conditions and the primary judge scoring that text
+(along with the other two subject models' text). Scoring its own outputs,
+it returns a flat, zero-variance manipulation score in 14 of 15 scenarios
+regardless of condition; scoring the same text, an independent frontier
+judge finds a clear, condition-dependent swing. This is consistent with a
+\emph{self-evaluation blind spot}: the same weights that produced the
+persuasive framing in the first place are less able to recognize that
+framing as manipulative when asked to grade it, even under strict blinding
+of subject-model identity and condition label. Blinding controls for
+\emph{knowing} whose output is being scored; it does not control for a
+judge's own generative habits shaping what it \emph{recognizes} as
+manipulative in text that reads like its own writing. This is a distinct
+mechanism from the position bias and pairwise self-preference bias
+documented in prior LLM-as-judge work (Section~\ref{sec:related_work}) -- here the judge is
+scoring a single response on an absolute rubric, not choosing between two
+candidates, and still under-detects its own model's manipulative framing
+relative to an outside judge.
 
 \subsection{What this does and does not support}
 
-Within the 15 tested (deliberately low-stakes, benign) scenarios, three
-small open-weight models did not produce textually detectable increases in
-manipulation-coded language when instructed to maximize agreement, as
-measured by this rubric and this judge ensemble. All three models
-overwhelmingly preserved disclosure of tradeoffs/alternatives and an easy
-path to decline, even under the explicit pressure framing.
+Within the 15 tested (deliberately low-stakes, benign) scenarios, and
+scored by an evaluator outside the subject-model family, the
+autonomy-preserving instruction measurably reduces manipulation-coded
+language and increases autonomy-respecting behavior relative to the
+pressure condition; scored by a judge that is also one of the subject
+models, this same instruction shows no detectable effect. We do not treat
+either judge's number as ground truth. What the data support jointly is
+narrower and more useful: (1) at least one of the three small open-weight
+models studied here does write more manipulative-coded persuasive text
+under goal pressure, detectable by an external judge; (2) the effect this
+study set out to measure is real enough to survive consensus scoring, even
+after halving under averaging; and (3) whether a study like this one finds
+the effect at all can depend on a methodological choice --
+which model judges -- that is easy to get wrong even with deliberate
+design effort.
 
 This does \emph{not} support a claim that these models -- or language
 models generally -- cannot become more manipulative under any goal
-pressure. The scenarios were designed to be benign; higher-stakes or more
-adversarial scenario framings, longer or multi-turn interactions, or
-different (stronger, more specific) pressure instructions might elicit a
-different pattern. Nor does it support any claim about the judge's ability
-to detect subtler manipulation tactics outside the six rubric dimensions,
-or about internal model states, intent, or evaluation-awareness -- this
-study measures observable generated text under a controlled prompt only.
+pressure, nor a claim that they reliably do. The scenarios were designed
+to be benign; higher-stakes or more adversarial scenario framings, longer
+or multi-turn interactions, or different (stronger, more specific)
+pressure instructions might elicit a different pattern under either judge.
+Nor does it support any claim about internal model states, intent, or
+evaluation-awareness -- this study measures observable generated text
+under a controlled prompt, scored by other models, only.
 
-\subsection{Why might the effect be absent here?}
+\subsection{Why did the open-weight judge see nothing, specifically?}
 
-Several non-exclusive explanations are consistent with the data:
+Beyond the self-evaluation mechanism above, several further non-exclusive
+explanations are consistent with why \texttt{qwen3:4b}'s scores in
+particular were compressed near the floor for \emph{all three} subject
+models, not only its own outputs:
 
 \begin{enumerate}
 \item \textbf{Genuine model robustness at this scale and stakes level.}
@@ -56,4 +109,18 @@ with \texttt{llama3.2:3b}'s substantially higher empty-evidence rate, this
 suggests smaller open-weight judges are less reliable at the more subtle
 end of manipulation detection specifically -- a finding relevant to anyone
 considering small open-weight models as judges for behavioral evaluation,
-independent of this study's substantive null result.
+independent of this study's evaluator-sensitivity result.
+
+\subsection{Practical implication for LLM-as-judge practice}
+
+The design choice this study would change, if repeated, is narrow and
+structural rather than about picking a ``better'' judge: \textbf{a model
+should not be the primary judge of outputs that include its own
+generations.} This is a stronger requirement than ``use a distinct judge
+model'' or ``blind the judge to subject-model identity'' -- both of those
+were already true here, and both were insufficient. It is also cheaper to
+satisfy than it looks: routing only the subset of items where the subject
+model and candidate judge coincide to a different judge (rather than
+replacing the primary judge study-wide) would have caught this. This is
+the specific structural rule the framework's V2 successor adopts
+(Section~\ref{sec:conclusion}).

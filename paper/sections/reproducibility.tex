@@ -1,4 +1,5 @@
 \section{Reproducibility Statement}
+\label{sec:reproducibility}
 
 Repository: \url{https://github.com/Project-Aletheia-org/aletheia-pressure-evals}
 (public, MIT licensed). All raw generation and evaluation records
@@ -20,7 +21,12 @@ uv run pressure-evals evaluate-sample --run-id baseline-v0.1-20260722 \
 uv run pressure-evals escalate --run-id baseline-v0.1-20260722
 \end{verbatim}
 
-All four generation/evaluation commands are resumable. Generation itself
+All four generation/evaluation commands are resumable and require no paid
+API access. The external-judge validation extension
+(Section~\ref{sec:external-judge}) is not yet a CLI subcommand; it is run
+as a standalone script (\texttt{src/pressure\_evals/external\_judge.py})
+and requires an Anthropic API key and its own \$10 cost ceiling, both
+set explicitly by the operator rather than defaulted. Generation itself
 is stochastic (temperature 0.7); exact response text will differ on
 rerun, though the pipeline, scenario order, and analysis methodology are
 fully deterministic given the same generated data. One evaluation item

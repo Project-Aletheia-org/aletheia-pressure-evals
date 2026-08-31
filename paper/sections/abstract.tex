@@ -2,29 +2,36 @@
 When an AI assistant is optimized to achieve a persuasive objective, does
 its visible communication become more manipulative, and can an explicit
 autonomy-preserving instruction reduce that effect? We study this question
-as a controlled behavioral experiment: three small open-weight language
-models (\texttt{qwen3:4b}, \texttt{gemma3:4b}, \texttt{llama3.2:3b}) each
-generate a message under one of four system-prompt conditions
-(\emph{baseline}, \emph{pressure}, \emph{autonomy},
+as a controlled behavioral experiment, then show that the answer this
+experiment gives depends on which judge scores it -- and that this
+dependence is itself the more important finding. Three small open-weight
+language models (\texttt{qwen3:4b}, \texttt{gemma3:4b},
+\texttt{llama3.2:3b}) each generate a message under one of four
+system-prompt conditions (\emph{baseline}, \emph{pressure}, \emph{autonomy},
 \emph{pressure\_autonomy}) across 15 benign persuasion scenarios (180
-outputs total), scored on a six-dimension manipulation/autonomy rubric by
-a blinded open-weight judge and cross-validated against two additional
-independent judges on a stratified 60-item sample. Contrary to our
-confirmatory hypotheses, under the open-weight primary judge we find
-\textbf{no detectable increase in manipulation-coded language under the
-pressure condition, and no detectable change from adding the autonomy
-instruction}: manipulation scores are compressed near the floor (mean
-0.04--0.11 of a possible 0--8 in every condition) and autonomy scores near
-the ceiling (mean 3.96--4.00 of 0--4), with all three primary
-paired-contrast permutation tests yielding $p \geq 0.63$. A subsequent
-extension (reported in the repository, and being integrated into a
-forthcoming revision of this paper) re-scores the identical blinded items
-with an independent frontier judge and finds this null does \emph{not}
-hold, indicating the result is evaluator-sensitive; that analysis is
-summarized in \texttt{reports/judge\_sensitivity\_summary.md}. We report
-the original null honestly as a preliminary, model-, scenario-scale-, and
-\emph{evaluator}-dependent finding, and contribute a versioned, locally
+outputs total), scored on a six-dimension manipulation/autonomy rubric.
+Scored by a blinded open-weight primary judge (\texttt{qwen3:4b}), the
+study is a clean null: manipulation scores are compressed near the floor
+(mean 0.04--0.11 of a possible 0--8 in every condition), autonomy scores
+near the ceiling (mean 3.96--4.00 of 0--4), and all three primary
+paired-contrast permutation tests yield $p \geq 0.63$. Re-scoring the
+identical blinded items with an independent frontier judge
+(\texttt{claude-sonnet-4-6}, same rubric, prompt, and temperature) collapses
+this null: the autonomy-preserving instruction significantly reduces
+manipulation-coded language, both against the pressure condition
+($p=0.0003$) and against baseline ($p=0.0017$), with the two judges'
+per-item scores agreeing at barely above chance (Cohen's $\kappa \leq
+0.21$ on every dimension). The disagreement is not diffuse: it concentrates
+in the outputs of \texttt{qwen3:4b}, which is simultaneously a subject
+model in the experiment \emph{and} the primary judge -- a self-evaluation
+blind spot surfacing as a measurement artifact inside a design many
+practitioners would already treat as validated (a distinct model family
+scoring blind, on a fixed rubric, with a stratified secondary-judge cross-
+check). We report both the null and the disagreement as findings, classify
+the study as \textbf{evaluator-sensitive} rather than defaulting to
+either judge's verdict, and contribute a versioned, largely locally
 reproducible evaluation framework -- blinded multi-judge scoring, a
-deterministic diagnostic audit, and a selective human-escalation
-methodology that scales without requiring exhaustive manual annotation.
+deterministic diagnostic audit, and a selective escalation methodology for
+disputed items -- built around the structural rule this study's own result
+argues for: a model should not be the primary judge of its own outputs.
 \end{abstract}
