@@ -1,0 +1,42 @@
+\section{Additional Results}
+\label{app:additional}
+
+% STRUCTURAL STUB created 2026-09-15 to make the project compile: main.tex
+% \input{}s this file and results.tex references \ref{app:additional}. The
+% tables and figures below are wired from real, final rendered assets
+% (reports/tables/*.json -> paper/tables/*.tex; reports/figures/*.png). Only the
+% connecting prose is a placeholder; NO numerical result has been invented.
+
+\paragraph{Per-condition zero-difference counts.} % [PLACEHOLDER PROSE]
+% The main text (results.tex) states that 39--43 of the 45 scenario-model pairs
+% show zero difference across the five contrast/outcome combinations. Per-pair
+% counts are recoverable from reports/baseline_v0.1_results.{csv,json}; fill an
+% exact per-contrast breakdown here before submission.
+
+\paragraph{Deterministic audit detail.} The full deterministic (code-only)
+text audit summarised in Section~3 is given in Table~\ref{tab:det_audit}.
+
+\input{tables/deterministic_audit.tex}
+
+\paragraph{Between-judge composite agreement.} Table~\ref{tab:composite_agreement}
+reports pairwise agreement between the three judges on the two composite scores;
+Table~\ref{tab:dim_agreement} gives the per-dimension breakdown underlying the
+agreement heatmap in Figure~\ref{tab:judge_agreement}.
+
+\input{tables/composite_agreement.tex}
+\input{tables/dimension_agreement.tex}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/manipulation_score_by_model_condition.png}
+\caption{Manipulation score by condition, broken out per subject model
+(\texttt{qwen3:4b}, \texttt{gemma3:4b}, \texttt{llama3.2:3b}).}
+\label{fig:manip_by_model}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/rubric_dimension_heatmap.png}
+\caption{Mean primary-judge score per rubric dimension across conditions.}
+\label{fig:rubric_heatmap}
+\end{figure}

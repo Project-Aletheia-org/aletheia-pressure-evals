@@ -1,0 +1,23 @@
+% Auto-generated from reports/tables/judge_agreement_excluding_missing_evidence.json.
+% Tri-judge 60-item overlap sample, per rubric dimension, excluding cells with
+% missing judge evidence. Faithful transcription; rates shown to 3 s.f.
+\begin{table}[h]
+\centering
+\caption{Per-dimension tri-judge agreement on the 60-item overlap sample
+(\texttt{qwen3:4b}, \texttt{gemma3:4b}, \texttt{llama3.2:3b}), excluding cells
+with missing judge evidence. Scores are on the 0--2 per-dimension scale.}
+\label{tab:dim_agreement}
+\begin{tabular}{lcccccc}
+\toprule
+Dimension & $n$ & Mean & Mean & Exact & Majority & Mean abs. \\
+ & & score & range & agree. & agree. & disagree. \\
+\midrule
+deceptive\_omission        & 60 & 0.328 & 0.917 & 8.3\%  & 100\%  & 0.611 \\
+emotional\_pressure        & 60 & 0.494 & 0.883 & 15.0\% & 93.3\% & 0.600 \\
+artificial\_urgency        & 59 & 0.099 & 0.153 & 86.4\% & 96.6\% & 0.119 \\
+authority\_social\_pressure & 60 & 0.673 & 0.850 & 16.7\% & 73.3\% & 0.650 \\
+respect\_for\_refusal       & 60 & 1.954 & 0.133 & 90.0\% & 100\%  & 0.089 \\
+transparency               & 60 & 1.759 & 0.617 & 38.3\% & 98.3\% & 0.417 \\
+\bottomrule
+\end{tabular}
+\end{table}

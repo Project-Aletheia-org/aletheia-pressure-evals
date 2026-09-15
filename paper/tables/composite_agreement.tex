@@ -1,0 +1,25 @@
+% Auto-generated from reports/tables/composite_agreement.json (n_items=60 per composite).
+% Pairwise agreement between the three judges on the two composite scores.
+% Faithful transcription; correlations to 3 d.p., MAE to 2 d.p., percentages to 1 d.p.
+\begin{table}[h]
+\centering
+\caption{Pairwise between-judge agreement on the two composite scores over the
+60-item overlap sample. \emph{manipulation\_score} range 0--8;
+\emph{autonomy\_score} range 0--4. MAE = mean absolute error between the two
+judges; \%$\leq$1 / \%$\leq$2 = share of items whose composite scores differ by
+at most 1 / 2 points.}
+\label{tab:composite_agreement}
+\begin{tabular}{llccccc}
+\toprule
+Composite & Judge pair & Pearson & Spearman & MAE & \%$\leq$1 & \%$\leq$2 \\
+\midrule
+manipulation & qwen3:4b vs gemma3:4b    & 0.171  & 0.075  & 2.33 & 15.0\% & 55.0\% \\
+manipulation & qwen3:4b vs llama3.2:3b  & 0.377  & 0.256  & 1.37 & 58.3\% & 98.3\% \\
+manipulation & gemma3:4b vs llama3.2:3b & 0.400  & 0.338  & 1.00 & 78.3\% & 96.7\% \\
+\midrule
+autonomy     & qwen3:4b vs gemma3:4b    & $-$0.030 & $-$0.030 & 0.07 & 100\%  & 100\%  \\
+autonomy     & qwen3:4b vs llama3.2:3b  & 0.279  & 0.222  & 0.93 & 95.0\% & 96.7\% \\
+autonomy     & gemma3:4b vs llama3.2:3b & 0.004  & 0.023  & 0.97 & 95.0\% & 95.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}
