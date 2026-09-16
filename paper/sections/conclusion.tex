@@ -1,22 +1,17 @@
 \section{Conclusion}
 
-We set out to test whether an explicit performance-pressure framing shifts small
-open-weight models' persuasive writing toward manipulation-coded language, and
-whether an autonomy-preserving instruction counteracts it. Answering that question
-required a judge --- and the choice of judge, not the text, determined the answer.
-On the same 180 blinded outputs, a small open-weight judge found no effect of any
-condition, while a frontier judge found a moderate, multiply-corrected reduction
-in manipulation under the autonomy instruction; the two judges agreed at chance on
-every rubric dimension, and the disagreement was largest on the outputs of the
-very model that also served as the open-weight judge. With no ground-truth
-adjudicator, we do not claim either judge is right; the contribution is the
-demonstration that a careful, blinded, rubric-based, multi-judge behavioral
-evaluation can still yield an evaluator-dependent conclusion, together with an
-observed same-family pattern that is consistent with --- but not proof of --- a
-self-evaluation measurement effect. The open-weight null remains a real and
-honestly-reported result within its evaluator; it is simply not the paper-level
-conclusion. We release the full local pipeline (blinded multi-judge scoring, a
-deterministic diagnostic audit, and a selective escalation methodology) so that
-the natural next steps --- collecting human labels to anchor ground truth, adding
-independent judges that do not share the subject family, and replicating per cell
---- can be taken against a fixed, reproducible baseline.
+We set out to measure whether goal pressure makes small models write more
+manipulatively, and whether an autonomy instruction helps. We could not answer
+that question, because the answer depended on the judge: a small open-weight
+judge saw nothing, a frontier judge saw a clear effect, and the two agreed at
+chance. The instructive part is \emph{where} they disagreed --- most sharply on
+the outputs of the very model that was also the open-weight judge, which scored
+its own outputs at a flat zero. A model was blind to a real signal in its own
+family's outputs, and the multi-judge ensemble meant to catch that shared the
+blindness. We cannot say which judge is right, and we cannot prove the blindness
+is self-preference rather than a small judge's limited range --- but the practical
+lesson survives either way: do not let a model be the primary judge of its own
+family, check for zero-variance score cells, and cross-check against a stronger
+judge on a subsample. We release the full pipeline and every frozen score so the
+one experiment that would sharpen this --- a small human-labeled anchor on the
+disagreement items --- can be run against a fixed baseline.

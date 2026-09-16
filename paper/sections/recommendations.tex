@@ -1,0 +1,52 @@
+\section{Practical Recommendations}
+\label{sec:recs}
+
+The finding is only useful if it changes what practitioners do. These
+recommendations follow directly from the failure mode above and do not depend on
+resolving which judge is correct --- they are precautions warranted by the
+observed hazard.
+
+\begin{enumerate}
+\item \textbf{Do not let a model be the primary judge of its own family.} In our
+data the largest real signal (per an independent judge) sat in exactly the
+outputs the self-family judge floored to zero variance. If you must score a
+model's outputs, use a judge from a different family --- ideally a stronger one
+--- for at least a validation subsample. Treating a same-family judge's score as
+independent ground truth is the specific mistake this paper documents.
+
+\item \textbf{Grep for zero-variance cells.} A judge that returns the same score
+for every item in a condition (or for an entire subject model) cannot detect a
+within-condition effect, and this is silent: the pipeline succeeds, the numbers
+look clean, and the null is an artifact of the instrument's floor, not the
+behavior. Flagging any (judge, subject, dimension) cell with zero or near-zero
+variance is a cheap, code-only check that would have caught this before any
+conclusion was drawn.
+
+\item \textbf{Cross-check against a stronger judge on a subsample, and report
+$\kappa$.} A single frontier-judge pass over a stratified subsample (here, 180
+items cost \$3.36) is enough to expose a conclusion-flipping disagreement.
+Report between-judge agreement per dimension: aggregate agreement computed over
+easy floor/ceiling dimensions can look reassuring while agreement on the
+discriminating dimensions is at chance.
+
+\item \textbf{Do not assume a multi-judge ensemble is independent.} Averaging
+three judges that share a training lineage (or simply a small model's compressed
+dynamic range) can reproduce a blind spot rather than cancel it. Check that
+panel members actually disagree on the dimensions that matter before trusting
+their consensus.
+
+\item \textbf{Add a cheap non-model audit as a tripwire, not an oracle.} A
+deterministic keyword/structure check is coarse, but when it agrees with a
+suspiciously floored judge and \emph{disagrees} with a stronger judge, that gap
+is a useful signal that the disagreement is about subtle, contextual behavior ---
+exactly where small judges are least reliable.
+
+\item \textbf{Report the judge as part of the claim.} ``Model X was not more
+manipulative under pressure'' is not a fact about Model X; it is a fact about
+Model X \emph{as scored by judge Y}. State the judge, its relationship to the
+subject, and the correction procedure alongside every LLM-judged effect.
+\end{enumerate}
+
+The open-source harness accompanying this paper implements the zero-variance and
+agreement checks (recommendations 2--3) and the deterministic audit
+(recommendation 5) as first-class, reproducible steps.

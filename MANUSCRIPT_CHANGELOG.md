@@ -8,6 +8,46 @@ was reconstructed from `reports/`, not copied from the prior manuscript.
 
 ---
 
+## 0. REFRAME (second pass, 2026-09-15): "self-evaluation blind spot"
+
+Per author direction, the paper was re-centered a second time --- from the
+academic "evaluator sensitivity / measurement instability" framing to a concrete,
+practitioner-facing **self-evaluation blind spot** gotcha (Karpathy-style: lead
+with the punchline, plain language, one killer number, a real side-by-side
+example, a practical checklist). **Same data, same numbers, same honesty caveats
+(no ground truth; same-family pattern stated non-causal). No number changed and
+no experiment was run in this pass.** Changes are framing + structure + craft:
+
+- **Title** changed to "Don't Let a Model Grade Its Own Family: A Reproducible
+  Self-Evaluation Blind Spot in LLM-as-Judge Manipulation Evaluation" (provisional);
+  the 5 candidate titles in `main.tex` were replaced with blind-spot-centered ones.
+- **Abstract / Introduction** rewritten punchline-first: the killer fact
+  (\texttt{qwen3:4b} scoring its own outputs at manipulation 0, SD 0, in 14/15
+  scenarios while the frontier judge sees a clear swing) leads; jargon removed;
+  the contribution is now the failure mode + the practical checklist.
+- **Results reordered** to lead with the by-model self-family blind spot
+  (`sec:res_headline`, `tab:claude_bymodel` moved first), then the two-judge
+  tables, chance agreement, the "not just high-scoring / not a pipeline bug"
+  checks, evaluator dependence + E-circularity, and the ensemble-doesn't-catch-it
+  result. No result tables changed values; only order and prose.
+- **New section `sections/recommendations.tex`** (`sec:recs`, wired into
+  `main.tex` after Discussion): a 6-item practical checklist (don't judge your own
+  family; grep zero-variance cells; cross-check a stronger judge + report kappa;
+  don't assume ensemble independence; keyword audit as tripwire; report the judge
+  as part of the claim).
+- **`appendix/qualitative_examples.tex` populated with real data** (was a stub):
+  the verbatim \texttt{item-0112} \texttt{qwen3:4b} output with both judges'
+  per-dimension scores (open-weight 0/8 \& 4/4 vs frontier 4/8 \& 0/4) and quoted
+  reasoning excerpts, from the frozen run + disagreement review file. Text
+  normalized to ASCII (quotes/dashes/arrow) for a clean pdflatex build; verbatim
+  original cited in the data file. No values invented.
+- **Discussion** tightened; practical advice moved to `sec:recs`; the three
+  honesty caveats (no ground truth, non-causal, no motive) kept and sharpened.
+- **Conclusion** rewritten punchy, ending on the one follow-up (human anchor set).
+
+Superseded framing from the first pass (below) is retained for history; the
+numeric log in section 2 still applies.
+
 ## 1. Major scientific framing changes
 
 - **Paper-level conclusion changed** from "preregistered null: goal pressure does

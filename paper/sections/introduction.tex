@@ -1,66 +1,55 @@
 \section{Introduction}
 
-Deployed AI assistants are frequently optimized, implicitly or explicitly,
-toward objectives that benefit their deploying organization: converting a user,
-retaining a subscriber, securing agreement to a request. A natural alignment
-concern is that when such optimization pressure is made explicit, a model's
-\emph{observable communication} may drift toward manipulative tactics ---
-concealment, manufactured urgency, emotional pressure, or appeals to authority
---- even without any instruction to manipulate as such. This concern is not
-hypothetical at the level of autonomous agentic behavior: stress-testing of 16
-frontier and mid-size models in simulated corporate settings found that goal
-conflict with a deployer, or a perceived threat to a model's continued
-operation, was independently sufficient to elicit harmful autonomous action
-across every model tested, and that naive behavioral instruction did not
-reliably prevent it \citep{anthropic2025agentic}.
+Using a language model to grade another model's output --- ``LLM-as-a-judge'' ---
+is now routine in behavioral and safety evaluation, because it scales where human
+annotation does not. The known risks are treated as \emph{score-level}: a judge
+might be biased high or low, or prefer its own style, and the usual remedy is to
+average several judges. This paper reports a case where that remedy quietly
+fails, in a way that a practitioner would want to know about before trusting an
+LLM-judged number.
 
-We set out to study a lower-stakes, purely textual precursor: does an explicit
-performance-pressure framing shift a small model's persuasive writing toward
-manipulation-coded language, and does an explicit autonomy-preserving
-instruction counteract that shift? To measure this at scale without exhaustive
-human annotation, we did what a growing body of evaluation work does: we used
-language models as the judges. That methodological choice turned out to matter
-more than the behavior we set out to measure.
+We started with an ordinary behavioral question. When a small assistant model is
+told to maximize agreement (``convert the user,'' ``retain the subscriber''),
+does its writing become more manipulative --- more concealment, urgency, or
+pressure --- and does an explicit autonomy-preserving instruction pull it back?
+We generated 180 messages under a $2\times2$ pressure/autonomy design across 15
+benign scenarios and three small open-weight models, and scored every message on
+a six-dimension rubric using \texttt{qwen3:4b} as the judge. The result was a
+clean null: nothing moved.
 
-When we scored the 180 generated messages with a small open-weight judge, we
-found a clean null --- no condition moved the manipulation or autonomy scores.
-When we re-scored the \emph{identical} blinded outputs with a frontier judge,
-under the same rubric, blinding, and prompt, the null disappeared and the
-autonomy instruction showed a clear, moderate effect. The two judges agreed at
-barely above chance. Neither judge is backed by human-labeled ground truth, so
-we cannot say which is correct --- but that is exactly the problem: the
-answer to the substantive research question is a function of the evaluator, not
-just the text.
+Then we re-scored the \emph{identical} blinded outputs with a frontier judge
+(\texttt{claude-sonnet-4-6}) --- same rubric, same blinding, same prompt --- as a
+sanity check. The null fell apart. The frontier judge saw a clear effect of the
+autonomy instruction, and the two judges agreed at barely above chance. Digging
+into where they disagreed produced the finding of this paper.
 
-\paragraph{Reframed research question.} We therefore report this study primarily
-as a measurement-validity result. Our central question is: \emph{how stable are
-behavioral conclusions about pressure-induced manipulation across evaluators?}
-The original pressure/autonomy question is retained as the concrete behavioral
-probe through which evaluator (in)stability is exposed, not as the paper's
-conclusion.
+\paragraph{The blind spot.} The open-weight judge scored its \emph{own} model's
+outputs (\texttt{qwen3:4b} as subject) at manipulation $=0$ with zero variance
+across all four conditions in 14 of 15 scenarios --- a flat line. On that same
+text, the frontier judge recorded a clear condition-dependent swing. In other
+words, the single place where an independent judge found the largest signal is
+precisely the place the open-weight judge was blind: its own family's outputs.
+Averaging in two more open-weight judges did not help, because all three share
+the same floored behavior on the dimensions that carry the signal. A setup many
+teams would accept as an independent multi-judge validation reproduced the blind
+spot instead of catching it.
 
-\paragraph{Approach.} We use a $2\times2$ design (goal pressure absent/present
-$\times$ autonomy instruction absent/present) crossed with 15 benign persuasion
-scenarios and three small open-weight subject models, yielding 180 generated
-messages. Each message is scored on a six-dimension behavioral rubric
-(deceptive omission, emotional pressure, artificial urgency, authority/social
-pressure, respect for refusal, transparency), with the identical blinded inputs
-sent to two independent judges: a small open-weight model (\texttt{qwen3:4b})
-and a frontier model (\texttt{claude-sonnet-4-6}); a stratified 60-item
-subsample is additionally scored by two further open-weight judges. We measure
-only observable text and treat every score as a \emph{measurement by a specific
-judge}, never as the behavior itself; we make no claim about model intent,
-consciousness, hidden beliefs, or evaluation awareness.
+\paragraph{What we do and do not claim.} We treat every score as a
+\emph{measurement by a specific judge}, never as the behavior itself. We do
+\emph{not} claim the frontier judge is ground truth (we have no human labels), and
+we do \emph{not} claim the blind spot is caused by self-preference: a small judge
+with a compressed dynamic range that happens to floor same-family text most
+severely would produce the same pattern, and our design cannot separate the two.
+What survives either explanation is a concrete, reproducible measurement hazard
+and a practical way to avoid it.
 
-\paragraph{Contribution.} (1) A controlled demonstration that the behavioral
-conclusion of a rubric-based LLM-judged evaluation can invert with the choice of
-judge, with exact effect sizes, uncertainty, and multiple-comparison correction.
-(2) An observation that the disagreement and the open-weight null are
-concentrated on the outputs of the model that is \emph{both} a subject and the
-open-weight judge --- a same-family/self-evaluation pattern we document but do
-not claim to have shown is causal. (3) A versioned, locally reproducible
-evaluation framework --- blinded multi-judge scoring, a deterministic diagnostic
-audit, and a selective human-escalation methodology --- whose open-weight arm
-runs with no paid API. We deliberately do \emph{not} resolve the disagreement:
-without ground truth we cannot, and pretending otherwise is the failure mode we
-are documenting.
+\paragraph{Contribution.} (1) A controlled, reproducible demonstration that a
+small open-weight LLM judge can be blind to a real behavioral effect in its own
+family's outputs --- with exact effect sizes, uncertainty, and
+multiple-comparison correction. (2) A practical detection-and-mitigation
+checklist for anyone using LLM judges (Section~\ref{sec:recs}). (3) A versioned,
+locally reproducible evaluation harness (blinded multi-judge scoring, a
+deterministic keyword audit, and selective human-escalation) whose open-weight
+arm runs with no paid API. We deliberately leave the disagreement unresolved:
+without ground truth we cannot resolve it, and pretending otherwise is the exact
+failure mode we are documenting.

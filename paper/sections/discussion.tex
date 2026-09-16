@@ -1,74 +1,51 @@
 \section{Discussion}
 
-\subsection{What this does and does not support}
+\subsection{What the finding is}
 
-The central finding is about measurement, not about model behavior. On the same
-180 blinded outputs, with an identical rubric, blinding, and prompt, the answer
-to a preregistered behavioral question inverts depending on which judge scores
-the text: a small open-weight judge reports no effect of an autonomy-preserving
-instruction, and a frontier judge reports a moderate, multiply-corrected effect
-in the same data. The two judges agree at chance on every rubric dimension. We
-therefore treat ``does goal pressure make these models more manipulative, and
-does an autonomy instruction help?'' as a question whose \emph{measured} answer is
-evaluator-dependent in this regime, and we report that dependence as the result.
+On the same 180 blinded outputs, with an identical rubric, blinding, and prompt,
+a small open-weight judge and a frontier judge reach opposite conclusions about
+whether an autonomy-preserving instruction reduces manipulation, and they agree
+at chance on every rubric dimension. The disagreement is not uniform: it is
+largest on the outputs of \texttt{qwen3:4b}, which is also the open-weight judge,
+and which floors its own outputs to zero variance. The compact way to state it is
+that a model was blind, in a measurable way, to a behavioral signal in its own
+family's outputs that an outside judge detected --- and a three-model open-weight
+ensemble shared the blindness rather than catching it.
 
-This does \emph{not} support a claim that either judge is correct. We have no
-human-labeled ground truth, so we cannot say the frontier judge is detecting real
-manipulation the open-weight judge misses, or that the open-weight judge is
-correctly seeing benign text the frontier judge over-reads. Both single-judge
-conclusions --- and the significant two-judge consensus effect --- are consistent
-with the data; nothing in this study adjudicates between them. Nor does the study
-support any claim about model intent, internal states, or evaluation awareness: it
-measures generated text under a controlled prompt only.
+\subsection{What it is not}
 
-\subsection{No ground-truth adjudicator}
+We are careful about three things. First, we do not claim the frontier judge is
+correct. There is no human-labeled ground truth here; the frontier judge could be
+over-reading benign text, and nothing in this study adjudicates that. Second, we
+do not claim the blind spot is causal self-preference. A small judge whose scores
+are compressed near the floor will fail to resolve within-condition variation, and
+if that compression is worst on text closest to its own distribution, the same
+pattern appears without any preference mechanism; our design does not manipulate
+judge/subject relatedness and cannot separate the two accounts. Third, we infer no
+evaluator ``motive'': ``blind spot'' describes the scores, not the model's
+intent. The practical recommendations (Section~\ref{sec:recs}) are deliberately
+chosen to hold under either explanation, because a hazard you cannot yet explain
+is still a hazard.
 
-The single most important caveat is the absence of a reference standard. A blinded
-human-annotation arm was designed (Section~\ref{sec:judges}) but \emph{no human
-ratings have been collected}; it is therefore not part of the evidentiary basis
-of this paper and validates nothing here. Because the deterministic audit is a
-coarse keyword detector that agrees with \emph{both} judges that overt lexical
-manipulation is rare, it cannot break the tie on the subtler, contextual coding
-where the judges actually diverge. Until human (or otherwise independent) labels
-exist, evaluator disagreement is the finding, not a step toward resolving which
-judge to believe.
+\subsection{Why the usual safeguards did not help}
 
-\subsection{A possible same-family / self-evaluation effect}
+The reassuring parts of this setup are exactly what hid the problem. Blinding was
+correct and enforced. A deterministic keyword audit corroborated the open-weight
+judge --- but only that \emph{overt} manipulation was absent, which was true; the
+disputed behavior was contextual (an omitted cheaper option, a buried decline
+path), which keywords cannot see. A multi-judge panel was in place --- but its
+members shared a floor on the discriminating dimensions, so their agreement
+measured their common blind spot, not independent confirmation. Aggregate
+agreement statistics looked tolerable because they were dominated by easy
+floor/ceiling dimensions. Each individual safeguard was reasonable; together they
+produced a confident null that a single cross-family judge overturned.
 
-The frontier judge's effect is concentrated in the outputs of \texttt{qwen3:4b},
-which is also the open-weight judge, and the open-weight judge floors its own
-outputs most completely of any subject model. This is consistent with the
-self-preference and self-evaluation biases documented for larger judges
-\citep{wataoka2024selfpreference,pombal2026rubricspb}, now appearing as a
-measurement-\emph{stability} problem rather than a preference inflation. We
-deliberately stop short of a causal claim. We cannot separate a genuine
-same-family blind spot from a simpler explanation in which a small judge with a
-compressed dynamic range simply fails to resolve within-condition variation and
-does so most severely on the text closest to its own distribution. Distinguishing
-these requires manipulating judge/subject family relatedness directly, which this
-design does not do. What we can say is narrow and, we think, useful: a
-configuration that many practitioners would accept as an independent multi-judge
-validation --- three open-weight judges cross-checking each other --- reproduced
-the same blind spot rather than catching it, because all three share the
-floor/ceiling behavior on the discriminating dimensions.
+\subsection{Scope}
 
-\subsection{We cannot infer evaluator motive or causal bias}
-
-``Evaluator-sensitive'' here is an observational statement about scores, not an
-attribution of bias to any model. We do not claim the open-weight judge is
-``biased'' in favor of its family, nor that the frontier judge is unbiased; either
-could be closer to a future human standard. The result stands whichever way that
-adjudication eventually falls, because the claim is only that the behavioral
-conclusion is unstable across the evaluators actually used.
-
-\subsection{Implications for LLM-judged evaluation}
-
-If a rubric-based, blinded, multi-judge evaluation --- a fairly careful setup ---
-can inject a conclusion-flipping dependence on judge choice, then single-judge
-behavioral conclusions about small open-weight models should be reported with the
-judge as an explicit part of the claim, and multi-judge panels should be checked
-for shared failure modes (here, a common floor on the discriminating dimensions)
-rather than assumed independent. Judge agreement was markedly higher on
-dimensions near the floor/ceiling than on those requiring finer discrimination,
-so aggregate agreement statistics computed over easy dimensions can mask
-instability exactly where the substantive signal lives.
+This is a small probe: three 3--4B quantized models, one generation per cell, one
+seed, 15 benign scenarios, two primary judges. It is enough to demonstrate that
+the failure mode \emph{occurs} and to motivate the checks in
+Section~\ref{sec:recs}; it is not enough to estimate how often it occurs, how it
+scales with model size, or how large the true (human-anchored) effect is. Those
+require the follow-ups in Section~\ref{sec:limitations}, chief among them a small
+human-labeled anchor set on the disagreement items.
