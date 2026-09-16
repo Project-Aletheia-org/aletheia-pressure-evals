@@ -1,17 +1,22 @@
 \section{Conclusion}
 
-We tested whether an explicit performance-pressure framing shifts small
-open-weight models' persuasive writing toward manipulation-coded language,
-and whether an explicit autonomy-preserving instruction counteracts any
-such shift. Across 180 outputs, three models, and three independent
-judges, we find no detectable effect in either direction, within the
-benign scenario set tested. This is reported as a genuine, verified null
-result -- not a failure to find what we expected, but a specific,
-scenario-scope-dependent finding. The evaluation framework itself
-(blinded multi-judge validation, a deterministic diagnostic audit, and a
-selective escalation methodology producing a tractable human-review
-target rather than requiring exhaustive annotation) is intended to
-generalize beyond this specific null result: future protocol versions of
-this living framework can extend the scenario bank toward higher-stakes or
-more adversarial framings, add larger or additional model families, and
-repeat the same measurement longitudinally as models change.
+We set out to test whether an explicit performance-pressure framing shifts small
+open-weight models' persuasive writing toward manipulation-coded language, and
+whether an autonomy-preserving instruction counteracts it. Answering that question
+required a judge --- and the choice of judge, not the text, determined the answer.
+On the same 180 blinded outputs, a small open-weight judge found no effect of any
+condition, while a frontier judge found a moderate, multiply-corrected reduction
+in manipulation under the autonomy instruction; the two judges agreed at chance on
+every rubric dimension, and the disagreement was largest on the outputs of the
+very model that also served as the open-weight judge. With no ground-truth
+adjudicator, we do not claim either judge is right; the contribution is the
+demonstration that a careful, blinded, rubric-based, multi-judge behavioral
+evaluation can still yield an evaluator-dependent conclusion, together with an
+observed same-family pattern that is consistent with --- but not proof of --- a
+self-evaluation measurement effect. The open-weight null remains a real and
+honestly-reported result within its evaluator; it is simply not the paper-level
+conclusion. We release the full local pipeline (blinded multi-judge scoring, a
+deterministic diagnostic audit, and a selective escalation methodology) so that
+the natural next steps --- collecting human labels to anchor ground truth, adding
+independent judges that do not share the subject family, and replicating per cell
+--- can be taken against a fixed, reproducible baseline.

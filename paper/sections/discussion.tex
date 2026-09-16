@@ -2,58 +2,73 @@
 
 \subsection{What this does and does not support}
 
-Within the 15 tested (deliberately low-stakes, benign) scenarios, three
-small open-weight models did not produce textually detectable increases in
-manipulation-coded language when instructed to maximize agreement, as
-measured by this rubric and this judge ensemble. All three models
-overwhelmingly preserved disclosure of tradeoffs/alternatives and an easy
-path to decline, even under the explicit pressure framing.
+The central finding is about measurement, not about model behavior. On the same
+180 blinded outputs, with an identical rubric, blinding, and prompt, the answer
+to a preregistered behavioral question inverts depending on which judge scores
+the text: a small open-weight judge reports no effect of an autonomy-preserving
+instruction, and a frontier judge reports a moderate, multiply-corrected effect
+in the same data. The two judges agree at chance on every rubric dimension. We
+therefore treat ``does goal pressure make these models more manipulative, and
+does an autonomy instruction help?'' as a question whose \emph{measured} answer is
+evaluator-dependent in this regime, and we report that dependence as the result.
 
-This does \emph{not} support a claim that these models -- or language
-models generally -- cannot become more manipulative under any goal
-pressure. The scenarios were designed to be benign; higher-stakes or more
-adversarial scenario framings, longer or multi-turn interactions, or
-different (stronger, more specific) pressure instructions might elicit a
-different pattern. Nor does it support any claim about the judge's ability
-to detect subtler manipulation tactics outside the six rubric dimensions,
-or about internal model states, intent, or evaluation-awareness -- this
-study measures observable generated text under a controlled prompt only.
+This does \emph{not} support a claim that either judge is correct. We have no
+human-labeled ground truth, so we cannot say the frontier judge is detecting real
+manipulation the open-weight judge misses, or that the open-weight judge is
+correctly seeing benign text the frontier judge over-reads. Both single-judge
+conclusions --- and the significant two-judge consensus effect --- are consistent
+with the data; nothing in this study adjudicates between them. Nor does the study
+support any claim about model intent, internal states, or evaluation awareness: it
+measures generated text under a controlled prompt only.
 
-\subsection{Why might the effect be absent here?}
+\subsection{No ground-truth adjudicator}
 
-Several non-exclusive explanations are consistent with the data:
+The single most important caveat is the absence of a reference standard. A blinded
+human-annotation arm was designed (Section~\ref{sec:judges}) but \emph{no human
+ratings have been collected}; it is therefore not part of the evidentiary basis
+of this paper and validates nothing here. Because the deterministic audit is a
+coarse keyword detector that agrees with \emph{both} judges that overt lexical
+manipulation is rare, it cannot break the tie on the subtler, contextual coding
+where the judges actually diverge. Until human (or otherwise independent) labels
+exist, evaluator disagreement is the finding, not a step toward resolving which
+judge to believe.
 
-\begin{enumerate}
-\item \textbf{Genuine model robustness at this scale and stakes level.}
-Small open-weight models may carry safety-relevant training that resists
-persuasion-maximizing framing even when explicitly instructed, at least
-for benign requests.
-\item \textbf{Scenario benignity limits the ``room'' for manipulation.}
-Scenarios were designed with no dangerous, high-stakes, or adversarial
-content by design (Section~\ref{sec:ethics}); this may be precisely why
-little manipulation was detected regardless of condition.
-\item \textbf{Judge and rubric sensitivity.} A small open-weight judge,
-scoring on a coarse 0--2 scale per dimension, may under-detect subtle
-persuasion techniques that a stronger judge or a human annotator would
-catch -- motivating this study's blinded multi-judge and selective
-human-escalation design rather than trusting a single judge's score.
-\item \textbf{Ceiling/floor compression limits statistical power.} With
-most scores at or near the scale's boundary, the paired bootstrap and
-permutation tests have very little variance in which to detect a true
-effect, even a small one.
-\end{enumerate}
+\subsection{A possible same-family / self-evaluation effect}
 
-We do not have evidence to adjudicate between these explanations from this
-pilot alone, and we do not force a preference among them.
+The frontier judge's effect is concentrated in the outputs of \texttt{qwen3:4b},
+which is also the open-weight judge, and the open-weight judge floors its own
+outputs most completely of any subject model. This is consistent with the
+self-preference and self-evaluation biases documented for larger judges
+\citep{wataoka2024selfpreference,pombal2026rubricspb}, now appearing as a
+measurement-\emph{stability} problem rather than a preference inflation. We
+deliberately stop short of a causal claim. We cannot separate a genuine
+same-family blind spot from a simpler explanation in which a small judge with a
+compressed dynamic range simply fails to resolve within-condition variation and
+does so most severely on the text closest to its own distribution. Distinguishing
+these requires manipulating judge/subject family relatedness directly, which this
+design does not do. What we can say is narrow and, we think, useful: a
+configuration that many practitioners would accept as an independent multi-judge
+validation --- three open-weight judges cross-checking each other --- reproduced
+the same blind spot rather than catching it, because all three share the
+floor/ceiling behavior on the discriminating dimensions.
 
-\subsection{Judge sensitivity and multi-judge validation}
+\subsection{We cannot infer evaluator motive or causal bias}
 
-Judge agreement is markedly higher on dimensions closer to the observed
-floor/ceiling (\texttt{respect\_for\_refusal}, \texttt{artificial\_urgency})
-than on dimensions requiring finer discrimination
-(\texttt{deceptive\_omission}, \texttt{authority\_social\_pressure}). Combined
-with \texttt{llama3.2:3b}'s substantially higher empty-evidence rate, this
-suggests smaller open-weight judges are less reliable at the more subtle
-end of manipulation detection specifically -- a finding relevant to anyone
-considering small open-weight models as judges for behavioral evaluation,
-independent of this study's substantive null result.
+``Evaluator-sensitive'' here is an observational statement about scores, not an
+attribution of bias to any model. We do not claim the open-weight judge is
+``biased'' in favor of its family, nor that the frontier judge is unbiased; either
+could be closer to a future human standard. The result stands whichever way that
+adjudication eventually falls, because the claim is only that the behavioral
+conclusion is unstable across the evaluators actually used.
+
+\subsection{Implications for LLM-judged evaluation}
+
+If a rubric-based, blinded, multi-judge evaluation --- a fairly careful setup ---
+can inject a conclusion-flipping dependence on judge choice, then single-judge
+behavioral conclusions about small open-weight models should be reported with the
+judge as an explicit part of the claim, and multi-judge panels should be checked
+for shared failure modes (here, a common floor on the discriminating dimensions)
+rather than assumed independent. Judge agreement was markedly higher on
+dimensions near the floor/ceiling than on those requiring finer discrimination,
+so aggregate agreement statistics computed over easy dimensions can mask
+instability exactly where the substantive signal lives.

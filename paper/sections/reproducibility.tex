@@ -5,30 +5,43 @@ Repository: \url{https://github.com/Project-Aletheia-org/aletheia-pressure-evals
 (including preserved failed attempts), run manifests (model digests,
 Ollama version, machine architecture, random seeds, generation
 parameters), the escalation review, agreement statistics, and this
-manuscript's source are committed to the repository. Exact reproduction
-commands:
+manuscript's source are committed to the repository, \emph{including the
+frozen frontier-judge evaluation file}
+(\texttt{data/evaluations/baseline-v0.1-20260722.claude-sonnet-4-6.jsonl}),
+so the entire evaluator-sensitivity analysis reproduces from committed data
+with no API call. Open-weight reproduction commands:
 
 \begin{verbatim}
 uv sync
 uv run pressure-evals check
-uv run pressure-evals generate --run-id baseline-v0.1-20260722
-uv run pressure-evals evaluate --run-id baseline-v0.1-20260722
+uv run pressure-evals generate      --run-id baseline-v0.1-20260722
+uv run pressure-evals evaluate      --run-id baseline-v0.1-20260722
 uv run pressure-evals evaluate-sample --run-id baseline-v0.1-20260722 \
     --judge-model gemma3:4b
 uv run pressure-evals evaluate-sample --run-id baseline-v0.1-20260722 \
     --judge-model llama3.2:3b
-uv run pressure-evals escalate --run-id baseline-v0.1-20260722
+uv run pressure-evals escalate      --run-id baseline-v0.1-20260722
 \end{verbatim}
 
-All four generation/evaluation commands are resumable. Generation itself
-is stochastic (temperature 0.7); exact response text will differ on
-rerun, though the pipeline, scenario order, and analysis methodology are
-fully deterministic given the same generated data. One evaluation item
-required a documented one-off rescue outside the standard CLI path (see
-\texttt{reports/protocol\_deviations.md}). Full computational cost
-accounting (wall-clock vs. continuous compute time, since this run was
-manually interrupted and resumed several times) is in
-\texttt{reports/computational\_costs.md}.
+These commands are resumable and require no paid API. The frontier-judge
+scores were produced by \texttt{pressure\_evals.external\_judge.run\_external\_judge}
+(Anthropic Messages API, \texttt{claude-sonnet-4-6}, temperature 0, identical
+blinding/rubric/schema/prompt-hash), reading the same frozen generations and
+writing the committed \texttt{*.claude-sonnet-4-6.jsonl}; it requires
+\texttt{ANTHROPIC\_API\_KEY} and is gated by an explicit spend ceiling.
+
+\paragraph{Reproducibility caveat for the central finding.} The open-weight
+arm and \emph{all} frozen scores (including the frontier judge's) reproduce
+exactly and permanently from committed data. However, \emph{re-collecting} the
+frontier-judge scores from scratch requires a paid, hosted model that may
+change or be withdrawn over time, so bit-for-bit reproduction of that arm from
+the API is not guaranteed --- a direct instance of the reproducibility cost of
+depending on a frontier judge, which is itself part of this paper's argument.
+Generation is stochastic (temperature 0.7); exact response text differs on
+rerun, though the pipeline, scenario order, and analysis are deterministic
+given the same generated data. One evaluation item required a documented
+one-off rescue (see \texttt{reports/protocol\_deviations.md}); full compute
+accounting is in \texttt{reports/computational\_costs.md}.
 
 \paragraph{Disclosure.} This manuscript and the accompanying codebase were
 produced with AI-assisted coding and drafting (Claude, Anthropic) under

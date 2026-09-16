@@ -21,7 +21,10 @@ benign-scenario text for the six rubric dimensions; annotators are not
 exposed to any content beyond what is already in the (benign) generated
 outputs.
 
-The project uses only local, open-weight model inference; no paid API
-calls were required for the core study (an external closed-model
-sensitivity judge was added as an optional extension, gated by an explicit
-cost ceiling and reported separately from the core findings).
+The open-weight arm of the study uses only local model inference and
+requires no paid API. The frontier judge (\texttt{claude-sonnet-4-6}) is a
+hosted, paid model and is central --- not optional --- to the paper's
+finding, since the evaluator-sensitivity result depends on comparing it
+against the open-weight judge; its use was gated by an explicit cost ceiling
+(\$3.36 actual against a \$10 cap). All judge labels, including the frontier
+judge's, are treated as measurements rather than ground truth throughout.

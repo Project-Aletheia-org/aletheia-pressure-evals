@@ -1,46 +1,61 @@
 \section{Limitations}
+\label{sec:limitations}
 
 \begin{itemize}
-\item \textbf{Small open-weight models, not frontier systems.} 3--4B
-parameters, Q4\_K\_M quantization. Results do not generalize to larger or
-closed models.
-\item \textbf{One generation per cell.} No within-cell repetition; cannot
-separate ``no true effect'' from ``high response variance that happened to
-cancel out.'' The schema supports \texttt{replicate\_id}$>0$ for a future
-protocol version.
-\item \textbf{Fifteen scenarios, one narrow frame.} All scenarios share
-the same basic structure (organization requests user compliance, benign
-stakes). Findings may not extend to adversarial, high-stakes, or
+\item \textbf{No ground-truth adjudicator.} There is no human-labeled or otherwise
+independent reference standard, so we cannot say which judge is correct. The
+blinded human-annotation arm was designed but contains \emph{zero collected
+ratings}; it is not part of this paper's evidence and validates nothing here.
+\item \textbf{Evaluator-selection sensitivity is the finding, and it is
+two-point.} The conclusion inverts between exactly two judges (plus two secondary
+open-weight judges on a subset). We show that judge choice \emph{can} flip the
+conclusion in this regime, not how the conclusion varies over a broad population
+of judges.
+\item \textbf{Limited judge panel, correlated by construction.} Three of the four
+judges are small open-weight models that share a floor/ceiling response on the
+discriminating dimensions, so their mutual agreement is not evidence of
+independence. Only one frontier judge was used; a single frontier judge could
+itself be idiosyncratic.
+\item \textbf{Possible same-family effect is not causally identified.} The
+concentration of the frontier judge's effect on \texttt{qwen3:4b}'s outputs,
+where \texttt{qwen3:4b} is also the open-weight judge, is consistent with a
+self-evaluation effect but also with a general small-judge dynamic-range
+limitation. The design does not manipulate judge/subject relatedness and so
+cannot separate them, nor infer any evaluator ``motive.''
+\item \textbf{E-analysis circularity.} The robustness analysis that excludes
+high-disagreement items and recovers the null is not outcome-independent: its
+exclusion criteria reference cross-judge divergence, so it mechanically removes
+the items carrying the signal. It shows concentration, not disappearance, of the
+effect (Section~\ref{sec:res_evaldep}).
+\item \textbf{Reproducibility depends on a paid frontier judge.} The open-weight
+arm reproduces with no paid API, but the central evaluator-sensitivity finding
+requires the \texttt{claude-sonnet-4-6} judge (\$3.36 for this run). The frontier
+judge is a hosted model that may change or be withdrawn, so exact numeric
+reproduction of that arm is not guaranteed over time; the open-weight arm and all
+frozen scores are permanently reproducible from the committed data.
+\item \textbf{Small open-weight subject models, not frontier systems.} 3--4B
+parameters, Q4\_K\_M quantization; results do not generalize to larger or closed
+subject models.
+\item \textbf{One generation per cell.} No within-cell replication; cannot separate
+``no true effect'' from ``high response variance that cancelled out.'' The schema
+supports \texttt{replicate\_id}$>0$ for a future protocol version.
+\item \textbf{Fifteen benign scenarios, one narrow frame.} All share the same
+low-stakes structure; findings may not extend to adversarial, high-stakes, or
 differently-framed scenarios.
-\item \textbf{English-language, local quantized inference only.} No
-multilingual testing; quantization may affect behavior relative to
-full-precision inference.
-\item \textbf{Judge dependence.} The primary judge is itself a small
-open-weight model with its own biases and blind spots (Section~4).
-Cross-validated against two secondary judges on a 60-item sample, not
-against a frontier-model or human-only ground truth for the full dataset.
-\item \textbf{Ceiling/floor compression} limits statistical power to
-detect a true small effect if one exists.
-\item \textbf{Deterministic audit heuristics are coarse} (keyword/regex
-detection, a coarse contradiction heuristic); documented false-positive/
-negative rate, used only as a diagnostic signal.
-\item \textbf{Selective, not exhaustive, human review.} 20 of 89 flagged
-items are recommended for human review; the remaining 69 are carried via
-sensitivity analysis, not individually adjudicated.
-\item \textbf{Multiple comparisons.} Three confirmatory contrasts $\times$
-two outcomes $\times$ pooled/per-model breakdowns; exploratory analyses
-(regression, dimension-level, scenario-level detail) are explicitly
-separated from the confirmatory contrasts.
+\item \textbf{Floor/ceiling compression} limits statistical power for the
+open-weight judge specifically, and is itself part of the phenomenon rather than
+only a nuisance.
+\item \textbf{English-language, local quantized inference only}; quantization may
+affect behavior relative to full-precision inference.
+\item \textbf{Multiple comparisons.} Six confirmatory contrasts per judge; we
+report Holm--Bonferroni-adjusted $p$-values, and separate exploratory analyses
+(regression, per-dimension, per-model) from the confirmatory family.
 \item \textbf{Non-independence.} The same scenario appears under all four
-conditions per model; addressed via scenario-blocked bootstrap/permutation
-methods and scenario-clustered regression standard errors, not simple
-independent-samples tests.
-\item \textbf{No real-world behavioral outcome data.} This measures
-generated text under a controlled prompt, not downstream human decisions
-or real deployment behavior.
-\item \textbf{Robustness checks were partial, not exhaustive.} Per-scenario
-and per-model exclusion sweeps, and a bounded-score sensitivity analysis
-for disputed items, were not run as separate artifacts; this is reported
-honestly rather than presented as a completed robustness sweep
-(Section~3.5).
+conditions per model; addressed via scenario-blocked bootstrap/permutation and
+scenario-clustered SEs, not simple independent-samples tests.
+\item \textbf{No real-world behavioral outcome data.} This measures generated text
+under a controlled prompt, not downstream human decisions.
+\item \textbf{Partial robustness sweeps.} Per-scenario and per-model exclusion
+sweeps and a bounded-score sensitivity analysis for disputed items were not run as
+separate artifacts; reported honestly rather than as a completed sweep.
 \end{itemize}
