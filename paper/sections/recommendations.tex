@@ -47,6 +47,12 @@ Model X \emph{as scored by judge Y}. State the judge, its relationship to the
 subject, and the correction procedure alongside every LLM-judged effect.
 \end{enumerate}
 
-The open-source harness accompanying this paper implements the zero-variance and
-agreement checks (recommendations 2--3) and the deterministic audit
-(recommendation 5) as first-class, reproducible steps.
+These are not aspirational. The committed \texttt{pressure\_evals.judge\_diagnostics}
+module implements the zero-variance / dynamic-range check (recommendations 1--2)
+and regenerates the judge$\times$subject dynamic-range table
+(Table~\ref{tab:dynamic_range}) and the self-family comparison directly from the
+frozen scores; the between-judge agreement statistics (recommendation 3) and the
+deterministic audit (recommendation 5) are likewise first-class, reproducible
+steps. Running the dynamic-range check on our own data is what surfaced that the
+primary judge floored every subject model --- the signal that a single
+same-family number would have hidden.

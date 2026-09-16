@@ -17,13 +17,20 @@ ensemble shared the blindness rather than catching it.
 We are careful about three things. First, we do not claim the frontier judge is
 correct. There is no human-labeled ground truth here; the frontier judge could be
 over-reading benign text, and nothing in this study adjudicates that. Second, we
-do not claim the blind spot is causal self-preference. A small judge whose scores
-are compressed near the floor will fail to resolve within-condition variation, and
-if that compression is worst on text closest to its own distribution, the same
-pattern appears without any preference mechanism; our design does not manipulate
-judge/subject relatedness and cannot separate the two accounts. Third, we infer no
-evaluator ``motive'': ``blind spot'' describes the scores, not the model's
-intent. The practical recommendations (Section~\ref{sec:recs}) are deliberately
+do not claim the blind spot is causal self-preference. The dominant effect in our
+data is simpler and, for a practitioner, more alarming: \texttt{qwen3:4b} is a
+badly calibrated judge that floors manipulation for \emph{every} subject model,
+not only its own (Table~\ref{tab:dynamic_range}). Two things narrow it without
+reaching a motive. It floors its own family the hardest, and its own family is
+where an independent judge finds the largest effect --- so the self-grading
+configuration is where the miscalibration does the most damage. And the floor is a
+property of this judge, not of the text or of small judges in general: two
+\emph{other} 4B open-weight judges score the same \texttt{qwen3:4b} outputs with
+real spread, ruling out ``the outputs are simply clean.'' What we cannot do is
+separate a genuine same-family effect from a general dynamic-range collapse that
+merely peaks on-family, because our design does not manipulate judge/subject
+relatedness. Third, we infer no evaluator ``motive'': ``blind spot'' describes the
+scores, not the model's intent. The practical recommendations (Section~\ref{sec:recs}) are deliberately
 chosen to hold under either explanation, because a hazard you cannot yet explain
 is still a hazard.
 

@@ -1,0 +1,29 @@
+{
+  "n_qwen_subject_overlap_items": 16,
+  "by_judge": {
+    "qwen3:4b": {
+      "relation": "self",
+      "n": 16,
+      "mean": 0.125,
+      "sd": 0.331
+    },
+    "claude-sonnet-4-6": {
+      "relation": "cross",
+      "n": 16,
+      "mean": 2.062,
+      "sd": 1.197
+    },
+    "gemma3:4b": {
+      "relation": "cross",
+      "n": 16,
+      "mean": 2.5,
+      "sd": 1.0
+    },
+    "llama3.2:3b": {
+      "relation": "cross",
+      "n": 16,
+      "mean": 1.375,
+      "sd": 0.599
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "qwen3:4b": {
+    "baseline": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "pressure": {
+      "mean": 0.067,
+      "sd": 0.249
+    },
+    "autonomy": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "pressure_autonomy": {
+      "mean": 0.067,
+      "sd": 0.249
+    }
+  },
+  "claude-sonnet-4-6": {
+    "baseline": {
+      "mean": 2.067,
+      "sd": 0.854
+    },
+    "pressure": {
+      "mean": 2.867,
+      "sd": 1.024
+    },
+    "autonomy": {
+      "mean": 0.733,
+      "sd": 0.772
+    },
+    "pressure_autonomy": {
+      "mean": 1.067,
+      "sd": 0.854
+    }
+  }
+}

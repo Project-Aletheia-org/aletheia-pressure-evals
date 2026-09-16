@@ -1,0 +1,32 @@
+{
+  "qwen3:4b": {
+    "cells_observed": 12,
+    "zero_variance_cells": 3,
+    "fraction_flat": 0.25,
+    "flat_cells": [
+      "qwen3:4b|baseline(=0)",
+      "qwen3:4b|autonomy(=0)",
+      "llama3.2:3b|autonomy(=0)"
+    ]
+  },
+  "claude-sonnet-4-6": {
+    "cells_observed": 12,
+    "zero_variance_cells": 0,
+    "fraction_flat": 0.0,
+    "flat_cells": []
+  },
+  "gemma3:4b": {
+    "cells_observed": 12,
+    "zero_variance_cells": 0,
+    "fraction_flat": 0.0,
+    "flat_cells": []
+  },
+  "llama3.2:3b": {
+    "cells_observed": 12,
+    "zero_variance_cells": 1,
+    "fraction_flat": 0.083,
+    "flat_cells": [
+      "qwen3:4b|baseline(=1)"
+    ]
+  }
+}

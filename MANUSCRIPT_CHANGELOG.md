@@ -48,6 +48,45 @@ no experiment was run in this pass.** Changes are framing + structure + craft:
 Superseded framing from the first pass (below) is retained for history; the
 numeric log in section 2 still applies.
 
+## 0b. Zero-cost reanalysis + shipped tool (2026-09-15)
+
+New analysis on the **already-frozen scores only** --- no new inference, no human
+labels. Added `src/pressure_evals/judge_diagnostics.py` (+ `tests/`, 4 passing)
+that regenerates everything deterministically. This both backs the paper's
+checklist with code and produced a sharper, more honest result.
+
+- **New money table `tab:dynamic_range`** (`paper/tables/judge_dynamic_range.tex`,
+  auto-generated): manipulation mean (SD) by judge $\times$ subject model.
+  Shows \texttt{qwen3:4b}-as-judge floors \emph{every} subject (means 0.03--0.13
+  of 8, SD $\leq 0.39$), lowest on its own family (0.03), while the frontier judge
+  keeps mean 1.3--2.0, SD $\approx 1.0$.
+- **New hero figure `qwen_self_vs_frontier.png`** (wired into Results as
+  `fig:selffrontier`): qwen-subject manipulation by condition, self-family judge
+  (flat $\approx 0$) vs independent judge (clear swing: 2.07 / 2.87 / 1.07 / 0.73).
+- **Sharper, more honest framing update.** The diagnostics show the near-zero
+  scores are a property of the *judge, not the text*: on qwen's own outputs, two
+  \emph{other} 4B open-weight judges score real spread (\texttt{gemma3:4b} 2.5,
+  \texttt{llama3.2:3b} 1.4; $n=16$ overlap) vs qwen-on-qwen 0.13. So "outputs are
+  simply clean" and "small judges generically can't score this" are both ruled
+  out. Correspondingly, Results and Discussion were updated to state the dominant
+  effect is qwen's **general miscalibration** (floors everyone), most acute
+  on-family --- \emph{not} proven self-preference. This is a more defensible claim
+  than the prior "can't distinguish at all."
+- **Zero-variance detector implemented and run** (recommendation 2 is now real):
+  qwen has 3/12 exactly-flat (subject$\times$condition) manipulation cells and
+  near-floor SD elsewhere; claude/gemma 0/12. `sections/recommendations.tex`
+  updated to name the module.
+- **Precision fix:** replaced the "0 in 14/15 scenarios (15th a flat 1)" phrasing
+  (from a report) with the exact recomputed values (condition means 0.00--0.07,
+  SD $\leq 0.25$; exactly 0 in baseline & autonomy).
+- New JSON artifacts under `reports/tables/`: `judge_dynamic_range.json`,
+  `zero_variance_cells.json`, `self_vs_cross_family.json`,
+  `qwen_subject_by_condition.json`.
+
+Caveat logged: the self-vs-cross-family comparison rests on the 60-item overlap
+(16 qwen-subject items) selected partly by escalation criteria; reported with $n$
+and not over-read.
+
 ## 1. Major scientific framing changes
 
 - **Paper-level conclusion changed** from "preregistered null: goal pressure does
