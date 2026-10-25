@@ -1,0 +1,31 @@
+# Build the manuscript PDF and an arXiv-ready source bundle on every push that touches paper/.
+# Free: tectonic on a GitHub-hosted runner. Download both from the run's Artifacts.
+name: paper
+on:
+  push:
+    paths: ["paper/**", ".github/workflows/paper.yml"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tectonic
+        run: |
+          curl -fsSL https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.15.0/tectonic-0.15.0-x86_64-unknown-linux-musl.tar.gz | tar xz
+          sudo mv tectonic /usr/local/bin/
+      - name: Build PDF (keeps main.bbl for arXiv)
+        working-directory: paper
+        run: tectonic --keep-intermediates main.tex
+      - name: arXiv source bundle
+        working-directory: paper
+        run: |
+          mkdir -p ../arxiv
+          tar czf ../arxiv/arxiv-source.tar.gz main.tex main.bbl references.bib sections appendix tables figures
+          cp main.pdf ../arxiv/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paper-and-arxiv-bundle
+          path: arxiv/

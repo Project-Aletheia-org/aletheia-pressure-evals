@@ -1,16 +1,54 @@
 \section{Implementation Details}
 \label{app:implementation}
 
-% STRUCTURAL STUB created 2026-09-15 so main.tex compiles (it \input{}s this
-% file). No content invented. Populate before submission from the committed
-% provenance, which already contains every value needed:
-%   - data/raw_outputs/baseline-v0.1-20260722.manifest.json
-%       (model digests, Ollama version, arch, seeds, generation params)
-%   - reports/computational_costs.md (wall-clock vs continuous compute)
-%   - reports/protocol_deviations.md (item-0049 rescue; sample-plan change)
-%   - reports/study_protocol.md
-% This appendix should restate those specifics (exact digests, versions, seeds,
-% token budgets, retry policy) rather than introduce anything new.
+All values below are transcribed from the committed run manifest
+(\texttt{data/raw\_outputs/baseline-v0.1-20260722.manifest.json}) and the
+provenance reports in \texttt{reports/}; nothing here is new.
 
-\emph{[Placeholder: exact model digests, runtime versions, seeds, and generation
-parameters to be transcribed from the run manifest before submission.]}
+\paragraph{Run.} Run identifier \texttt{baseline-v0.1-20260722}, code at git
+commit \texttt{e8ea4c3}, protocol, scenario set, rubric and prompts all at
+version v0.1. Generation started 2026-07-22 09:39:31 UTC and completed 10:42:57
+UTC: 180 of 180 expected cells succeeded, with no failed attempts and no
+retries.
+
+\paragraph{Models and runtime.} Subject models were served locally by Ollama
+(\texttt{ollama version is 0.24.0}) on a single Apple Silicon (arm64) machine;
+no paid APIs or cloud infrastructure were used for generation. Exact model
+digests:
+
+\begin{center}\small
+\begin{tabular}{ll}
+\toprule
+Model & Ollama digest (SHA-256) \\
+\midrule
+\texttt{qwen3:4b} & \texttt{359d7dd4bcdab3d86b87d73ac27966f4} \\
+ & \texttt{dbb9f5efdfcc75d34a8764a09474fae7} \\
+\texttt{gemma3:4b} & \texttt{a2af6cc3eb7fa8be8504abaf9b04e88f} \\
+ & \texttt{17a119ec3f04a3addf55f92841195f5a} \\
+\texttt{llama3.2:3b} & \texttt{a80c4f17acd55265feec403c7aef86be} \\
+ & \texttt{0c25983ab279d83f3bcd3abbcb5b8b72} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Generation parameters.} Temperature 0.7, top-$p$ 0.9, maximum 3072
+new tokens, one sample per cell, random seed 42. The token limit was raised
+from 1024 to 3072 during smoke testing, before main generation, because
+\texttt{qwen3:4b}'s reasoning exceeded 1024 tokens and produced empty
+responses (deviation 1 in \texttt{reports/protocol\_deviations.md}).
+
+\paragraph{Integrity hashes.} Scenario file
+\texttt{6cb4c0eb\ldots c07896e57}; prompt definitions
+\texttt{b2cb613e\ldots 0e110}; rubric definition
+\texttt{d184a652\ldots 033de} (full SHA-256 values in the manifest).
+
+\paragraph{Compute.} Generation took 3{,}802.8\,s of continuous model time
+(63.4 minutes): \texttt{qwen3:4b} 2{,}756.7\,s over 60 calls (mean 45.9\,s),
+\texttt{gemma3:4b} 592.0\,s (9.9\,s), \texttt{llama3.2:3b} 454.1\,s (7.6\,s).
+Judge runs were interrupted and resumed; their wall-clock spans therefore
+overstate compute, and \texttt{reports/computational\_costs.md} reports both.
+
+\paragraph{Deviations.} Every departure from the original plan is listed, with
+timing and rationale, in \texttt{reports/protocol\_deviations.md}. None altered
+the 15 scenarios, the four condition prompts, the six primary rubric
+dimensions, or the wording of the primary hypotheses.
