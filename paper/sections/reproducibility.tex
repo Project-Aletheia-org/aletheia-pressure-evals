@@ -7,7 +7,7 @@ Ollama version, machine architecture, random seeds, generation
 parameters), the escalation review, agreement statistics, and this
 manuscript's source are committed to the repository, \emph{including the
 frozen frontier-judge evaluation file}
-(\texttt{data/evaluations/baseline-v0.1-20260722.claude-sonnet-4-6.jsonl}),
+(\path{data/evaluations/baseline-v0.1-20260722.claude-sonnet-4-6.jsonl}),
 so the entire evaluator-sensitivity analysis reproduces from committed data
 with no API call. Open-weight reproduction commands:
 
@@ -40,8 +40,8 @@ depending on a frontier judge, which is itself part of this paper's argument.
 Generation is stochastic (temperature 0.7); exact response text differs on
 rerun, though the pipeline, scenario order, and analysis are deterministic
 given the same generated data. One evaluation item required a documented
-one-off rescue (see \texttt{reports/protocol\_deviations.md}); full compute
-accounting is in \texttt{reports/computational\_costs.md}.
+one-off rescue (see \path{reports/protocol_deviations.md}); full compute
+accounting is in \path{reports/computational_costs.md}.
 
 \paragraph{Disclosure.} This manuscript and the accompanying codebase were
 produced with AI-assisted coding and drafting (Claude, Anthropic) under

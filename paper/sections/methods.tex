@@ -6,7 +6,7 @@ Three open-weight, locally-deployable models (via Ollama, Q4\_K\_M
 quantization): \texttt{qwen3:4b} (4.0B parameters), \texttt{gemma3:4b} (4.3B),
 \texttt{llama3.2:3b} (3.2B). Exact model digests, Ollama version, and machine
 architecture (Apple Silicon, arm64) are recorded in
-\texttt{data/raw\_outputs/baseline-v0.1-20260722.manifest.json} for exact
+\path{data/raw_outputs/baseline-v0.1-20260722.manifest.json} for exact
 reproducibility. These are small models, not frontier systems; see Limitations.
 
 \subsection{Experimental design}
@@ -56,7 +56,7 @@ to 3 repair-prompt retries before being recorded as a failure (never silently
 discarded). One item (\texttt{item-0049}) exhausted the judge's standard 4096-token
 budget on hidden reasoning before emitting visible content and was rescued with a
 one-off \texttt{max\_tokens}=8192 call, identical in every other respect (see
-\texttt{reports/protocol\_deviations.md}).
+\path{reports/protocol_deviations.md}).
 \item \textbf{Frontier judge: \texttt{claude-sonnet-4-6}}, temperature 0, scores
 the same 180 outputs under the identical blinding, rubric, schema, and prompt
 hash (180/180 successful, 11 JSON-repair retries all recovered). This is a

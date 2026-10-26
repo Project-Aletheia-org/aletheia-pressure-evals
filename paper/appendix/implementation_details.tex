@@ -2,8 +2,8 @@
 \label{app:implementation}
 
 All values below are transcribed from the committed run manifest
-(\texttt{data/raw\_outputs/baseline-v0.1-20260722.manifest.json}) and the
-provenance reports in \texttt{reports/}; nothing here is new.
+(\path{data/raw_outputs/baseline-v0.1-20260722.manifest.json}) and the
+provenance reports in \path{reports/}; nothing here is new.
 
 \paragraph{Run.} Run identifier \texttt{baseline-v0.1-20260722}, code at git
 commit \texttt{e8ea4c3}, protocol, scenario set, rubric and prompts all at
@@ -35,7 +35,7 @@ Model & Ollama digest (SHA-256) \\
 new tokens, one sample per cell, random seed 42. The token limit was raised
 from 1024 to 3072 during smoke testing, before main generation, because
 \texttt{qwen3:4b}'s reasoning exceeded 1024 tokens and produced empty
-responses (deviation 1 in \texttt{reports/protocol\_deviations.md}).
+responses (deviation 1 in \path{reports/protocol_deviations.md}).
 
 \paragraph{Integrity hashes.} Scenario file
 \texttt{6cb4c0eb\ldots c07896e57}; prompt definitions
@@ -46,9 +46,9 @@ responses (deviation 1 in \texttt{reports/protocol\_deviations.md}).
 (63.4 minutes): \texttt{qwen3:4b} 2{,}756.7\,s over 60 calls (mean 45.9\,s),
 \texttt{gemma3:4b} 592.0\,s (9.9\,s), \texttt{llama3.2:3b} 454.1\,s (7.6\,s).
 Judge runs were interrupted and resumed; their wall-clock spans therefore
-overstate compute, and \texttt{reports/computational\_costs.md} reports both.
+overstate compute, and \path{reports/computational_costs.md} reports both.
 
 \paragraph{Deviations.} Every departure from the original plan is listed, with
-timing and rationale, in \texttt{reports/protocol\_deviations.md}. None altered
+timing and rationale, in \path{reports/protocol_deviations.md}. None altered
 the 15 scenarios, the four condition prompts, the six primary rubric
 dimensions, or the wording of the primary hypotheses.
